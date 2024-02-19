@@ -113,7 +113,7 @@ Una vegada que s’inicia, l’usuari tindrà la pantalla principal, on es mostr
 ![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/conf_inicial.jpg)
 
 * vista home unloged
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/vista_inicial_unloged.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/vista_incial_unloged.jpg)
 
 * vista home logged
 ![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/vista_inicial_loged.jpg)
