@@ -6,6 +6,7 @@
 ## INTRODUCCIÓ
 ### 1. Objecte del projecte
 - Contexte: Storytelling
+
 Donada la necessitat de proporcionar un plataforma digital de comunicació, socialització i/o entreteniment de manera accessible e integrada per aquells pacients hospitalitzats, es crea una aplicació que sigui personalitzable per tots els públics i que dona una participació directa a l’usuari amb la que es pugui trobar a gust.
 Amb això es vol donar una experiència més propera i agradable als pacients que es queden avorrits amb els medis més quotidians que es poden oferir(televisions, jocs de taula,...). Això suposa que el pacient té una varietat d'activitats a fer, des de llegir notícies, rebre missatgers dels seus coneguts propers, conèixer pacients en una mateixa situació, compartir opinions… Des d’una perspectiva de societat responsable, es destacaran aquells continguts que promouen la educació en el desenvolupament sostenible. 
 
