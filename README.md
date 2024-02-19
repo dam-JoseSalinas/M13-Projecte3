@@ -1,4 +1,4 @@
-# M13-Projecte3: Conexió per a pacients hospitalitzats
+# M13-Projecte: Conexió per a pacients hospitalitzats
 * Documentació a Drive: [link](https://docs.google.com/document/d/1hd3Bz6my4IguYU_wsb3-hs2zADAu9lpZiahUEwz3Nck/edit?usp=sharing)
   
 ## INDEX
