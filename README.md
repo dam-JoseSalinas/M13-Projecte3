@@ -12,16 +12,22 @@
 ### 3. PLEC DE PRESCRIPCIONS
 #### 3.1 Wireframe de baixa fidelitat
 #### 3.2. Diagrama de base de dades
-#### 3.3. Prototip d'alta fidelitat
-### 4. PLÀNOLS
-#### 3.1 Wireframe de baixa fidelitat
-#### 3.2. Diagrama de base de dades
-#### 3.3. Prototip d'alta fidelitat
-### 5. FUNCIONALITATS PROJECTE I PROBLEMES TROBATS
-### 6. CONCLUSIONS
+#### 3.3. Mockup
+### 4. GUÍA D'ESTILS
+#### 4.1. COLORS
+#### 4.2. TIPOGRAFIA
+#### 4.3. ICONOGRAFIA
+#### 4.4. FORMES
+#### 4.5. IMATGES
+### 5. PLÀNOLS
+#### 5.1 Wireframe de baixa fidelitat
+#### 5.2. Diagrama de base de dades
+#### 5.3. Prototip d'alta fidelitat
+### 6. FUNCIONALITATS PROJECTE I PROBLEMES TROBATS
+### 7. CONCLUSIONS
 
 
-## INTRODUCCIÓ
+## 1. INTRODUCCIÓ
 ### 1.1. Objectiu del projecte
 - Contexte: Storytelling
 
@@ -64,7 +70,7 @@ Una vegada l’usuari inicia l’aplicació, pot fer diferents accions en l’ap
 
 
 ### 1.3. Arquitectura
-### 1.4. Cronograma(Sprints)
+### 1.4. Cronograma(Sprints) i Repartiment de feina
 #### Sprint 1
 - Resum
 Aquest Sprint ha consistit en documentar la concepció del projecte i maquetar el funcionament de la interfície d’usuari i de la base de dades
@@ -77,13 +83,12 @@ Aquest Sprint ha consistit en documentar la concepció del projecte i maquetar e
 
 ![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/sprint1_final.png)
 
-### 1.5. Repartiment de feina
 
-## PRESSUPOST
+## 2. PRESSUPOST
 
-## PLEC DE PRESCRIPCIONS
+## 3. PLEC DE PRESCRIPCIONS
 
-### Wireframe de baixa fidelidad
+### 3.1. Wireframe de baixa fidelidad
 El nostre disseny de baixa fidelitat ha consistit en maquetar tots aquells dissenys d’interficie que representin les funcionalitats principals de la nostra aplicació.
 
 La nostra aplicació comptarà amb una pàgina inicial en la que l'usuari podrà registrar-se, iniciar sessió o entrar com convidat. En cas de voler registrar-se, se’l portarà a un apartat on pugui posar les seves dades personals per posteriorment configurar el disseny de l’aplicació al seu gust; finalment es procedirà a  iniciar sessió. Si l’usuari entra com a convidat, podrà fer ús de l’aplicació amb certes restriccions.
@@ -91,11 +96,17 @@ La nostra aplicació comptarà amb una pàgina inicial en la que l'usuari podrà
 Una vegada que s’inicia, l’usuari tindrà la pantalla principal, on es mostraran les notícies, publicacions de comunitats, events virtuals i recomanacions de comunitats. En aquesta pàgina principal tindrem 2 menús, el primer(que es troba en la part inferior de la pantalla) serà per poder navegar per diferents apartats de l’aplicació i el segon(situat a la part esquerra de la pantalla) serà  un menú amb els contactes favorits que té l’usuari. Al entrar en un d’aquests contactes freqüents, l’usuari serà guiat a l’apartat de chat personal amb el contacte seleccionat, i també podrá navegar a l’apartat de llista de xats o contactes des d’un navegador superior. I per tant, podrà seleccionar els contactes o els xats. També podrà accedir a informació dels contactes i editar la informació personal. Per últim hi haurà la possibilitat de fer trucades o videotrucades individuals o grupals.
 
 
-### Disseny de base de dades
+### 3.2. Disseny de base de dades
 (pendent)
 
-## PLANOLS
-### Wireframe de baixa fidelidad
+## 4. GUÍA D'ESTILS
+### 4.1. Colors
+### 4.2. Tipografia
+### 4.3. Iconografia
+### 4.4. Formes
+### 4.5. Imatges
+## 5. PLANOLS
+### 5.1. Wireframe de baixa fidelidad
 * benvinguda
 
 ![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/benvinguda.jpg)
@@ -146,10 +157,16 @@ Una vegada que s’inicia, l’usuari tindrà la pantalla principal, on es mostr
 
 
 
-### Disseny de base de dades
-(pendent)
-### Diagrama de casos d'ús
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/diagrama_us.png)
-## FUNCIONALITATS I PROBLEMES
+### 5.2. Diagrama de base de dades
+* primera part: (pendent)
 
-## CONCLUSIONS
+* segona part: (pendent)
+
+
+
+### 5.3. Diagrama de casos d'ús
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/diagrama_us.png)
+
+## 6. FUNCIONALITATS I PROBLEMES
+
+## 7. CONCLUSIONS
