@@ -82,14 +82,74 @@ Aquest Sprint ha consistit en documentar la concepció del projecte i maquetar e
 ## PRESSUPOST
 
 ## PLEC DE PRESCRIPCIONS
+
 ### Wireframe de baixa fidelidad
+El nostre disseny de baixa fidelitat ha consistit en maquetar tots aquells dissenys d’interficie que representin les funcionalitats principals de la nostra aplicació.
+
+La nostra aplicació comptarà amb una pàgina inicial en la que l'usuari podrà registrar-se, iniciar sessió o entrar com convidat. En cas de voler registrar-se, se’l portarà a un apartat on pugui posar les seves dades personals per posteriorment configurar el disseny de l’aplicació al seu gust; finalment es procedirà a  iniciar sessió. Si l’usuari entra com a convidat, podrà fer ús de l’aplicació amb certes restriccions.
+
+Una vegada que s’inicia, l’usuari tindrà la pantalla principal, on es mostraran les notícies, publicacions de comunitats, events virtuals i recomanacions de comunitats. En aquesta pàgina principal tindrem 2 menús, el primer(que es troba en la part inferior de la pantalla) serà per poder navegar per diferents apartats de l’aplicació i el segon(situat a la part esquerra de la pantalla) serà  un menú amb els contactes favorits que té l’usuari. Al entrar en un d’aquests contactes freqüents, l’usuari serà guiat a l’apartat de chat personal amb el contacte seleccionat, i també podrá navegar a l’apartat de llista de xats o contactes des d’un navegador superior. I per tant, podrà seleccionar els contactes o els xats. També podrà accedir a informació dels contactes i editar la informació personal. Per últim hi haurà la possibilitat de fer trucades o videotrucades individuals o grupals.
+
 
 ### Disseny de base de dades
+(pendent)
 
 ## PLANOLS
 ### Wireframe de baixa fidelidad
-### Disseny de base de dades
+* benvinguda
 
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/benvinguda.jpg)
+
+* login
+
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/login.jpg)
+
+* register
+
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/register.jpg)
+
+* configuració inicial
+
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/conf_inicial.jpg)
+
+* vista home unloged
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/vista_inicial_unloged.jpg)
+
+* vista home logged
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/vista_inicial_loged.jpg)
+
+* calendari
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/calendari.jpg)
+
+* llista contactes
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/contactos.jpg)
+
+* llista grups
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/grupos.jpg)
+
+* perfill contacte
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/perfill_contacto.jpg)
+
+* configuració perfill
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/conf_perfil.jpg)
+
+* llista chats
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/chats.jpg)
+
+* trucada
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/trucada.jpg)
+
+* chat personal
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/wireframe/chat.jpg)
+
+
+
+
+
+### Disseny de base de dades
+(pendent)
+### Diagrama de casos d'ús
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/diagrama_us.png)
 ## FUNCIONALITATS I PROBLEMES
 
 ## CONCLUSIONS
