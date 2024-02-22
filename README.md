@@ -1,31 +1,5 @@
 # M13-Projecte: Conexió per a pacients hospitalitzats
 * Documentació a Drive: [link](https://docs.google.com/document/d/1hd3Bz6my4IguYU_wsb3-hs2zADAu9lpZiahUEwz3Nck/edit?usp=sharing)
-  
-## INDEX
-### 1. INTRODUCCIÓ
-#### 1.1. Objectiu del projecte
-#### 1.2. Funcionament
-#### 1.3. Arquitectura
-#### 1.4. Cronograma(Sprints)
-#### 1.5. Repartiment feina
-### 2. PRESSUPOST
-### 3. PLEC DE PRESCRIPCIONS
-#### 3.1 Wireframe de baixa fidelitat
-#### 3.2. Diagrama de base de dades
-#### 3.3. Mockup
-### 4. GUÍA D'ESTILS
-#### 4.1. COLORS
-#### 4.2. TIPOGRAFIA
-#### 4.3. ICONOGRAFIA
-#### 4.4. FORMES
-#### 4.5. IMATGES
-### 5. PLÀNOLS
-#### 5.1 Wireframe de baixa fidelitat
-#### 5.2. Diagrama de base de dades
-#### 5.3. Prototip d'alta fidelitat
-### 6. FUNCIONALITATS PROJECTE I PROBLEMES TROBATS
-### 7. CONCLUSIONS
-
 
 ## 1. INTRODUCCIÓ
 ### 1.1. Objectiu del projecte
