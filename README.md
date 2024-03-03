@@ -235,59 +235,59 @@ A partir d’aquí, l’usuari podrà navegar a diversos apartats:
 ### 5.3. Mockup
 * benvinguda
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/benvinguda.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/benvinguda.png)
 
 * login
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/login.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/login.png)
 
 * register
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/register.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/register.png)
 
 * confifuracion inicial
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/conf_inicial.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/conf_inicial.png)
 
 * inici sense login
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/inicio.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/inicio.png)
 
 * inici amb login
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/inicio_login.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/inicio_login.png)
 
 * menu lateral
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/menu_lateral.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/menu_lateral.png)
 
 * calendari
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/calendario.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/calendario.png)
 
 * perfill
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/perfil_1.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/perfil_1.png)
 
 * configuracio de perfill
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/perfil_2.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/perfil_2.png)
 
 * llista de contactes
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/lista_contactos.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/lista_contactos.png)
 
 * seccio de musica
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/musica.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/musica.png)
 
 * secció d'entreteniment
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/entretenimiento.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/entretenimiento.png)
 
 * secciò videojocs
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/juegos.jpg)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/juegos.png)
 
 ### 5.4. Diagrama de casos d'ús
 (pendent de modificar)
