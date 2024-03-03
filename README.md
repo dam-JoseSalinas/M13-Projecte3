@@ -1,6 +1,6 @@
 # DAM2-M13-Projecte Final: Conexió per a pacients hospitalitzats  
 * Documentació a Drive: [link](https://docs.google.com/document/d/1hd3Bz6my4IguYU_wsb3-hs2zADAu9lpZiahUEwz3Nck/edit?usp=sharing)
-* Disseny Mockup de Figma: [link](https://www.figma.com/file/cyyW7doadS3J7h8FVQ4Puf/Wireframe-Baixa-fidelitat?type=design&node-id=0%3A1&mode=design&t=BPqK7PowOg7jwAQg-1)
+* Disseny Mockup a Figma: [link](https://www.figma.com/file/cyyW7doadS3J7h8FVQ4Puf/Wireframe-Baixa-fidelitat?type=design&node-id=0%3A1&mode=design&t=BPqK7PowOg7jwAQg-1)
 
 ## 1. INTRODUCCIÓ
 ### 1.1. Objectiu del projecte
@@ -235,7 +235,7 @@ A partir d’aquí, l’usuari podrà navegar a diversos apartats:
 ### 5.3. Mockup
 * benvinguda
 
-![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/benvinguda.png)
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/mockup/bienvenida.png)
 
 * login
 
