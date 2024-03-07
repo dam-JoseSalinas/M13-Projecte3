@@ -105,7 +105,36 @@ Una vegada que s’inicia, l’usuari tindrà la pantalla principal, on es mostr
 
 
 ### 3.2. Disseny de base de dades
-(pendent)
+En iniciar sessió, ens trobarem amb la base de dades inclou entitats com a Usuari, Contacte, Xat_privat, Grup_publico, Grup_privat i Comunitat i Activitats, juntament amb les seves respectives relacions.
+
+**Usuari**
+
+- L'entitat Usuari representa als usuaris de l'aplicació. Cada usuari té una identificació única, nom, primer cognom, data de naixement i contrasenya.
+
+- La taula usuaris té una relació directa amb la taula contactes, on està taula contactes, que pot tenir un o més contactes, a diferència de la llista de contactes que només poden tenir un usuari.
+
+**Contacte**
+
+- L'entitat Contacte representa els contactes d'un usuari. Cada contacte està associat a un usuari i pot tenir atributs com a nom, telèfon, data de naixement i estat d'actiu.
+- La següent relació que ens trobarem seran els xats privats, grups públics, grups privats i comunitats. En les quals l'usuari pot tenir 0 o molts més interaccions amb aquestes taules.
+
+**Xats_privats**
+
+- L'entitat ChatPrivado representa els missatges intercanviats entre dos usuaris en un xat privat. Cada xat privat té un identificador únic, missatges xifrats de tots dos usuaris i les identificacions dels usuaris participants.
+
+**Grup_publico i Grup_privat**
+
+- Les entitats Grup_publico i Grup_privat representen els grups d'usuaris en l'aplicació. Cada grup té un identificador únic i un tipus que indica si és públic o privat.
+
+**Comunitats**
+
+- L'entitat Comunitat representa les comunitats en l'aplicació. Cada comunitat té un identificador únic, comentaris, arxius i la identificació de l'usuari associat.
+
+
+**Activitat**
+
+- L'entitat Activitat representa les activitats en l'aplicació. Cada activitat té un identificador únic, nom, disponibilitat i tipus.
+- L'entitat Activitat s'utilitza per a representar diverses activitats dins de l'aplicació, la qual cosa pot incloure esdeveniments, tasques, o qualsevol altra acció que els usuaris realitzin.
 
 
 
@@ -145,20 +174,29 @@ A partir d’aquí, l’usuari podrà navegar a diversos apartats:
 ## 4. GUÍA D'ESTILS
 
 ### 4.1. Colors
-- Fons: #FFFFFF (Blanco)
-- Botons: #E3E3E3 (Gris Claro)
-
-
-
-### 4.2. Tipografia
-
-
-
-### 4.3. Iconografia
-
-#### 4.3.1. Formes
-
-#### 4.3.2. Imatges
+Colors:
+Fons: #FFFFFF (Blanco)
+Botons: #E3E3E3 (Gris Clar)
+El principal objectiu és desenvolupar un entorn positiu i còmode on els pacients se sentin agusto navegant i desenvolupant els seus interessos.
+Tipografia:
+Font Principal: Inter
+Grandària de Font:
+Text Normal: 20px
+Encapçalats i Títols: Varia segons la importància (30px per a encapçalats de secció i 50px per a títols principals)
+Pes de la Font:
+Text Normal: Regular
+Encapçalats: Semibold
+Iconografia:
+La nostra selecció d'icones es basa en la simplicitat i la claredat. Utilitzem icones simples i recognoscibles per a facilitar la comprensió de les funcions de l'aplicació.
+Preferim icones de línies o sòlids per a mantenir la coherència visual en tota la interfície.
+Ens assegurem que les icones siguin fàcilment identificables, la qual cosa permet als usuaris interactuar intuïtivament amb l'aplicació.
+Formes:
+El disseny de la nostra aplicació es basa en formes netes i geomètriques per a una aparença moderna i elegant.
+Utilitzem vores arrodonides en les formes per a suavitzar l'aparença i crear una experiència visual més amigable.
+Mantenim la consistència en la grandària i l'alineació de les formes per a garantir una aparença harmoniosa en tota la interfície.
+Imagenes:
+Seleccionem imatges d'alta qualitat que reflecteixen una sensació de calma, tranquil·litat i positivitat.
+Les nostres imatges estan relacionades amb la naturalesa, el benestar i la salut, creant un entorn visualment agradable i reconfortant per als usuaris de l'aplicació.
 
 
 
@@ -228,7 +266,8 @@ A partir d’aquí, l’usuari podrà navegar a diversos apartats:
 ### 5.2. Diagrama de base de dades
 * primera part: (pendent)
 
-* segona part: (pendent)
+* segona part:
+![alt text](https://github.com/dam-JoseSalinas/M13_Projecte2/blob/main/design_images/diagrama_base_dades.png)
 
 
 
