@@ -19,7 +19,6 @@ export default function Inicio() {
           style={styles.logo}
           resizeMode='contain'
         />
-        {/*<Text style={styles.title}>JoyClinic</Text>*/}
         <StatusBar style="auto" />
       </View>
     </SafeAreaView>
@@ -29,7 +28,6 @@ export default function Inicio() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: "#000",
   },
   content: {
     flex: 1,

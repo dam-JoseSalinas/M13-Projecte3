@@ -82,8 +82,6 @@ export default function Register() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //backgroundColor: '#000', 
-        //justifyContent: 'center',
         alignItems: 'center',
     },
     content: {
@@ -91,8 +89,6 @@ const styles = StyleSheet.create({
         paddingTop: 20,
     },
     title: {
-        //fontSize: 24,
-        //color: '#ffffff', 
         marginBottom: 20,
         textAlign: 'center',
         fontFamily: 'System',

@@ -32,7 +32,6 @@ export default function Login() {
                     style={styles.logo}
                     resizeMode='contain'
                 />
-                {/*<Text style={styles.title}>JoyClinic</Text>*/}
                 <TextInput
                     placeholder="Email"
                     value={email}
@@ -62,12 +61,10 @@ export default function Login() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //backgroundColor: "#000",
     },
     content: {
         flex: 1,
         alignItems: "center",
-        //justifyContent: "center",
         paddingTop: 100,
     },
     title: {
@@ -83,7 +80,6 @@ const styles = StyleSheet.create({
     buttonLogin: {
         backgroundColor: '#d3d3d3',
         padding: 15,
-        //marginTop: 30,
         borderRadius: 15,
         width: 150, 
         alignItems: 'center', 
