@@ -82,7 +82,7 @@ export default function Register() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#000', 
+        //backgroundColor: '#000', 
         //justifyContent: 'center',
         alignItems: 'center',
     },
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     },
     title: {
         //fontSize: 24,
-        color: '#ffffff', 
+        //color: '#ffffff', 
         marginBottom: 20,
         textAlign: 'center',
         fontFamily: 'System',
@@ -102,11 +102,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         borderColor: 'gray',
-        backgroundColor: '#d3d3d3',
+        backgroundColor: '#fffafa',
         marginBottom: 10,
         paddingLeft: 10,
-        
-        
     },
     button: {
         backgroundColor: '#d3d3d3', 
