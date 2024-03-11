@@ -6,12 +6,14 @@ import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import TabGroup from './screens/TabGroup';
 import { useColorScheme } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createStackNavigator();
 
 export default function Navigation() {
   const currentTheme = useColorScheme();
   const theme = currentTheme === 'dark' ? DarkTheme : DefaultTheme;
+  const Drawer = createDrawerNavigator();
 
   return (
     <NavigationContainer theme={theme}>
@@ -36,6 +38,7 @@ export default function Navigation() {
           component={TabGroup}
           options={{ headerShown: false }} 
         />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
