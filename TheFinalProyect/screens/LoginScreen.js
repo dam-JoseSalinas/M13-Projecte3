@@ -24,6 +24,10 @@ export default function Login() {
         navigation.navigate('RegisterScreen');
     };
 
+    const handleGuestPress = () => {
+        navigation.navigate('TabGroup')
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
@@ -45,13 +49,19 @@ export default function Login() {
                     secureTextEntry={true}
                     style={styles.input}
                 />
-                <TouchableOpacity style={styles.buttonLogin} onPress={handleLogin}>
-                    <Text>Login</Text>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.buttonLog} onPress={handleLogin}>
+                        <Text>Login</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.buttonReg} onPress={handleRegisterPress}>
+                        <Text>Register</Text>
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity style={styles.buttonGuest} onPress={handleGuestPress}>
+                    <Text>Guest</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.buttonRegister} onPress={handleRegisterPress}>
-                    <Text>Register</Text>
-                </TouchableOpacity>
                 <StatusBar style="auto" />
             </View>
         </SafeAreaView>
@@ -61,6 +71,8 @@ export default function Login() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: "center",
+        alignItems:"center"
     },
     content: {
         flex: 1,
@@ -77,20 +89,34 @@ const styles = StyleSheet.create({
         height: 200,
         marginBottom: 15,
     },
-    buttonLogin: {
-        backgroundColor: '#d3d3d3',
-        padding: 15,
-        borderRadius: 15,
-        width: 150, 
-        alignItems: 'center', 
+    buttonContainer: {
+        flexDirection: 'row',
     },
-    buttonRegister: {
+    buttonLog: {
         backgroundColor: '#d3d3d3',
         padding: 15,
         marginTop: 10,
         borderRadius: 15,
         width: 150, 
-        alignItems: 'center', 
+        alignItems: 'center',
+        marginRight: 10,
+    },
+    buttonReg: {
+        backgroundColor: '#d3d3d3',
+        padding: 15,
+        marginTop: 10,
+        borderRadius: 15,
+        width: 150, 
+        alignItems: 'center',
+    },
+    buttonGuest: {
+        backgroundColor: '#d3d3d3',
+        padding: 15,
+        marginTop: 10,
+        borderRadius: 15,
+        width: 310, 
+        alignItems: 'center',
+        top: 10, 
     },
     input: {
         borderWidth: 1,
@@ -98,8 +124,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         backgroundColor: '#fffafa',
-        width: 150,
-        borderRadius: 10,
-        
-    }
+        width: 310,
+        borderRadius: 10,     
+    },
 });
