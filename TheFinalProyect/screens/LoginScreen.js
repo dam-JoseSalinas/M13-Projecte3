@@ -28,7 +28,7 @@ export default function Login() {
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
                 <Image
-                    source={require('/Users/Sebastian/Documents/DAM/M12-13/Proyecto final/M13_Projecte2/TheFinalProyect/Logo/logoNegro.png')}
+                    source={require('/Users/Sebastian/Documents/DAM/M12-13/Proyecto final/M13_Projecte2/TheFinalProyect/Logo/logoBlanco.png')}
                     style={styles.logo}
                     resizeMode='contain'
                 />
@@ -62,7 +62,7 @@ export default function Login() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#000",
+        //backgroundColor: "#000",
     },
     content: {
         flex: 1,
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     logo: {
         width: 200,
         height: 200,
+        marginBottom: 15,
     },
     buttonLogin: {
         backgroundColor: '#d3d3d3',
@@ -100,8 +101,9 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         padding: 10,
         marginBottom: 10,
-        backgroundColor: '#d3d3d3',
+        backgroundColor: '#fffafa',
         width: 150,
         borderRadius: 10,
+        
     }
 });

@@ -15,7 +15,7 @@ export default function Inicio() {
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Image
-          source={require('/Users/Sebastian/Documents/DAM/M12-13/Proyecto final/M13_Projecte2/TheFinalProyect/Logo/logoNegro.png')}
+          source={require('/Users/Sebastian/Documents/DAM/M12-13/Proyecto final/M13_Projecte2/TheFinalProyect/Logo/logoBlanco.png')}
           style={styles.logo}
           resizeMode='contain'
         />
@@ -29,7 +29,7 @@ export default function Inicio() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    //backgroundColor: "#000",
   },
   content: {
     flex: 1,
