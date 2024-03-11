@@ -15,7 +15,7 @@ export default function Inicio() {
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Image
-          source={require('/Users/Sebastian/Documents/DAM/M12-13/Proyecto final/M13_Projecte2/TheFinalProyect/Logo/logoBlanco.png')}
+          source={require('../Logo/logoBlanco.png')}
           style={styles.logo}
           resizeMode='contain'
         />
