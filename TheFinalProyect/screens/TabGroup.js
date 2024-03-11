@@ -7,6 +7,7 @@ import Search from './Search';
 import Settings from './Settings';
 import { Ionicons } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,9 +41,9 @@ export default function TabGroup() {
                             );
                         } else if (route.name === "Profile") {
                             iconComponent = focused ? (
-                                <Ionicons name="person" size={size} color="black" />
+                                <AntDesign name="contacts" size={size} color="black" />
                             ) : (
-                                <Ionicons name="person-outline" size={size} color={color} />
+                                <AntDesign name="contacts" size={size} color={color} />
                             );
                         } else if (route.name === "Search") {
                             iconComponent = focused ? (
