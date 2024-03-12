@@ -17,6 +17,7 @@ export default function Profile(){
                 </View>
                 <View style={styles.fondoNombre}>
                     <View style={styles.foto}></View>
+                    <Ionicons style={styles.fotoPerfil} name="person" size={24} color="black" />
                     <Text style={styles.nombre}>Nombre Completo</Text>
                 </View>
                 <Text style={styles.contactos}>Contactos</Text>
@@ -63,6 +64,8 @@ export default function Profile(){
                         <View style={styles.contacto}>
                             <Ionicons name={`${item.icon}-circle-sharp`} size={24} color="black" />
                             <Text style={styles.contactoNombre}>{item.name}</Text>
+                            <Ionicons name="chatbubble-outline" size={24} color="black" style={styles.chat}/>
+                            <Ionicons name="call-outline" size={24} color="black" style={styles.call}/>
                         </View>
                     )}
                     renderSectionHeader={({ section }) => (
@@ -84,33 +87,28 @@ const styles = StyleSheet.create({
         paddingTop: 22,
     },
     search: {
+        flexDirection: "row",
         justifyContent: "center",
         alignItems: 'center',
+        alignSelf: "center",
         backgroundColor: '#d3d3d3',
-        padding: 1,
+        padding: 6,
         borderRadius: 20,
-        marginTop: 20,
-        width: '80%',
-        alignSelf: "center"
-    },
-    searchInput: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        width: '90%',
     },
     iconSearch: {
         marginLeft: "auto"
     },
     textInput: {
-        top: 10,
+        alignItems: 'center',
     },
     fondoNombre: {
         flexDirection: 'row',
-        alignItems: 'center',
         backgroundColor: '#d3d3d3',
         padding: 20,
         borderRadius: 30,
         marginTop: 20,
-        width: '80%',
+        width: '90%',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -119,26 +117,27 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 4,
         elevation: 5,
+        alignSelf: "center",
     },
     foto: {
-        backgroundColor: '#fff',
         padding: 20,
-        borderRadius: 100,
-        marginRight: 20,
+    },
+    fotoPerfil:{
+        marginLeft: "auto",
     },
     nombre: {
         fontSize: 18,
         fontWeight: 'bold',
         color: '#333',
+        marginRight: 160,
     },
     contactos: {
         justifyContent: "center",
         alignItems: 'center',
         padding: 20,
         borderRadius: 20,
-        //backgroundColor: '#d3d3d3',
         marginBottom: 10,
-        fontSize: 24,
+        fontSize: 32,
         fontWeight: 'bold',
         color: '#333',
     },
@@ -146,6 +145,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
+    },
+    call: {
+        marginLeft: 7,
+    },
+    chat: {
+        marginLeft: "auto"
     },
     contactoFoto: {
         width: 40,
