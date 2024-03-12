@@ -39,7 +39,7 @@ export default function TabGroup() {
                             ) : (
                                 <Foundation name="home" size={size} color={color} />
                             );
-                        } else if (route.name === "Profile") {
+                        } else if (route.name === "Contacs") {
                             iconComponent = focused ? (
                                 <AntDesign name="contacts" size={size} color="black" />
                             ) : (
@@ -71,7 +71,7 @@ export default function TabGroup() {
                     component={Search}
                 />
                 <Tab.Screen
-                    name="Profile"
+                    name="Contacs"
                     component={Profile}
                 />
                 <Tab.Screen
