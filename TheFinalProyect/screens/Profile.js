@@ -100,7 +100,9 @@ const styles = StyleSheet.create({
         marginLeft: "auto"
     },
     textInput: {
-        alignItems: 'center',
+        flex: 1, 
+        alignItems: 'center', 
+        padding: 0, 
     },
     fondoNombre: {
         flexDirection: 'row',

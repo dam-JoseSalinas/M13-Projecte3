@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
         width: 150, 
         alignItems: 'center',
         marginRight: 10,
+        borderWidth: 1,
     },
     buttonReg: {
         backgroundColor: '#d3d3d3',
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         width: 150, 
         alignItems: 'center',
+        borderWidth: 1,
     },
     buttonGuest: {
         backgroundColor: '#d3d3d3',
@@ -117,6 +119,7 @@ const styles = StyleSheet.create({
         width: 310, 
         alignItems: 'center',
         top: 10, 
+        borderWidth: 1,
     },
     input: {
         borderWidth: 1,
