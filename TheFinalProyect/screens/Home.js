@@ -10,57 +10,57 @@ export default function Home(){
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-                <View style={styles.content}>
+                <TouchableOpacity style={styles.contentDiviertete}>
                     <Text style={styles.containerText}>Diviértete</Text> 
-                </View>
+                </TouchableOpacity>
                 <View style={styles.divierte}>
-                    <View style={styles.fondoIconGame}>
+                    <TouchableOpacity style={styles.fondoIconGame}>
                         <Ionicons name="game-controller-outline" size={50} color="black" style={styles.game} />
-                    </View>
-                    <View style={styles.fondoIconMusic}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.fondoIconMusic}>
                         <Ionicons name="musical-notes-outline" size={50} color="black" style={styles.music}/>
-                    </View>
-                    <View style={styles.fondoIconMovie}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.fondoIconMovie}>
                         <FontAwesome name="file-movie-o" size={50} color="black" style={styles.movie}/>
-                    </View>
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.content}>
-                    <Text style={styles.containerText}>Tus Redes</Text> 
-                </View>
+                    <TouchableOpacity style={styles.contentRedes}>
+                        <Text style={styles.containerText}>Tus Redes</Text> 
+                    </TouchableOpacity>
                 <View style={styles.divierte}>
-                    <View style={styles.fondoIconInsta}>
+                    <TouchableOpacity style={styles.fondoIconInsta}>
                         <Entypo name="instagram" size={50} color="black" style={styles.insta}/>
-                    </View>
-                    <View style={styles.fondoIconTwitter}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.fondoIconTwitter}>
                         <Entypo name="twitter" size={50} color="black" style={styles.twitter}/>
-                    </View>
-                    <View style={styles.fondoIconFacebok}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.fondoIconFacebok}>
                         <Entypo name="facebook" size={50} color="black" style={styles.facebook}/>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             
-                <View style={styles.content}>
+                <TouchableOpacity style={styles.contentForos}>
                     <Text style={styles.containerText}>Foros</Text> 
-                </View>
+                </TouchableOpacity>
                 <View style={styles.divierte}>
-                    <View style={styles.fondoIconReddit}>
+                    <TouchableOpacity style={styles.fondoIconReddit}>
                         <Ionicons name="logo-reddit" size={50} color="black" style={styles.reddit}/>
-                    </View>
-                    <View style={styles.fondoIconStack}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.fondoIconStack}>
                         <FontAwesome name="stack-overflow" size={50} color="black" style={styles.stack}/>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 
-                <View style={styles.content}>
+                <TouchableOpacity style={styles.contentNoticias}>
                     <Text style={styles.containerText}>Noticias</Text> 
-                </View>
+                </TouchableOpacity>
                 <View style={styles.divierte}>
                     
                 </View>
 
-                <View style={styles.content}>
+                <TouchableOpacity style={styles.contentFavoritos}>
                     <Text style={styles.containerText}>Favoritos</Text> 
-                </View>
+                </TouchableOpacity>
                 <View style={styles.divierte}>
                     
                 </View>
@@ -83,13 +83,50 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    content: {
+    contentDiviertete: {
         alignItems: 'center',
         backgroundColor: '#d3d3d3', 
         padding: 20, 
         borderRadius: 20, 
         marginTop: 20, 
         width: '80%',
+        borderWidth: 1,
+    },
+    contentRedes: {
+        alignItems: 'center',
+        backgroundColor: '#d3d3d3', 
+        padding: 20, 
+        borderRadius: 20, 
+        marginTop: 20, 
+        width: '80%',
+        borderWidth: 1,
+    },
+    contentForos: {
+        alignItems: 'center',
+        backgroundColor: '#d3d3d3', 
+        padding: 20, 
+        borderRadius: 20, 
+        marginTop: 20, 
+        width: '80%',
+        borderWidth: 1,
+    },
+    contentNoticias: {
+        alignItems: 'center',
+        backgroundColor: '#d3d3d3', 
+        padding: 20, 
+        borderRadius: 20, 
+        marginTop: 20, 
+        width: '80%',
+        borderWidth: 1,
+    },
+    contentFavoritos: {
+        alignItems: 'center',
+        backgroundColor: '#d3d3d3', 
+        padding: 20, 
+        borderRadius: 20, 
+        marginTop: 20, 
+        width: '80%',
+        borderWidth: 1,
     },
     containerText: {
         fontSize: 16,
@@ -98,13 +135,13 @@ const styles = StyleSheet.create({
     },
     divierte: {
         flexDirection: "row",
-        //alignItems: 'center',
         justifyContent: "center",
         backgroundColor: '#d3d3d3', 
         padding: 50, 
         borderRadius: 20, 
         marginTop: 20, 
         width: '80%',
+        borderWidth: 1,
     },
     fondoIconMovie: {
         backgroundColor: "#fff",
@@ -112,6 +149,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
         borderRadius: 25,
         marginLeft: "auto",
+        borderWidth: 1,
     },
     game:{
         
@@ -120,6 +158,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         padding: 9,
         borderRadius: 25,
+        borderWidth: 1,
     },
     music: {
         
@@ -129,6 +168,7 @@ const styles = StyleSheet.create({
         padding: 9,
         borderRadius: 25,
         marginRight: "auto",
+        borderWidth: 1,
     },
     movie: {
         
@@ -138,6 +178,7 @@ const styles = StyleSheet.create({
         padding: 9,
         borderRadius: 25,
         marginRight: "auto",
+        borderWidth: 1,
     },
     insta:{
      
@@ -146,6 +187,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         padding: 9,
         borderRadius: 25,
+        borderWidth: 1,
     },
     twitter: {
        
@@ -155,6 +197,7 @@ const styles = StyleSheet.create({
         padding: 9,
         borderRadius: 25,
         marginLeft: "auto",
+        borderWidth: 1,
     },
     facebook: {
     },
@@ -163,6 +206,7 @@ const styles = StyleSheet.create({
         padding: 9,
         borderRadius: 25,
         marginRight: "auto",
+        borderWidth: 1,
     },
     reddit:{
         
@@ -172,6 +216,7 @@ const styles = StyleSheet.create({
         padding: 9,
         borderRadius: 25,
         marginLeft: "auto",
+        borderWidth: 1,
     },
     stack: {
         
