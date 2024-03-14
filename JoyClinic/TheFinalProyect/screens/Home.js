@@ -158,9 +158,9 @@ const styles = StyleSheet.create({
     },
     divierte: {
         flexDirection: "row",
-        justifyContent: "center",
+        justifyContent: "space-between", 
         backgroundColor: '#d3d3d3', 
-        padding: 50, 
+        padding: 30, 
         borderRadius: 20, 
         marginTop: 20, 
         width: '80%',
@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
         padding: 9,
         paddingHorizontal: 14,
         borderRadius: 25,
-        marginLeft: "auto",
         borderWidth: 1,
     },
     game:{
@@ -190,7 +189,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         padding: 9,
         borderRadius: 25,
-        marginRight: "auto",
         borderWidth: 1,
     },
     movie: {
