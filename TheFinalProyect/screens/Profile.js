@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, SafeAreaView, SectionList, Image, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+
 export default function Profile(){
     const [text, setText] = useState('');
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
@@ -95,6 +97,7 @@ const styles = StyleSheet.create({
         padding: 6,
         borderRadius: 20,
         width: '90%',
+        borderWidth: 1,
     },
     iconSearch: {
         marginLeft: "auto"
@@ -120,6 +123,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         alignSelf: "center",
+        borderWidth: 1,
     },
     foto: {
         padding: 20,
