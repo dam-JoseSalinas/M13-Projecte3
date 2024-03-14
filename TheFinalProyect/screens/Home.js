@@ -3,17 +3,28 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, Scro
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; 
 
-
+const Tab = createBottomTabNavigator(); 
 
 export default function Home(){
+    const navigation = useNavigation();
+
+    const buttonHaveFun = () => {
+        navigation.navigate('Funny');
+    }
+    const buttonSocial = () => {
+        navigation.navigate('SocialNetworks');
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-                <TouchableOpacity style={styles.contentDiviertete}>
+                <TouchableOpacity style={styles.contentDiviertete} onPress={buttonHaveFun}>
                     <Text style={styles.containerText}>Diviértete</Text> 
                 </TouchableOpacity>
-                <View style={styles.divierte}>
+                <View style={styles.divierte} >
                     <TouchableOpacity style={styles.fondoIconGame}>
                         <Ionicons name="game-controller-outline" size={50} color="black" style={styles.game} />
                     </TouchableOpacity>
@@ -24,7 +35,7 @@ export default function Home(){
                         <FontAwesome name="file-movie-o" size={50} color="black" style={styles.movie}/>
                     </TouchableOpacity>
                 </View>
-                    <TouchableOpacity style={styles.contentRedes}>
+                    <TouchableOpacity style={styles.contentRedes} onPress={buttonSocial}>
                         <Text style={styles.containerText}>Tus Redes</Text> 
                     </TouchableOpacity>
                 <View style={styles.divierte}>
@@ -46,6 +57,9 @@ export default function Home(){
                     <TouchableOpacity style={styles.fondoIconReddit}>
                         <Ionicons name="logo-reddit" size={50} color="black" style={styles.reddit}/>
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.fondoIconSlideshare}>
+                        <Entypo name="slideshare" size={50} color="black" style={styles.slide}/>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconStack}>
                         <FontAwesome name="stack-overflow" size={50} color="black" style={styles.stack}/>
                     </TouchableOpacity>
@@ -55,8 +69,17 @@ export default function Home(){
                     <Text style={styles.containerText}>Noticias</Text> 
                 </TouchableOpacity>
                 <View style={styles.divierte}>
-                    
+                    <TouchableOpacity style={styles.fondoNewsPaper}>    
+                        <FontAwesome name="newspaper-o" size={45} color="black" styles={styles.newsPaper}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.fondoDesignNews}>
+                        <Ionicons name="logo-designernews" size={50} color="black" styles={styles.designNews}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.fondoHacker}>
+                        <FontAwesome name="hacker-news" size={50} color="black" style={styles.hackerNews}/>
+                    </TouchableOpacity>
                 </View>
+                    
 
                 <TouchableOpacity style={styles.contentFavoritos}>
                     <Text style={styles.containerText}>Favoritos</Text> 
@@ -211,14 +234,51 @@ const styles = StyleSheet.create({
     reddit:{
         
     },
+    fondoIconSlideshare: {
+        backgroundColor: "#fff",
+        padding: 9,
+        borderRadius: 25,
+        borderWidth: 1,
+    },
+    slide:{
+
+    },
     fondoIconStack: {
         backgroundColor: "#fff",
         padding: 9,
         borderRadius: 25,
         marginLeft: "auto",
         borderWidth: 1,
+        paddingHorizontal: 13,
     },
     stack: {
         
     },
+    fondoNewsPaper:{
+        backgroundColor: "#fff",
+        padding: 9,
+        borderRadius: 25,
+        marginRight: "auto",
+        borderWidth: 1,
+    },
+    newsPaper:{
+
+    },
+    fondoDesignNews: {
+        backgroundColor: "#fff",
+        padding: 9,
+        borderRadius: 25,
+        borderWidth: 1,
+    },
+    designNews:{
+
+    },
+    fondoHacker : {
+        backgroundColor: "#fff",
+        padding: 9,
+        borderRadius: 25,
+        marginLeft: "auto",
+        borderWidth: 1,
+        paddingHorizontal: 13,
+    }
 })

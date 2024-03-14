@@ -108,5 +108,6 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         alignItems: 'center',
         marginTop: 20,
+        borderWidth: 1,
     },
 });

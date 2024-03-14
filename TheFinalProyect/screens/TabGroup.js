@@ -12,18 +12,28 @@ import { AntDesign } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
 
 export default function TabGroup() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpenR, setIsMenuOpenR] = useState(false);
+    const [isMenuOpenL, setIsMenuOpenL] = useState(false);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+    const toggleMenuR = () => {
+        setIsMenuOpenR(!isMenuOpenR);
+    };
+
+    const toggleMenuL = () => {
+        setIsMenuOpenL(!isMenuOpenL);
     };
 
     const menuPosition = useState(new Animated.Value(0))[0];
     const screenHeight = Dimensions.get('window').height;
+    const screenWidth = Dimensions.get('window').width;
 
     const translateY = menuPosition.interpolate({
         inputRange: [0, 1],
         outputRange: [-screenHeight, 0],
+    });
+    const translateX = menuPosition.interpolate({
+        inputRange: [0, 1],
+        outputRange: [-screenWidth, 0],
     });
 
     return (
@@ -81,16 +91,21 @@ export default function TabGroup() {
             </Tab.Navigator>
 
             {/* Botón desplegable en la parte derecha */}
-            <TouchableOpacity onPress={toggleMenu} style={styles.menuButton}>
-                <Ionicons name={isMenuOpen ? 'close' : 'menu'} size={24} color="black" />
+            <TouchableOpacity onPress={toggleMenuR} style={styles.menuButton}>
+                <Ionicons name={isMenuOpenR ? 'close' : 'menu'} size={24} color="black" />
             </TouchableOpacity>
 
             {/* Botón desplegable en la parte izquierda */}
-            <TouchableOpacity onPress={toggleMenu} style={styles.menuButtonLeft}>
-                <Ionicons name="person-circle-sharp"  size={24} color="black" />
+            <TouchableOpacity onPress={toggleMenuL} style={styles.menuButtonLeft}>
+                <Ionicons name={isMenuOpenL ? 'close' : 'person-circle-sharp'} size={24} color="black" />
             </TouchableOpacity>
+
             
-            <Animated.View style={[styles.menuContainer, { transform: [{ translateY }] }]}>
+            <Animated.View style={[styles.menuContainerY, { transform: [{ translateY }] }]}>
+                {/* Contenido del menú desplegable */}
+                {/* Aquí puedes agregar tus elementos de menú */}
+            </Animated.View>
+            <Animated.View style={[styles.menuContainerX, { transform: [{ translateX }] }]}>
                 {/* Contenido del menú desplegable */}
                 {/* Aquí puedes agregar tus elementos de menú */}
             </Animated.View>
@@ -99,7 +114,17 @@ export default function TabGroup() {
 }
 
 const styles = StyleSheet.create({
-    menuContainer: {
+    menuContainerY: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '100%',
+        backgroundColor: 'white',
+        elevation: 8,
+        zIndex: 10,
+    },
+    menuContainerX: {
         position: 'absolute',
         top: 0,
         left: 0,
