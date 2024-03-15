@@ -88,7 +88,6 @@ export default function Home(){
                     
                 </View>
             </ScrollView>
-            
         </SafeAreaView>
     );
 };
@@ -160,7 +159,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between", 
         backgroundColor: '#d3d3d3', 
-        padding: 30, 
+        padding: 20, 
         borderRadius: 20, 
         marginTop: 20, 
         width: '80%',
