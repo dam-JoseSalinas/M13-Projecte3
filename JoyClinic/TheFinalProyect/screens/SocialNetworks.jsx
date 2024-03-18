@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 
-export default function Home(){
+export default function SocialNetworks(){
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
-                <Text>Home</Text>
+                <Text>SocialNetworks</Text>
             </View>
         </SafeAreaView>
     );
@@ -19,5 +19,5 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
-    },
+    }
 })

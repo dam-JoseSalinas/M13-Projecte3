@@ -5,6 +5,8 @@ import Inicio from "./screens/Inicio";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import TabGroup from './screens/TabGroup';
+import Funny from './screens/Funny';
+import SocialNetworks from './screens/SocialNetworks';
 import { useColorScheme } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -38,7 +40,16 @@ export default function Navigation() {
           component={TabGroup}
           options={{ headerShown: false }} 
         />
-
+        <Stack.Screen
+          name="Funny"
+          component={Funny}
+          //options={{ headerShown: false}}
+        />
+        <Stack.Screen
+          name="SocialNetworks"
+          component={SocialNetworks}
+          //options={{ headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 
-export default function Profile(){
+export default function Funny(){
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
-                <Text>Profile</Text>
+                <Text>Funny</Text>
             </View>
         </SafeAreaView>
     );
