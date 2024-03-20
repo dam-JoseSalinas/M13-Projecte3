@@ -8,22 +8,35 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator(); 
 
-export default function Home(){
+export default function Home() {
+    {/*REDIRECCION DE BOTONES*/}
     const navigation = useNavigation();
 
-    const buttonHaveFun = () => {
+    {/*diviertete*/}
+    const redirectHaveFun = () => {
         navigation.navigate('Funny');
     }
-    const buttonSocial = () => {
+    {/*redes sociales*/}
+    const redirectSocial = () => {
         navigation.navigate('SocialNetworks');
     }
+    {/*foros*/}
+    {/*noticias*/}
 
     return (
         <SafeAreaView style={styles.container}>
+            
+            {/*BODY*/}
             <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-                <TouchableOpacity style={styles.contentDiviertete} onPress={buttonHaveFun}>
+                {/*
+                ======================
+                D I V I E R T E T E
+                ======================*/}
+                {/*BOTON TITULO*/}
+                <TouchableOpacity style={styles.botonesTitulo} onPress={redirectHaveFun}>
                     <Text style={styles.containerText}>Diviértete</Text> 
                 </TouchableOpacity>
+                {/*FILA DE BOTONES CON ICONO*/}
                 <View style={styles.divierte} >
                     <TouchableOpacity style={styles.fondoIconGame}>
                         <Ionicons name="game-controller-outline" size={50} color="black" style={styles.game} />
@@ -35,9 +48,18 @@ export default function Home(){
                         <FontAwesome name="file-movie-o" size={50} color="black" style={styles.movie}/>
                     </TouchableOpacity>
                 </View>
-                    <TouchableOpacity style={styles.contentRedes} onPress={buttonSocial}>
-                        <Text style={styles.containerText}>Tus Redes</Text> 
-                    </TouchableOpacity>
+                {/* nota: este conjunto de componentes de arriba puede reutilizarse tanto
+                    en los siguientes elementos de boton-titulo con botones-icono, como
+                    en los apartados de cada tematica de ocio, con la diferencia de que
+                    en las vistas de ocio habra un scroll horizontal
+                */}
+                {/*
+                ======================
+                R E D E S
+                ======================*/}
+                <TouchableOpacity style={styles.botonesTitulo} onPress={redirectSocial}>
+                    <Text style={styles.containerText}>Tus Redes</Text> 
+                </TouchableOpacity>
                 <View style={styles.divierte}>
                     <TouchableOpacity style={styles.fondoIconInsta}>
                         <Entypo name="instagram" size={50} color="black" style={styles.insta}/>
@@ -49,8 +71,11 @@ export default function Home(){
                         <Entypo name="facebook" size={50} color="black" style={styles.facebook}/>
                     </TouchableOpacity>
                 </View>
-            
-                <TouchableOpacity style={styles.contentForos}>
+                {/*
+                ======================
+                FOROS
+                ======================*/}
+                <TouchableOpacity style={styles.botonesTitulo}>
                     <Text style={styles.containerText}>Foros</Text> 
                 </TouchableOpacity>
                 <View style={styles.divierte}>
@@ -64,8 +89,11 @@ export default function Home(){
                         <FontAwesome name="stack-overflow" size={50} color="black" style={styles.stack}/>
                     </TouchableOpacity>
                 </View>
-                
-                <TouchableOpacity style={styles.contentNoticias}>
+                {/*
+                ======================
+                FAVORITOS
+                ======================*/}
+                <TouchableOpacity style={styles.botonesTitulo}>
                     <Text style={styles.containerText}>Noticias</Text> 
                 </TouchableOpacity>
                 <View style={styles.divierte}>
@@ -79,9 +107,11 @@ export default function Home(){
                         <FontAwesome name="hacker-news" size={50} color="black" style={styles.hackerNews}/>
                     </TouchableOpacity>
                 </View>
-                    
-
-                <TouchableOpacity style={styles.contentFavoritos}>
+                {/*
+                ======================
+                F A V O R I T O S
+                ======================*/}
+                <TouchableOpacity style={styles.botonesTitulo}>
                     <Text style={styles.containerText}>Favoritos</Text> 
                 </TouchableOpacity>
                 <View style={styles.divierte}>
@@ -92,12 +122,16 @@ export default function Home(){
     );
 };
 
+    
 const styles = StyleSheet.create({
+    /*para: SAFE AREA VIEW*/
     container: {
         flex: 1,
         justifyContent: 'center', 
         alignItems: 'center', 
     },
+
+    /*para: SCROLL VIEW*/
     scroll:{
         width: '100%',
     },
@@ -105,7 +139,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    contentDiviertete: {
+
+    /*para: BOTONES TITULOS*/
+    botonesTitulo: {
         alignItems: 'center',
         backgroundColor: '#d3d3d3', 
         padding: 20, 
@@ -114,47 +150,13 @@ const styles = StyleSheet.create({
         width: '80%',
         borderWidth: 1,
     },
-    contentRedes: {
-        alignItems: 'center',
-        backgroundColor: '#d3d3d3', 
-        padding: 20, 
-        borderRadius: 20, 
-        marginTop: 20, 
-        width: '80%',
-        borderWidth: 1,
-    },
-    contentForos: {
-        alignItems: 'center',
-        backgroundColor: '#d3d3d3', 
-        padding: 20, 
-        borderRadius: 20, 
-        marginTop: 20, 
-        width: '80%',
-        borderWidth: 1,
-    },
-    contentNoticias: {
-        alignItems: 'center',
-        backgroundColor: '#d3d3d3', 
-        padding: 20, 
-        borderRadius: 20, 
-        marginTop: 20, 
-        width: '80%',
-        borderWidth: 1,
-    },
-    contentFavoritos: {
-        alignItems: 'center',
-        backgroundColor: '#d3d3d3', 
-        padding: 20, 
-        borderRadius: 20, 
-        marginTop: 20, 
-        width: '80%',
-        borderWidth: 1,
-    },
+
     containerText: {
         fontSize: 16,
         fontWeight: 'bold',
         color: "black"
     },
+
     divierte: {
         flexDirection: "row",
         justifyContent: "space-between", 
@@ -165,6 +167,7 @@ const styles = StyleSheet.create({
         width: '80%',
         borderWidth: 1,
     },
+
     fondoIconMovie: {
         backgroundColor: "#fff",
         padding: 9,
@@ -172,27 +175,33 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         borderWidth: 1,
     },
+
     game:{
         
     },
+
     fondoIconMusic: {
         backgroundColor: "#fff",
         padding: 9,
         borderRadius: 25,
         borderWidth: 1,
     },
+
     music: {
         
     },
+
     fondoIconGame: {
         backgroundColor: "#fff",
         padding: 9,
         borderRadius: 25,
         borderWidth: 1,
     },
+
     movie: {
         
     },
+
     fondoIconInsta: {
         backgroundColor: "#fff",
         padding: 9,
@@ -200,18 +209,22 @@ const styles = StyleSheet.create({
         marginRight: "auto",
         borderWidth: 1,
     },
+
     insta:{
      
     },
+
     fondoIconTwitter: {
         backgroundColor: "#fff",
         padding: 9,
         borderRadius: 25,
         borderWidth: 1,
     },
+
     twitter: {
        
     },
+
     fondoIconFacebok: {
         backgroundColor: "#fff",
         padding: 9,
@@ -219,8 +232,10 @@ const styles = StyleSheet.create({
         marginLeft: "auto",
         borderWidth: 1,
     },
+
     facebook: {
     },
+
     fondoIconReddit: {
         backgroundColor: "#fff",
         padding: 9,
