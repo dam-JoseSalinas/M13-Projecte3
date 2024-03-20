@@ -14,7 +14,7 @@ export default function Login() {
 
     const handleLogin = () => {
         if (email && password) {
-            navigation.navigate('TabGroup');
+            navigation.navigate('MenuInferior');
         } else {
             Alert.alert('Error', 'Por favor, completa todos los campos');
         }
@@ -29,32 +29,36 @@ export default function Login() {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.content}>
+        <SafeAreaView 
+            style={styles.container}>
+            <View 
+                style={styles.content}>
                 <Image
-                    source={require('../Logo/logoBlanco.png')}
+                    source={require('../assets/images/Logo/logoBlanco.png')}
                     style={styles.logo}
-                    resizeMode='contain'
-                />
+                    resizeMode='contain'/>
                 <TextInput
                     placeholder="Email"
                     value={email}
                     onChangeText={text => setEmail(text)}
-                    style={styles.input}
-                />
+                    style={styles.input}/>
                 <TextInput
                     placeholder="Password"
                     value={password}
                     onChangeText={text => setPassword(text)}
                     secureTextEntry={true}
-                    style={styles.input}
-                />
+                    style={styles.input}/>
+                
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.buttonLog} onPress={handleLogin}>
+                    <TouchableOpacity 
+                        style={styles.buttonLog} 
+                        onPress={handleLogin}>
                         <Text>Login</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.buttonReg} onPress={handleRegisterPress}>
+                    <TouchableOpacity 
+                        style={styles.buttonReg} 
+                        onPress={handleRegisterPress}>
                         <Text>Register</Text>
                     </TouchableOpacity>
                 </View>
