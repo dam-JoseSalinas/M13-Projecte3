@@ -10,16 +10,24 @@ export default function Profile(){
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
                 <View style={styles.search}>
-                    <TextInput style={styles.textInput}
+                    <TextInput 
+                        style={styles.textInput}
                         placeholder="Buscador"
                         onChangeText={newText => setText(newText)}
                         defaultValue={text}
                     />
-                    <Ionicons style={styles.iconSearch} name="search" size={24} color="black" />
+                    <Ionicons 
+                        style={styles.iconSearch} 
+                        name="search" 
+                        size={24} 
+                        color="black"/>
                 </View>
                 <View style={styles.fondoNombre}>
                     <View style={styles.foto}></View>
-                    <Ionicons style={styles.fotoPerfil} name="person" size={24} color="black" />
+                    <Ionicons 
+                        style={styles.fotoPerfil} 
+                        name="person" size={24} 
+                        color="black" />
                     <Text style={styles.nombre}>Nombre Completo</Text>
                 </View>
                 <Text style={styles.contactos}>Contactos</Text>

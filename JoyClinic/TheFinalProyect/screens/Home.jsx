@@ -20,19 +20,32 @@ export default function Home(){
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-                <TouchableOpacity style={styles.contentDiviertete} onPress={buttonHaveFun}>
+            <ScrollView 
+                style={styles.scroll} 
+                contentContainerStyle={styles.scrollContent}>
+                <TouchableOpacity 
+                    style={styles.contentDiviertete} 
+                    onPress={buttonHaveFun}>
                     <Text style={styles.containerText}>Diviértete</Text> 
                 </TouchableOpacity>
                 <View style={styles.divierte} >
                     <TouchableOpacity style={styles.fondoIconGame}>
-                        <Ionicons name="game-controller-outline" size={50} color="black" style={styles.game} />
+                        <Ionicons 
+                            name="game-controller-outline" 
+                            size={50} color="black" 
+                            style={styles.game} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconMusic}>
-                        <Ionicons name="musical-notes-outline" size={50} color="black" style={styles.music}/>
+                        <Ionicons 
+                            name="musical-notes-outline" 
+                            size={50} color="black" 
+                            style={styles.music}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconMovie}>
-                        <FontAwesome name="file-movie-o" size={50} color="black" style={styles.movie}/>
+                        <FontAwesome 
+                            name="file-movie-o" 
+                            size={50} color="black" 
+                            style={styles.movie}/>
                     </TouchableOpacity>
                 </View>
                     <TouchableOpacity style={styles.contentRedes} onPress={buttonSocial}>
@@ -40,13 +53,24 @@ export default function Home(){
                     </TouchableOpacity>
                 <View style={styles.divierte}>
                     <TouchableOpacity style={styles.fondoIconInsta}>
-                        <Entypo name="instagram" size={50} color="black" style={styles.insta}/>
+                        <Entypo 
+                            name="instagram" 
+                            size={50} color="black" 
+                            style={styles.insta}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconTwitter}>
-                        <Entypo name="twitter" size={50} color="black" style={styles.twitter}/>
+                        <Entypo 
+                            name="twitter" 
+                            size={50} 
+                            color="black" 
+                            style={styles.twitter}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconFacebok}>
-                        <Entypo name="facebook" size={50} color="black" style={styles.facebook}/>
+                        <Entypo 
+                            name="facebook" 
+                            size={50} 
+                            color="black" 
+                            style={styles.facebook}/>
                     </TouchableOpacity>
                 </View>
             
@@ -55,13 +79,24 @@ export default function Home(){
                 </TouchableOpacity>
                 <View style={styles.divierte}>
                     <TouchableOpacity style={styles.fondoIconReddit}>
-                        <Ionicons name="logo-reddit" size={50} color="black" style={styles.reddit}/>
+                        <Ionicons 
+                            name="logo-reddit" 
+                            size={50} 
+                            color="black" 
+                            style={styles.reddit}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconSlideshare}>
-                        <Entypo name="slideshare" size={50} color="black" style={styles.slide}/>
+                        <Entypo 
+                            name="slideshare" 
+                            size={50} 
+                            color="black" 
+                            style={styles.slide}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconStack}>
-                        <FontAwesome name="stack-overflow" size={50} color="black" style={styles.stack}/>
+                        <FontAwesome 
+                            name="stack-overflow" 
+                            size={50} color="black" 
+                            style={styles.stack}/>
                     </TouchableOpacity>
                 </View>
                 
@@ -70,17 +105,28 @@ export default function Home(){
                 </TouchableOpacity>
                 <View style={styles.divierte}>
                     <TouchableOpacity style={styles.fondoNewsPaper}>    
-                        <FontAwesome name="newspaper-o" size={45} color="black" styles={styles.newsPaper}/>
+                        <FontAwesome 
+                            name="newspaper-o" 
+                            size={45} 
+                            color="black" 
+                            styles={styles.newsPaper}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoDesignNews}>
-                        <Ionicons name="logo-designernews" size={50} color="black" styles={styles.designNews}/>
+                        <Ionicons 
+                            name="logo-designernews" 
+                            size={50} 
+                            color="black" 
+                            styles={styles.designNews}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoHacker}>
-                        <FontAwesome name="hacker-news" size={50} color="black" style={styles.hackerNews}/>
+                        <FontAwesome 
+                            name="hacker-news" 
+                            size={50} 
+                            color="black" 
+                            style={styles.hackerNews}/>
                     </TouchableOpacity>
                 </View>
                     
-
                 <TouchableOpacity style={styles.contentFavoritos}>
                     <Text style={styles.containerText}>Favoritos</Text> 
                 </TouchableOpacity>
