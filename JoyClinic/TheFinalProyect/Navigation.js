@@ -13,6 +13,7 @@ import SocialNetworks from './screens/SocialNetworks';
 import { useColorScheme } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoadingIncial from './screens/LoadingInicial';
+import Profile from './screens/Contacts';
 
 
 const Stack = createStackNavigator();
@@ -65,6 +66,11 @@ export default function Navigation() {
         <Stack.Screen
           name="SocialNetworks"
           component={SocialNetworks}
+          //options={{ headerShown: false}}
+        />
+        <Stack.Screen
+          name="UserProfile"
+          component={Profile}
           //options={{ headerShown: false}}
         />
       </Stack.Navigator>
