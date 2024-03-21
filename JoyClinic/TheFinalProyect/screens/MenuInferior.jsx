@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TouchableOpacity, View, StyleSheet, Animated, Dimensions } from 'react-native';
 import Home from './Home';
-import Profile from './Profile';
+import Contacts from './Contacts';
 import Search from './Search';
 import Settings from './Settings';
 import { Ionicons } from '@expo/vector-icons';
@@ -83,7 +83,7 @@ export default function MenuInferior() {
                     component={Search}/>
                 <BottomNavBar.Screen
                     name="Contacs"
-                    component={Profile}/>
+                    component={Contacts}/>
                 <BottomNavBar.Screen
                     name="Settings"
                     component={Settings}/>

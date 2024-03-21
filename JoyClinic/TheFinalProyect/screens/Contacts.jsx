@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, SectionList, Image, TextInput } f
 import { Ionicons } from '@expo/vector-icons';
 
 
-export default function Profile(){
+export default function Contacts(){
     const [text, setText] = useState('');
 
     return (
