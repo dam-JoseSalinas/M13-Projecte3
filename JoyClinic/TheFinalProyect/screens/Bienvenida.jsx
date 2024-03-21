@@ -25,12 +25,14 @@ export default function Bienvenida() {
             style={styles.logo}
             resizeMode='contain'/>
             <View>
-                <TouchableOpacity 
+                <TouchableOpacity
+                    style={styles.buttonHome} 
                     onPress={redirectHome}>
                     <Text>Home</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
+                    style={styles.buttonLogin}
                     onPress={redirectoLogin}>
                     <Text>Login?</Text>
                 </TouchableOpacity>
@@ -52,7 +54,27 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 300,
   },
+  buttonHome: {
+    backgroundColor: '#d3d3d3',
+    padding: 15,
+    marginTop: 10,
+    borderRadius: 15,
+    width: 150,   
+    alignItems: 'center',
+    marginRight: 10,
+    borderWidth: 1,
+  },
+  buttonLogin: {
+    backgroundColor: '#d3d3d3',
+    padding: 15,
+    marginTop: 10,
+    borderRadius: 15,
+    width: 150,   
+    alignItems: 'center',
+    marginRight: 10,
+    borderWidth: 1,
+  }
 });
