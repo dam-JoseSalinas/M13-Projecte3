@@ -42,35 +42,6 @@ export default function MenuInferior() {
 
     return (
         <View style={{ flex: 1 }}>
-            {/*================== 
-                MENUS LATERALES
-            ================== */}
-            {/* Botón desplegable en la parte derecha */}
-            <TouchableOpacity onPress={toggleMenuR} style={styles.menuButton}>
-                <Ionicons 
-                    name={isMenuOpenR ? 'close' : 'menu'}
-                    size={24}
-                    color="black" />
-            </TouchableOpacity>
-
-            {/* Botón desplegable en la parte izquierda */}
-            <TouchableOpacity onPress={toggleMenuL} style={styles.menuButtonLeft}>
-                <Ionicons
-                    name={isMenuOpenL ? 'close' : 'person-circle-sharp'}
-                    size={24}
-                    color="black" />
-            </TouchableOpacity>
-
-            
-            <Animated.View style={[styles.menuContainerY, { transform: [{ translateY }] }]}>
-                {/* Contenido del menú desplegable */}
-                {/* Aquí puedes agregar tus elementos de menú */}
-            </Animated.View>
-            <Animated.View style={[styles.menuContainerX, { transform: [{ translateX }] }]}>
-                {/* Contenido del menú desplegable */}
-                {/* Aquí puedes agregar tus elementos de menú */}
-            </Animated.View>
-
             <BottomNavBar.Navigator
                 /*cambio de focus en iconos(se colorea/descolorea)*/
                 screenOptions={ ({ route }) => 
@@ -117,6 +88,34 @@ export default function MenuInferior() {
                     name="Settings"
                     component={Settings}/>
             </BottomNavBar.Navigator>
+            {/*================== 
+                MENUS LATERALES
+            ================== */}
+            {/* Botón desplegable en la parte derecha */}
+            <TouchableOpacity onPress={toggleMenuR} style={styles.menuButton}>
+                <Ionicons 
+                    name={isMenuOpenR ? 'close' : 'menu'}
+                    size={24}
+                    color="black" />
+            </TouchableOpacity>
+
+            {/* Botón desplegable en la parte izquierda */}
+            <TouchableOpacity onPress={toggleMenuL} style={styles.menuButtonLeft}>
+                <Ionicons
+                    name={isMenuOpenL ? 'close' : 'person-circle-sharp'}
+                    size={24}
+                    color="black" />
+            </TouchableOpacity>
+
+            
+            <Animated.View style={[styles.menuContainerY, { transform: [{ translateY }] }]}>
+                {/* Contenido del menú desplegable */}
+                {/* Aquí puedes agregar tus elementos de menú */}
+            </Animated.View>
+            <Animated.View style={[styles.menuContainerX, { transform: [{ translateX }] }]}>
+                {/* Contenido del menú desplegable */}
+                {/* Aquí puedes agregar tus elementos de menú */}
+            </Animated.View>
         </View>
     );
 }
