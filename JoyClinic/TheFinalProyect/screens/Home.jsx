@@ -5,6 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; 
+import { FontAwesome6 } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator(); 
 
@@ -149,20 +150,32 @@ export default function Home() {
                             style={styles.hackerNews}/>
                     </TouchableOpacity>
                 </View>
-
-                    
-            
-
                 {/*
                 ======================
                 F A V O R I T O S
                 ======================*/}
                 <TouchableOpacity style={styles.botonesTitulo}>
-
                     <Text style={styles.containerText}>Favoritos</Text> 
                 </TouchableOpacity>
                 <View style={styles.divierte}>
-                    
+                    <TouchableOpacity style={styles.fondoYouTube}>    
+                        <Entypo 
+                            name="youtube"
+                            size={50} 
+                            color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.fondoDiscord}>
+                        <FontAwesome6 
+                            name="discord"
+                            size={50} 
+                            color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.fondoWhats}>
+                        <FontAwesome 
+                            name="whatsapp" 
+                            size={50} 
+                            color="black" /> 
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -339,5 +352,24 @@ const styles = StyleSheet.create({
         marginLeft: "auto",
         borderWidth: 1,
         paddingHorizontal: 13,
+    },
+    fondoYouTube: {
+        backgroundColor: "#fff",
+        padding: 9,
+        borderRadius: 25,
+        borderWidth: 1,
+    },
+    fondoDiscord: {
+        backgroundColor: "#fff",
+        padding: 9,
+        borderRadius: 25,
+        borderWidth: 1,
+    },
+    fondoWhats: {
+        backgroundColor: "#fff",
+        padding: 9,
+        borderRadius: 25,
+        borderWidth: 1,
+        paddingHorizontal: 15,
     }
 })
