@@ -25,7 +25,7 @@ export default function Login() {
     };
 
     const handleGuestPress = () => {
-        navigation.navigate('TabGroup')
+        navigation.navigate('MenuInferior')
     }
 
     return (
@@ -55,7 +55,6 @@ export default function Login() {
                         onPress={handleLogin}>
                         <Text>Login</Text>
                     </TouchableOpacity>
-
                     <TouchableOpacity 
                         style={styles.buttonReg} 
                         onPress={handleRegisterPress}>
