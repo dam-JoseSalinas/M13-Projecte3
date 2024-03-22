@@ -8,9 +8,14 @@ import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 
 export default function Settings(){
     const [text, setText] = useState('')
+    const navigation = useNavigation();
+    const dispotivos = () => {
+        navigation.navigate('Dispositivos')
+    }
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
@@ -186,7 +191,8 @@ export default function Settings(){
                         <MaterialIcons 
                             name="navigate-next" 
                             size={24} 
-                            color="black" />
+                            color="black" 
+                            onPress={dispotivos}/>
                     </View>
                     <View style={styles.configInfo}>
                         <MaterialIcons 
