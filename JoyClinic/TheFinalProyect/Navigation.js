@@ -14,6 +14,7 @@ import { useColorScheme } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoadingIncial from './screens/LoadingInicial';
 import Profile from './screens/Contacts';
+import Dispositivos from './screens/Dispositivos';
 
 
 const Stack = createStackNavigator();
@@ -72,6 +73,10 @@ export default function Navigation() {
           name="UserProfile"
           component={Profile}
           //options={{ headerShown: false}}
+        />
+        <Stack.Screen
+          name="Dispositivos"
+          component={Dispositivos}
         />
       </Stack.Navigator>
     </NavigationContainer>
