@@ -80,18 +80,18 @@ const styles = StyleSheet.create({
         top: 15,
     },
     info: {
-        fontWeight: "300"
+        fontWeight: "200"
     },
     texto: {
         top: 20,
         fontSize: 15,
-        fontWeight: "500"
+        fontWeight: "700"
     },
     dispositivos: {
         flexDirection: "row",
         alignSelf: "center",
         top: 30,
-        padding: 45,
+        padding: 25,
         backgroundColor: '#d3d3d3',
         borderRadius: 20,
         width: "95%",
