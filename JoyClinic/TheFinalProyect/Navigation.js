@@ -15,6 +15,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import LoadingIncial from './screens/LoadingInicial';
 import Profile from './screens/Contacts';
 import Dispositivos from './screens/Dispositivos';
+import EditProfile from './screens/EditProfile';
+
 
 
 const Stack = createStackNavigator();
@@ -77,6 +79,10 @@ export default function Navigation() {
         <Stack.Screen
           name="Dispositivos"
           component={Dispositivos}
+        />
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfile}
         />
       </Stack.Navigator>
     </NavigationContainer>
