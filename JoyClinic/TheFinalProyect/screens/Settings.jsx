@@ -5,7 +5,6 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, Imag
 import { Feather } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
@@ -15,6 +14,9 @@ export default function Settings(){
     const navigation = useNavigation();
     const dispotivos = () => {
         navigation.navigate('Dispositivos')
+    }
+    const editProfile = () => {
+        navigation.navigate('EditProfile')
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -48,7 +50,8 @@ export default function Settings(){
                         <MaterialIcons 
                             name="navigate-next" 
                             size={24} 
-                            color="black" />
+                            color="black"
+                            onPress={editProfile} />
                     </View>
                     <Text style={styles.informacion}>Información</Text>
                     <View style={styles.configNoti}>

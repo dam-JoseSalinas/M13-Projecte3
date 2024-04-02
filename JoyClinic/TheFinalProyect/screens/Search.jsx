@@ -7,158 +7,162 @@ import { Entypo } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Search(){
     const [text, setText] = useState('')
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.content}>
-                <View style={styles.search}>
-                    <TextInput 
-                        style={styles.textInput}
-                        placeholder="Buscador"
-                        onChangeText={newText => setText(newText)}
-                        defaultValue={text}
-                    />
-                    <Ionicons 
-                        style={styles.iconSearch}
-                        name="search"
-                        size={24}
-                        color="black"/>
-                </View>
-                <View style={styles.apartado}>
-                    <TouchableOpacity>
-                        <View style={styles.div1}>
-                            <MaterialCommunityIcons 
-                                name="netflix" 
-                                size={40} 
-                                color="black" />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.div2}>
-                            <AntDesign 
-                                name="amazon" 
-                                size={40} 
-                                color="black" />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.div3}>
-                            <Entypo 
-                                name="spotify" 
-                                size={40} 
-                                color="black" />
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.apartado}>
-                    <TouchableOpacity>
-                        <View style={styles.div4}>  
-                            <Entypo 
-                                name="github" 
-                                size={40} 
-                                color="black" />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.div5}>
-                            <MaterialCommunityIcons 
-                                name="google-maps" 
-                                size={40} 
-                                color="black" />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.div6}>
-                            <MaterialCommunityIcons 
-                                name="google-drive" 
-                                size={40} 
-                                color="black" />
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.apartado}>
-                <TouchableOpacity>
-                    <View style={styles.div7}>  
-                        <MaterialCommunityIcons 
-                            name="google-downasaur" 
-                            size={40} 
-                            color="black" />
+        <ScrollView>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.content}>
+                    <View style={styles.search}>
+                        <TextInput 
+                            style={styles.textInput}
+                            placeholder="Buscador"
+                            onChangeText={newText => setText(newText)}
+                            defaultValue={text}
+                        />
+                        <Ionicons 
+                            style={styles.iconSearch}
+                            name="search"
+                            size={24}
+                            color="black"/>
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <View style={styles.div8}>
-                        <Fontisto 
-                            name="applemusic" 
-                            size={40} 
-                            color="black" />
+                    <View style={styles.apartado}>
+                        <TouchableOpacity>
+                            <View style={styles.div1}>
+                                <MaterialCommunityIcons 
+                                    name="netflix" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={styles.div2}>
+                                <AntDesign 
+                                    name="amazon" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={styles.div3}>
+                                <Entypo 
+                                    name="spotify" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <View style={styles.div9}>
-                        <FontAwesome5 
-                            name="telegram" 
-                            size={40} 
-                            color="black" />
+                    <View style={styles.apartado}>
+                        <TouchableOpacity>
+                            <View style={styles.div4}>  
+                                <Entypo 
+                                    name="github" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={styles.div5}>
+                                <MaterialCommunityIcons 
+                                    name="google-maps" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={styles.div6}>
+                                <MaterialCommunityIcons 
+                                    name="google-drive" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
                     </View>
-                </TouchableOpacity>
-                </View>
-                <View style={styles.apartado}>
+                    <View style={styles.apartado}>
                     <TouchableOpacity>
-                        <View style={styles.div10}>  
-                            <FontAwesome 
-                                name="linkedin" 
+                        <View style={styles.div7}>  
+                            <MaterialCommunityIcons 
+                                name="google-downasaur" 
                                 size={40} 
                                 color="black" />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <View style={styles.div11}>
+                        <View style={styles.div8}>
+                            <Fontisto 
+                                name="applemusic" 
+                                size={40} 
+                                color="black" />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <View style={styles.div9}>
                             <FontAwesome5 
-                                name="cc-apple-pay" 
+                                name="telegram" 
                                 size={40} 
                                 color="black" />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.div12}>
-                            <FontAwesome5 
-                                name="tiktok" 
-                                size={40} 
-                                color="black" />
-                        </View>
-                    </TouchableOpacity> 
+                    </View>
+                    <View style={styles.apartado}>
+                        <TouchableOpacity>
+                            <View style={styles.div10}>  
+                                <FontAwesome 
+                                    name="linkedin" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={styles.div11}>
+                                <FontAwesome5 
+                                    name="cc-apple-pay" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={styles.div12}>
+                                <FontAwesome5 
+                                    name="tiktok" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity> 
+                    </View>
+                    <View style={styles.apartado}>
+                        <TouchableOpacity>
+                            <View style={styles.div13}>  
+                                <MaterialCommunityIcons 
+                                    name="apple-icloud" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={styles.div14}>
+                                <MaterialCommunityIcons 
+                                    name="calculator" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={styles.div15}>
+                                <AntDesign 
+                                    name="google" 
+                                    size={40} 
+                                    color="black" />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    
                 </View>
-                <View style={styles.apartado}>
-                    <TouchableOpacity>
-                        <View style={styles.div13}>  
-                            <MaterialCommunityIcons 
-                                name="apple-icloud" 
-                                size={40} 
-                                color="black" />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.div14}>
-                            <MaterialCommunityIcons 
-                                name="calculator" 
-                                size={40} 
-                                color="black" />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.div15}>
-                            <AntDesign 
-                                name="google" 
-                                size={40} 
-                                color="black" />
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </ScrollView>
+        
     );
 };
 
