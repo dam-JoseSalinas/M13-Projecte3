@@ -29,85 +29,130 @@ export default function Search(){
                 <View style={styles.apartado}>
                     <TouchableOpacity>
                         <View style={styles.div1}>
-                            <MaterialCommunityIcons name="netflix" size={40} color="black" />
+                            <MaterialCommunityIcons 
+                                name="netflix" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View style={styles.div2}>
-                            <AntDesign name="amazon" size={40} color="black" />
+                            <AntDesign 
+                                name="amazon" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View style={styles.div3}>
-                            <Entypo name="spotify" size={40} color="black" />
+                            <Entypo 
+                                name="spotify" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.apartado}>
                     <TouchableOpacity>
                         <View style={styles.div4}>  
-                            <Entypo name="github" size={40} color="black" />
+                            <Entypo 
+                                name="github" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View style={styles.div5}>
-                            <MaterialCommunityIcons name="google-maps" size={40} color="black" />
+                            <MaterialCommunityIcons 
+                                name="google-maps" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View style={styles.div6}>
-                            <MaterialCommunityIcons name="google-drive" size={40} color="black" />
+                            <MaterialCommunityIcons 
+                                name="google-drive" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.apartado}>
                 <TouchableOpacity>
                     <View style={styles.div7}>  
-                        <MaterialCommunityIcons name="google-downasaur" size={40} color="black" />
+                        <MaterialCommunityIcons 
+                            name="google-downasaur" 
+                            size={40} 
+                            color="black" />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <View style={styles.div8}>
-                        <Fontisto name="applemusic" size={40} color="black" />
+                        <Fontisto 
+                            name="applemusic" 
+                            size={40} 
+                            color="black" />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <View style={styles.div9}>
-                        <FontAwesome5 name="telegram" size={40} color="black" />
+                        <FontAwesome5 
+                            name="telegram" 
+                            size={40} 
+                            color="black" />
                     </View>
                 </TouchableOpacity>
                 </View>
                 <View style={styles.apartado}>
                     <TouchableOpacity>
                         <View style={styles.div10}>  
-                            <FontAwesome name="linkedin" size={40} color="black" />
+                            <FontAwesome 
+                                name="linkedin" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View style={styles.div11}>
-                            <FontAwesome5 name="cc-apple-pay" size={40} color="black" />
+                            <FontAwesome5 
+                                name="cc-apple-pay" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View style={styles.div12}>
-                            <FontAwesome5 name="tiktok" size={40} color="black" />
+                            <FontAwesome5 
+                                name="tiktok" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity> 
                 </View>
                 <View style={styles.apartado}>
                     <TouchableOpacity>
                         <View style={styles.div13}>  
-                            <MaterialCommunityIcons name="apple-icloud" size={40} color="black" />
+                            <MaterialCommunityIcons 
+                                name="apple-icloud" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View style={styles.div14}>
-                            <MaterialCommunityIcons name="calculator" size={40} color="black" />
+                            <MaterialCommunityIcons 
+                                name="calculator" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View style={styles.div15}>
-                            <AntDesign name="google" size={40} color="black" />
+                            <AntDesign 
+                                name="google" 
+                                size={40} 
+                                color="black" />
                         </View>
                     </TouchableOpacity>
                 </View>
