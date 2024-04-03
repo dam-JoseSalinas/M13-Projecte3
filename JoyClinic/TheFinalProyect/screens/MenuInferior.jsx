@@ -8,6 +8,7 @@ import Settings from './Settings';
 import { Ionicons } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import Profile from './Profile';
 
 const BottomNavBar = createBottomTabNavigator();
 
@@ -70,6 +71,12 @@ export default function MenuInferior() {
                                     : 
                                     (<Ionicons name="cog-outline" size={size} color={color} />);
                             }
+                            else if (route.name === "Profile") {
+                                iconComponent = focused ? 
+                                    (<Ionicons name="cog-outline" size={size} color="black" />)
+                                    : 
+                                    (<Ionicons name="cog-outline" size={size} color={color} />);
+                            }
                             return iconComponent;
                         },
                     })
@@ -87,6 +94,9 @@ export default function MenuInferior() {
                 <BottomNavBar.Screen
                     name="Settings"
                     component={Settings}/>
+                    <BottomNavBar.Screen
+                    name="Profile"
+                    component={Profile}/>
             </BottomNavBar.Navigator>
             {/*================== 
                 MENUS LATERALES
