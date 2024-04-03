@@ -73,9 +73,9 @@ export default function MenuInferior() {
                             }
                             else if (route.name === "Profile") {
                                 iconComponent = focused ? 
-                                    (<Ionicons name="cog-outline" size={size} color="black" />)
+                                    (<Ionicons name="person" size={24} color="black"/>)
                                     : 
-                                    (<Ionicons name="cog-outline" size={size} color={color} />);
+                                    (<Ionicons name="person" size={size} color={color} />);
                             }
                             return iconComponent;
                         },
