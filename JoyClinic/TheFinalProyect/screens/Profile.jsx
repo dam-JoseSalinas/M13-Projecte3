@@ -91,7 +91,7 @@ import {
             source={images.cover}
             resizeMode="cover"
             style={{
-              height: 100,
+              height: 60,
               width: "100%",
             }}
           />
@@ -113,7 +113,7 @@ import {
   
           <Text
             style={{
-              ...FONTS.h3,
+              
               color: COLORS.primary,
               marginVertical: 8,
             }}
@@ -123,7 +123,7 @@ import {
           <Text
             style={{
               color: COLORS.black,
-              ...FONTS.body4,
+             
             }}
           >
             Desarrollador Multimedia
@@ -139,7 +139,7 @@ import {
             <MaterialIcons name="location-on" size={24} color="black" />
             <Text
               style={{
-                ...FONTS.body4,
+                
                 marginLeft: 4,
               }}
             >
@@ -162,7 +162,7 @@ import {
             >
               <Text
                 style={{
-                  ...FONTS.h2,
+                  
                   color: COLORS.primary,
                 }}
               >
@@ -170,7 +170,7 @@ import {
               </Text>
               <Text
                 style={{
-                  ...FONTS.body4,
+                  
                   color: COLORS.primary,
                 }}
               >
@@ -187,7 +187,7 @@ import {
             >
               <Text
                 style={{
-                  ...FONTS.h2,
+                
                   color: COLORS.primary,
                 }}
               >
@@ -195,7 +195,7 @@ import {
               </Text>
               <Text
                 style={{
-                  ...FONTS.body4,
+                 
                   color: COLORS.primary,
                 }}
               >
@@ -221,13 +221,13 @@ import {
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: COLORS.primary,
-                borderRadius: 10,
-                marginHorizontal: SIZES.padding * 2,
+                borderRadius: 9,
+                marginHorizontal: SIZES.padding -10,
               }}
             >
               <Text
                 style={{
-                  ...FONTS.body4,
+                 
                   color: COLORS.white,
                 }}
               >
@@ -243,18 +243,41 @@ import {
                 justifyContent: "center",
                 backgroundColor: COLORS.primary,
                 borderRadius: 10,
-                marginHorizontal: SIZES.padding * 2,
+                marginHorizontal: SIZES.padding,
               }}
             >
               <Text
                 style={{
-                  ...FONTS.body4,
+                
                   color: COLORS.white,
                 }}
               >
                 Add Friend
               </Text>
+              
             </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: 124,
+                height: 36,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: COLORS.primary,
+                borderRadius: 10,
+                marginHorizontal: SIZES.padding -10,
+              }}
+            >
+              <Text
+                style={{
+                
+                  color: COLORS.white,
+                }}
+              >
+                Calendary
+              </Text>
+              
+            </TouchableOpacity>
+            
           </View>
         </View>
   
