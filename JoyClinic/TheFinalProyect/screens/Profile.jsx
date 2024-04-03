@@ -221,7 +221,7 @@ import {
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: COLORS.primary,
-                borderRadius: 10,
+                borderRadius: 9,
                 marginHorizontal: SIZES.padding -10,
               }}
             >
