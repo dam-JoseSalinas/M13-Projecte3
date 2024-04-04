@@ -89,14 +89,14 @@ export default function MenuInferior() {
                     name="Search"
                     component={Search}/>
                 <BottomNavBar.Screen
+                    name="Profile"
+                    component={Profile}/>
+                <BottomNavBar.Screen
                     name="Contacs"
                     component={Contacts}/>
                 <BottomNavBar.Screen
                     name="Settings"
                     component={Settings}/>
-                    <BottomNavBar.Screen
-                    name="Profile"
-                    component={Profile}/>
             </BottomNavBar.Navigator>
             {/*================== 
                 MENUS LATERALES

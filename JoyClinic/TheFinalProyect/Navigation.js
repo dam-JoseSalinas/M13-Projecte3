@@ -1,9 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
-import { 
-  NavigationContainer, 
-  DefaultTheme,
-  DarkTheme } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
 import Bienvenida from './screens/Bienvenida';
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
@@ -74,11 +71,12 @@ export default function Navigation() {
         <Stack.Screen
           name="UserProfile"
           component={Profile}
-          //options={{ headerShown: false}}
+          options={{ headerShown: false}}
         />
         <Stack.Screen
           name="Dispositivos"
           component={Dispositivos}
+          
         />
         <Stack.Screen
           name="EditProfile"
