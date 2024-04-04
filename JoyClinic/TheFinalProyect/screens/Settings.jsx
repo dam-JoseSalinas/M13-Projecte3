@@ -18,6 +18,9 @@ export default function Settings(){
     const editProfile = () => {
         navigation.navigate('EditProfile')
     }
+    //const exit = () => {
+    //    navigation.navigate('Bienvenida')
+    //}
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
@@ -230,7 +233,9 @@ export default function Settings(){
                         <Ionicons 
                             name="exit-outline" 
                             size={24} 
-                            color="black" />
+                            color="black"
+                            //onPress={exit} 
+                            />
                         <View style={{ flex: 1 }}>
                             <Text style={styles.gestorCuenta}>Salir</Text>
                             <Text style={styles.texto}>Cierra la cuenta del dispositivo actual</Text>

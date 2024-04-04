@@ -1,18 +1,11 @@
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    useWindowDimensions,
-    FlatList,
-  } from "react-native";
-  import React, { useState } from "react";
-  import { SafeAreaView } from "react-native-safe-area-context";
-  import { COLORS, FONTS, SIZES, images } from "../constants";
-  import { StatusBar } from "expo-status-bar";
-  import { MaterialIcons } from "@expo/vector-icons";
-  import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-  import { photos } from "../constants/data";
+import {View, Text, Image, TouchableOpacity, useWindowDimensions, FlatList } from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { COLORS, FONTS, SIZES, images } from "../constants";
+import { StatusBar } from "expo-status-bar";
+import { MaterialIcons } from "@expo/vector-icons";
+import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+import { photos } from "../constants/data";
   
   const PhotosRoutes = () => (
     <View style={{ flex: 1 }}>
