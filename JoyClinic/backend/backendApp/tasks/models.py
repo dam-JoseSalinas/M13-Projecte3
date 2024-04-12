@@ -1,20 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 # Create your models here.
-class Task(models.Model):
-    titile = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
-    done = models.BooleanField(default=False)
-
-    def __str__(self) -> str:
-        return self.titile
-
+def validate_number(value):
+    try:
+        int(value)
+    except ValueError:
+        raise ValidationError('El número debe contener solo dígitos.')
+    
 class Register(models.Model):
-    register = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     surname = models.CharField(max_length=200)
-    number = models.CharField(max_length=200)
+    number = models.CharField(max_length=200, validators=[validate_number]) 
     email = models.EmailField(max_length=200)
     email2 = models.EmailField(max_length=200)
     psw = models.CharField(max_length=200)
@@ -23,6 +21,12 @@ class Register(models.Model):
     def __str__(self) -> str:
         return self.name
     
+    def clean(self):
+        if self.email != self.email2:
+            raise ValidationError({'email': 'Los correos electrónicos no coinciden'})
+        if self.psw != self.pwd2:
+            raise ValidationError({'psw': 'Las contraseñas no coinciden'})
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # Campos adicionales del perfil

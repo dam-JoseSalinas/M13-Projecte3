@@ -11,14 +11,39 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [psw, setPsw] = useState('') 
     const navigation = useNavigation();
-
-    const handleRegister = () => {
-        if (username && password && userlastname && number && email && confirmEmail && psw) {
-            navigation.navigate('TabGroup');
-        } else {
-            Alert.alert('Error', 'Por favor, completa todos los campos');
+    
+    const handleRegister = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/v1/tasks/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: username,
+                    surname: userlastname,
+                    number: number,
+                    email: email,
+                    email2: confirmEmail,
+                    psw: password,
+                    pwd2: psw,
+                }),
+            });
+            
+            if (response.ok) {
+                // Registro exitoso, redirigir a la pantalla TabGroup
+                navigation.navigate('MenuInferior');
+            } else {
+                // Ocurrió un error al registrar al usuario
+                Alert.alert('Error', 'Ocurrió un error al registrar al usuario');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'Ocurrió un error al conectar con el servidor');
         }
     };
+    
+    
 
     return (
         <SafeAreaView style={styles.container}>
