@@ -1,7 +1,11 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework import routers
+from tasks import views
+
+
+router = routers.DefaultRouter()
+router.register(r'registros', views.RegisterAPIsREST)
 
 urlpatterns = [
-    path('register/', views.RegisterViewSet.as_view({'post': 'create'}), name='register'),  # URL para el registro de usuarios
-    # Otras URLs de la aplicación tasks
+    path("api/v1/", include(router.urls))
 ]

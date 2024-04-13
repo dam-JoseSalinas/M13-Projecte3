@@ -11,10 +11,18 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [psw, setPsw] = useState('') 
     const navigation = useNavigation();
-    
-    const handleRegister = async () => {
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/v1/tasks/', {
+    /*
+    const handleRegister = () => {
+        if (username && password && userlastname && number && email && confirmEmail && psw) {
+            navigation.navigate('MenuInferior');
+        } else {
+            Alert.alert('Error', 'Por favor, completa todos los campos');
+        }
+    };
+    */
+    const handleRegister = () => {
+        if (username && password && userlastname && number && email && confirmEmail && psw) {
+            fetch('http://192.168.1.33:8000/registro/api/v1/registros/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,22 +36,22 @@ export default function Register() {
                     psw: password,
                     pwd2: psw,
                 }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    navigation.navigate('MenuInferior');
+                } else {
+                    Alert.alert('Error', 'Hubo un problema durante el registro. Por favor, inténtalo de nuevo.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Alert.alert('Error', 'Hubo un problema durante el registro. Por favor, inténtalo de nuevo.');
             });
-            
-            if (response.ok) {
-                // Registro exitoso, redirigir a la pantalla TabGroup
-                navigation.navigate('MenuInferior');
-            } else {
-                // Ocurrió un error al registrar al usuario
-                Alert.alert('Error', 'Ocurrió un error al registrar al usuario');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            Alert.alert('Error', 'Ocurrió un error al conectar con el servidor');
+        } else {
+            Alert.alert('Error', 'Por favor, completa todos los campos');
         }
     };
-    
-    
 
     return (
         <SafeAreaView style={styles.container}>
