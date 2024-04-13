@@ -17,17 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from tasks.views import saludo
-from rest_framework import routers
-from tasks import views
-
-router = routers.DefaultRouter()
-router.register(r'tasks', views.RegisterViewSet, 'tasks')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('saludo/', saludo),
-    path('api/v1/', include(router.urls)),  # Incluye las URLs de la API REST
-    path('register/', include('tasks.urls'))  # Incluye las URLs de registro
+    path('registro/', include('tasks.urls'))
 ]
 
 
