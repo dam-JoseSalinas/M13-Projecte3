@@ -6,6 +6,10 @@ from django.core.validators import EmailValidator
 # Create your models here.
 from django.core.exceptions import ValidationError
 
+def validate_password(value):
+    if len(str(value)) < 8:
+        raise ValidationError('La password debe tener mas de 8 caracteres')
+    
 def validate_number(value):
     try:
         number = int(value)
@@ -22,7 +26,7 @@ class Register(models.Model):
     number = models.CharField(max_length=200, unique=True, validators=[validate_number]) 
     email = models.EmailField(max_length=200, unique=True, validators=[EmailValidator(message='Ingrese un correo válido.')])
     email2 = models.EmailField(max_length=200, unique=True, validators=[EmailValidator(message='Ingrese un correo válido.')])
-    psw = models.CharField(max_length=200)
+    psw = models.CharField(max_length=200, validators=[validate_password])
     pwd2 = models.CharField(max_length=200)
 
     def clean(self):
