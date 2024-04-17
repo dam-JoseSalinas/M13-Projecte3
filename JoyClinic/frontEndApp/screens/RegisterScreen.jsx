@@ -43,7 +43,7 @@ export default function Register() {
                 } else {
                     // Si la respuesta no es exitosa, mostramos el mensaje del response
                     response.text().then(errorMessage => {
-                        Alert.alert(errorMessage);
+                        Alert.alert(errorMessage.split(":")[1].split("\"")[1]);
                     })
                 }
             })
@@ -55,7 +55,7 @@ export default function Register() {
             Alert.alert('Error', 'Por favor, completa todos los campos');
         }
     };
-
+    
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
