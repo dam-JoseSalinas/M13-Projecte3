@@ -13,6 +13,7 @@ import LoadingIncial from './screens/LoadingInicial';
 import Profile from './screens/Contacts';
 import Dispositivos from './screens/Dispositivos';
 import EditProfile from './screens/EditProfile';
+import Calendar from './screens/Calendario';
 
 
 
