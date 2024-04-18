@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import Profile from './Profile';
+import Calendar from './Calendario';
 
 const BottomNavBar = createBottomTabNavigator();
 
