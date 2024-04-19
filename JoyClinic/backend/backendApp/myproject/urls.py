@@ -21,7 +21,7 @@ from tasks.views import saludo
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('saludo/', saludo),
-    path('registro/', include('tasks.urls'))
+    path('', include('tasks.urls'))
 ]
 
 
