@@ -22,7 +22,7 @@ export default function Register() {
     */
     const handleRegister = () => {
         if (username && password && userlastname && number && email && confirmEmail && psw) {
-            fetch('http://10.0.2.2:8000/registro/api/v1/registros/', {
+            fetch('http://10.0.2.2:8000/api/v1/registros/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

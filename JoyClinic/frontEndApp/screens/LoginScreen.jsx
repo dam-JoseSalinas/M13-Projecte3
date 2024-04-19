@@ -9,9 +9,9 @@ const Tab = createBottomTabNavigator();
 export default function Login() {
 
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [psw , setPsw] = useState('');
     const navigation = useNavigation();
-
+/*
     const handleLogin = () => {
         if (email && password) {
             navigation.navigate('MenuInferior');
@@ -19,6 +19,30 @@ export default function Login() {
             Alert.alert('Error', 'Por favor, completa todos los campos');
         }
     };
+*/
+    const handleLogin = () =>{
+        if (email && psw) {
+            fetch('http:/10.0.2.2:8000/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    psw: psw,
+                }),
+            })
+            .then(response => {
+                if(response.ok) {
+                    navigation.navigate('MenuInferior');
+                } else {
+                    response.text().then(errorMessage => {
+                        Alert.alert(errorMessage)
+                    })
+                }
+            })
+        }
+    }
 
     const handleRegisterPress = () => {
         navigation.navigate('RegisterScreen');
@@ -44,8 +68,8 @@ export default function Login() {
                     style={styles.input}/>
                 <TextInput
                     placeholder="Password"
-                    value={password}
-                    onChangeText={text => setPassword(text)}
+                    value={psw}
+                    onChangeText={text => setPsw(text)}
                     secureTextEntry={true}
                     style={styles.input}/>
                 
