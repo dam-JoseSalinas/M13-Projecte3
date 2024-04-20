@@ -37,7 +37,7 @@ export default function Login() {
                     navigation.navigate('MenuInferior');
                 } else {
                     response.text().then(errorMessage => {
-                        Alert.alert(errorMessage)
+                        Alert.alert(errorMessage.split(":")[1].split("\"")[1]);
                     })
                 }
             })
@@ -85,10 +85,11 @@ export default function Login() {
                         <Text>Register</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.buttonGuest} onPress={handleGuestPress}>
+                <TouchableOpacity 
+                    style={styles.buttonGuest}
+                    onPress={handleGuestPress}>
                     <Text>Guest</Text>
                 </TouchableOpacity>
-
                 <StatusBar style="auto" />
             </View>
         </SafeAreaView>
