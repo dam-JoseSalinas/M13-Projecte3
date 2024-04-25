@@ -1,290 +1,113 @@
-import {View, Text, Image, TouchableOpacity, useWindowDimensions, FlatList } from "react-native";
-import React, { useState } from "react";
+import {View, Text, Image, TouchableOpacity, useWindowDimensions, FlatList, TextInput } from "react-native";
+import React, { useState, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLORS, FONTS, SIZES, images } from "../constants";
-import { StatusBar } from "expo-status-bar";
-import { MaterialIcons } from "@expo/vector-icons";
-import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-import { photos } from "../constants/data";
+import { Ionicons, MaterialIcons, Entypo } from "@expo/vector-icons";
   
-  const PhotosRoutes = () => (
-    <View style={{ flex: 1 }}>
-      <FlatList
-        data={photos}
-        numColumns={3}
-        renderItem={({ item, index }) => (
-          <View
-            style={{
-              flex: 1,
-              aspectRatio: 1,
-              margin: 3,
-            }}
-          >
-            <Image
-              key={index}
-              source={item}
-              style={{ width: "100%", height: "100%", borderRadius: 12 }}
-            />
-          </View>
-        )}
-      />
-    </View>
-  );
-  
-  const LikesRoutes = () => (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "blue",
-      }}
-    />
-  );
-  
-  const renderScene = SceneMap({
-    first: PhotosRoutes,
-    second: LikesRoutes,
-  });
-  
-  const Profile = () => {
-    const layout = useWindowDimensions();
-    const [index, setIndex] = useState(0);
-  
-    const [routes] = useState([
-      { key: "first", title: "Galería" },
-      { key: "second", title: "Guardados" },
-    ]);
-  
-    const renderTabBar = (props) => (
-      <TabBar
-        {...props}
-        indicatorStyle={{
-          backgroundColor: COLORS.primary,
-        }}
-        style={{
-          backgroundColor: COLORS.white,
-          height: 44,
-        }}
-        renderLabel={({ focused, route }) => (
-          <Text style={[{ color: focused ? COLORS.black : COLORS.gray }]}>
-            {route.title}
-          </Text>
-        )}
-      />
-    );
-    return (
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: COLORS.white,
-        }}
-      >
-        <StatusBar backgroundColor={COLORS.gray} />
-        <View style={{ width: "100%" }}>
-          <Image
-            source={images.cover}
-            resizeMode="cover"
-            style={{
-              height: 60,
-              width: "100%",
-            }}
-          />
-        </View>
-  
-        <View style={{ flex: 1, alignItems: "center" }}>
-          <Image
-            source={images.profile}
-            resizeMode="contain"
-            style={{
-              height: 155,
-              width: 155,
-              borderRadius: 999,
-              borderColor: COLORS.primary,
-              borderWidth: 2,
-              marginTop: -90,
-            }}
-          />
-  
-          <Text
-            style={{
-              
-              color: COLORS.primary,
-              marginVertical: 8,
-            }}
-          >
-            Alejandro Gutiérrez
-          </Text>
-          <Text
-            style={{
-              color: COLORS.black,
-             
-            }}
-          >
-            Desarrollador Multimedia
-          </Text>
-  
-          <View
-            style={{
-              flexDirection: "row",
-              marginVertical: 6,
-              alignItems: "center",
-            }}
-          >
-            <MaterialIcons name="location-on" size={24} color="black" />
-            <Text
-              style={{
-                
-                marginLeft: 4,
-              }}
-            >
-              Barcelona, España
-            </Text>
-          </View>
-  
-          <View
-            style={{
-              paddingVertical: 8,
-              flexDirection: "row",
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "column",
-                alignItems: "center",
-                marginHorizontal: SIZES.padding,
-              }}
-            >
-              <Text
-                style={{
-                  
-                  color: COLORS.primary,
-                }}
-              >
-                122
-              </Text>
-              <Text
-                style={{
-                  
-                  color: COLORS.primary,
-                }}
-              >
-                Followers
-              </Text>
+const Profile = () => {    
+  return (
+    <SafeAreaView style={styles.container}>    
+        <View style={styles.contender1}>
+            <Ionicons 
+                style={styles.profile}
+                name="person-circle-outline" 
+                size={70} 
+                color="black" />
+            <View style={styles.datos}>
+                <Text style={styles.texts}>Anthony Sebatian Palenque Arias</Text>
+                <Text style={styles.texts}>Desarrollador de aplicaciones</Text>
+                <View style={styles.location}>
+                    <View style={styles.divLocation}>
+                        <Text style={styles.texts}>Spain-Barcelona</Text>
+                    </View>
+                    <Entypo
+                        style={styles.locationIcon}
+                        name="location-pin"
+                        size={20}
+                        color="black"/>
+                </View>
             </View>
-  
-            <View
-              style={{
-                flexDirection: "column",
-                alignItems: "center",
-                marginHorizontal: SIZES.padding,
-              }}
-            >
-              <Text
-                style={{
-                
-                  color: COLORS.primary,
-                }}
-              >
-                67
-              </Text>
-              <Text
-                style={{
-                 
-                  color: COLORS.primary,
-                }}
-              >
-                Followings
-              </Text>
-            </View>
-  
-            <View
-              style={{
-                flexDirection: "column",
-                alignItems: "center",
-                marginHorizontal: SIZES.padding,
-              }}
-            >
-            </View>
-          </View>
-  
-          <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity
-              style={{
-                width: 124,
-                height: 36,
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: COLORS.primary,
-                borderRadius: 9,
-                marginHorizontal: SIZES.padding -10,
-              }}
-            >
-              <Text
-                style={{
-                 
-                  color: COLORS.white,
-                }}
-              >
-                Edit Profile
-              </Text>
-            </TouchableOpacity>
-  
-            <TouchableOpacity
-              style={{
-                width: 124,
-                height: 36,
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: COLORS.primary,
-                borderRadius: 10,
-                marginHorizontal: SIZES.padding,
-              }}
-            >
-              <Text
-                style={{
-                
-                  color: COLORS.white,
-                }}
-              >
-                Add Friend
-              </Text>
-              
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                width: 124,
-                height: 36,
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: COLORS.primary,
-                borderRadius: 10,
-                marginHorizontal: SIZES.padding -10,
-              }}
-            >
-              <Text
-                style={{
-                
-                  color: COLORS.white,
-                }}
-              >
-                Calendary
-              </Text>
-              
-            </TouchableOpacity>
-            
-          </View>
         </View>
-  
-        <View style={{ flex: 1, marginHorizontal: 22, marginTop: 20 }}>
-          <TabView
-            navigationState={{ index, routes }}
-            renderScene={renderScene}
-            onIndexChange={setIndex}
-            initialLayout={{ width: layout.width }}
-            renderTabBar={renderTabBar}
-          />
+        <View 
+            style={styles.line}>
         </View>
-      </SafeAreaView>
+        <View style={styles.contender2}>
+            <TouchableOpacity style={styles.buttonEditProfile}>
+                <Text style={styles.textButton}>
+                    Editar Perfil
+                </Text>
+            </TouchableOpacity>    
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.textButton}>
+                    Compartir Perfil
+                </Text>
+            </TouchableOpacity> 
+        </View>
+    </SafeAreaView>
     );
   };
-  
-  export default Profile;
+export default Profile;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contender1: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 20, 
+  },
+  profile: {
+    width: "30%",
+  },
+  datos: {
+    flex: 1,
+  },
+  location: {
+    flexDirection: "row",
+    alignItems: "center", 
+  },
+  locationIcon: {
+    marginRight: 5, 
+  },
+  divLocation: {
+    //flex: 1,
+  },
+  texts: {
+    fontWeight: '300',
+  },
+  line: {
+    alignSelf: "center",
+    backgroundColor: 'black',
+    padding: 0.000000001,
+    width: '95%',
+    borderRadius: 100,
+    borderWidth: 1,
+  },
+  contender2: {
+    flexDirection: "row",
+    justifyContent: "space-evenly", 
+  },
+  buttonEditProfile: {
+    alignSelf: "flex-start",
+    marginTop: 10, 
+    backgroundColor: '#d3d3d3',
+    padding: 10,
+    width: '40%',
+    borderRadius: 15,
+    borderWidth: 1,
+    alignItems: "center"
+  },
+  button: {
+    alignSelf: "flex-start",
+    marginTop: 10, 
+    backgroundColor: '#d3d3d3',
+    padding: 10,
+    width: '40%',
+    borderRadius: 15,
+    borderWidth: 1,
+    alignItems: "center"
+  },
+  textButton: {
+    fontWeight: '300',
+  },
+});

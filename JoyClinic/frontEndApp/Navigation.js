@@ -1,38 +1,38 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
+import { useColorScheme } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import MenuInferior from './screens/MenuInferior';
+import Dispositivos from './screens/Dispositivos';
+import LoadingInicial from './screens/LoadingInicial';
 import Bienvenida from './screens/Bienvenida';
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import MenuInferior from './screens/MenuInferior';
 import Funny from './screens/Funny';
 import SocialNetworks from './screens/SocialNetworks';
-import { useColorScheme } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import LoadingIncial from './screens/LoadingInicial';
 import Profile from './screens/Contacts';
-import Dispositivos from './screens/Dispositivos';
 import EditProfile from './screens/EditProfile';
-import Calendar from './screens/Calendario';
-
 
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
-/*Componente secundario de navegación que deberia estar en carpeta components*/
-export default function Navigation() {
-  const currentTheme = useColorScheme();
-  const theme = currentTheme === 'dark' ? DarkTheme : DefaultTheme;
-  const DrawerLateralMenu = createDrawerNavigator();
-
+function DrawerNavigator() {
   return (
-    /*Duelve navegador entre componenetes*/
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator>
+    <Drawer.Navigator>
+      <Drawer.Screen name="Home" component={StackNavigator} />
+    </Drawer.Navigator>
+  );
+}
+
+function StackNavigator() {
+  return (
+    <Stack.Navigator>
         {/*LoadingInicial*/}
         <Stack.Screen
           name="LoadingInicial"
-          component={LoadingIncial}
+          component={LoadingInicial}
           options={{ headerShown: false }}/>
         {/*Bienvenida*/}
         <Stack.Screen
@@ -54,20 +54,19 @@ export default function Navigation() {
         />
 
         {/*menu inferior*/}
-        <Stack.Screen
+        <Stack.Screen 
           name="MenuInferior"
           component={MenuInferior}
-          options={{ headerShown: false }} 
-        />
+          options={{ headerShown: false }} />
         <Stack.Screen
           name="Funny"
           component={Funny}
-          //options={{ headerShown: false}}
+          options={{ headerShown: false}}
         />
         <Stack.Screen
           name="SocialNetworks"
           component={SocialNetworks}
-          //options={{ headerShown: false}}
+          options={{ headerShown: false}}
         />
         <Stack.Screen
           name="UserProfile"
@@ -84,6 +83,16 @@ export default function Navigation() {
           component={EditProfile}
         />
       </Stack.Navigator>
+  );
+}
+
+export default function Navigation() {
+  const currentTheme = useColorScheme();
+  const theme = currentTheme === 'dark' ? DarkTheme : DefaultTheme;
+
+  return (
+    <NavigationContainer theme={theme}>
+      <DrawerNavigator />
     </NavigationContainer>
   );
 }
