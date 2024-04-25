@@ -21,6 +21,19 @@ export default function Home() {
     const redirectSocial = () => {
         navigation.navigate('SocialNetworks');
     }
+    const openTwitter = () => {
+        // Aquí se especifica el esquema de URL de Twitter
+        const twitterUrl = 'twitter://user?screen_name=nombredeusuario';
+    
+        Linking.canOpenURL(twitterUrl).then(supported => {
+            if (supported) {
+              // Si la aplicación de Twitter está instalada, abre la aplicación
+              return Linking.openURL(twitterUrl);
+            } else {
+              // Si la aplicación de Twitter no está instalada, abre el navegador web
+              return Linking.openURL('https://twitter.com/nombredeusuario');
+            }}).catch(err => console.error('Error al abrir Twitter:', err));
+    };
     {/*foros*/}
     {/*noticias*/}
 
@@ -81,7 +94,8 @@ export default function Home() {
                             name="twitter" 
                             size={50} 
                             color="black" 
-                            style={styles.twitter}/>
+                            style={styles.twitter}
+                            />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconFacebok}>
                         <Entypo 

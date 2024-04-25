@@ -17,30 +17,6 @@ const BottomNavBar = createBottomTabNavigator();
 export default function MenuInferior() {
     
     /*Funciones para menus laterales */
-    const [isMenuOpenR, setIsMenuOpenR] = useState(false);
-    const [isMenuOpenL, setIsMenuOpenL] = useState(false);
-
-    const toggleMenuR = () => {
-        setIsMenuOpenR(!isMenuOpenR);
-    };
-
-    const toggleMenuL = () => {
-        setIsMenuOpenL(!isMenuOpenL);
-    };
-
-    const menuPosition = useState(new Animated.Value(0))[0];
-    
-    const screenHeight = Dimensions.get('window').height;
-    const translateY = menuPosition.interpolate({
-        inputRange: [0, 1],
-        outputRange: [-screenHeight, 0],
-    });
-
-    const screenWidth = Dimensions.get('window').width;
-    const translateX = menuPosition.interpolate({
-        inputRange: [0, 1],
-        outputRange: [-screenWidth, 0],
-    });
 
     return (
         <View style={{ flex: 1 }}>
@@ -85,48 +61,25 @@ export default function MenuInferior() {
             >
                 <BottomNavBar.Screen
                     name="Home"
-                    component={Home}/>
+                    component={Home}
+                    options={{ headerShown: false }}/>
                 <BottomNavBar.Screen
                     name="Search"
-                    component={Search}/>
+                    component={Search}
+                    options={{ headerShown: false }}/>
                 <BottomNavBar.Screen
                     name="Profile"
-                    component={Profile}/>
+                    component={Profile}
+                    options={{ headerShown: false }}/>
                 <BottomNavBar.Screen
                     name="Contacs"
-                    component={Contacts}/>
+                    component={Contacts}
+                    options={{ headerShown: false }}/>
                 <BottomNavBar.Screen
                     name="Settings"
-                    component={Settings}/>
+                    component={Settings}
+                    options={{ headerShown: false }}/>
             </BottomNavBar.Navigator>
-            {/*================== 
-                MENUS LATERALES
-            ================== */}
-            {/* Botón desplegable en la parte derecha */}
-            <TouchableOpacity onPress={toggleMenuR} style={styles.menuButton}>
-                <Ionicons 
-                    name={isMenuOpenR ? 'close' : 'menu'}
-                    size={24}
-                    color="black" />
-            </TouchableOpacity>
-
-            {/* Botón desplegable en la parte izquierda */}
-            <TouchableOpacity onPress={toggleMenuL} style={styles.menuButtonLeft}>
-                <Ionicons
-                    name={isMenuOpenL ? 'close' : 'person-circle-sharp'}
-                    size={24}
-                    color="black" />
-            </TouchableOpacity>
-
-            
-            <Animated.View style={[styles.menuContainerY, { transform: [{ translateY }] }]}>
-                {/* Contenido del menú desplegable */}
-                {/* Aquí puedes agregar tus elementos de menú */}
-            </Animated.View>
-            <Animated.View style={[styles.menuContainerX, { transform: [{ translateX }] }]}>
-                {/* Contenido del menú desplegable */}
-                {/* Aquí puedes agregar tus elementos de menú */}
-            </Animated.View>
         </View>
     );
 }
