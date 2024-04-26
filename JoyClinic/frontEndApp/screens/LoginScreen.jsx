@@ -11,6 +11,8 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [psw , setPsw] = useState('');
     const navigation = useNavigation();
+    const ip = 'http:/10.0.2.2:8000/login/';
+    const phoneIP = 'http://192.168.1.1:8000/login/';
 /*
     const handleLogin = () => {
         if (email && password) {
@@ -20,9 +22,9 @@ export default function Login() {
         }
     };
 */
-    const handleLogin = () =>{
+    const handleLogin = () => {
         if (email && psw) {
-            fetch('http:/10.0.2.2:8000/login/', {
+            fetch(ip, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,8 +43,12 @@ export default function Login() {
                     })
                 }
             })
+            .catch(error => {
+                console.error('Error de red:', error);
+                Alert.alert('Error de red', 'Ha ocurrido un error de red. Por favor, inténtalo de nuevo más tarde.');
+            });
         }
-    }
+    };
 
     const handleRegisterPress = () => {
         navigation.navigate('RegisterScreen');

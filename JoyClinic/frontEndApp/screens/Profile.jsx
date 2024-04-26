@@ -1,113 +1,141 @@
-import {View, Text, Image, TouchableOpacity, useWindowDimensions, FlatList, TextInput } from "react-native";
-import React, { useState, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons, MaterialIcons, Entypo } from "@expo/vector-icons";
-  
-const Profile = () => {    
+import React from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Entypo } from "@expo/vector-icons";
+
+const Profile = () => {
   return (
-    <SafeAreaView style={styles.container}>    
-        <View style={styles.contender1}>
-            <Ionicons 
-                style={styles.profile}
-                name="person-circle-outline" 
-                size={70} 
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.profileInfo}>
+          <Image
+            source={require('../assets/images/foto_perfil/foto.jpg')}
+            style={styles.profileImage}/>
+          <View style={styles.textosProfile}>
+            <Text style={styles.username}>Anthony Sebastian Arias</Text>
+            <Text style={styles.bio}>Desarrollador de aplicaciones</Text>
+            <View style={styles.locationContainer}>
+              <Entypo 
+                name="location-pin" 
+                size={15} 
                 color="black" />
-            <View style={styles.datos}>
-                <Text style={styles.texts}>Anthony Sebatian Palenque Arias</Text>
-                <Text style={styles.texts}>Desarrollador de aplicaciones</Text>
-                <View style={styles.location}>
-                    <View style={styles.divLocation}>
-                        <Text style={styles.texts}>Spain-Barcelona</Text>
-                    </View>
-                    <Entypo
-                        style={styles.locationIcon}
-                        name="location-pin"
-                        size={20}
-                        color="black"/>
-                </View>
+              <Text style={styles.locationText}>Spain-Barcelona</Text>
             </View>
+          </View>
         </View>
-        <View 
-            style={styles.line}>
+        <View style={styles.statsContainer}>
+          <View style={styles.stat}>
+            <Text style={styles.statNumber}>100</Text>
+            <Text style={styles.statText}>Personales</Text>
+          </View>
+          <View style={styles.stat}>
+            <Text style={styles.statNumber}>10</Text>
+            <Text style={styles.statText}>Hospital</Text>
+          </View>
+          <View style={styles.stat}>
+            <Text style={styles.statNumber}>13</Text>
+            <Text style={styles.statText}>Favoritos</Text>
+          </View>
         </View>
-        <View style={styles.contender2}>
-            <TouchableOpacity style={styles.buttonEditProfile}>
-                <Text style={styles.textButton}>
-                    Editar Perfil
-                </Text>
-            </TouchableOpacity>    
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.textButton}>
-                    Compartir Perfil
-                </Text>
-            </TouchableOpacity> 
-        </View>
-    </SafeAreaView>
-    );
-  };
-export default Profile;
+      </View>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.buttonEditProfile}>
+          <Text style={styles.textButton}>Editar Perfil</Text>
+        </TouchableOpacity>    
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.textButton}>Compartir Perfil</Text>
+        </TouchableOpacity> 
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#ffffff',
   },
-  contender1: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 20, 
+  header: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#cccccc',
   },
-  profile: {
-    width: "30%",
+  profileInfo: {
+    flexDirection: 'row',
+    marginBottom: 10,
   },
-  datos: {
+  profileImage: {
+    borderRadius: 1000,
+    width: 40,
+    height: 40,
+  },
+  textosProfile: {
     flex: 1,
+    marginLeft: 40,
   },
-  location: {
-    flexDirection: "row",
-    alignItems: "center", 
+  editButton: {
+    alignSelf: 'flex-end',
   },
-  locationIcon: {
-    marginRight: 5, 
+  editText: {
+    fontSize: 16,
+    color: '#3498db',
   },
-  divLocation: {
-    //flex: 1,
+  username: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
-  texts: {
-    fontWeight: '300',
+  bio: {
+    fontSize: 15,
+    marginBottom: 2,
   },
-  line: {
-    alignSelf: "center",
-    backgroundColor: 'black',
-    padding: 0.000000001,
-    width: '95%',
-    borderRadius: 100,
-    borderWidth: 1,
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  contender2: {
-    flexDirection: "row",
-    justifyContent: "space-evenly", 
+  locationText: {
+    marginLeft: 5,
+    fontSize: 15,
+  },
+  
+  statsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  stat: {
+    alignItems: 'center',
+  },
+  statNumber: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  statText: {
+    fontSize: 16,
+    color: '#777777',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 10,
   },
   buttonEditProfile: {
-    alignSelf: "flex-start",
-    marginTop: 10, 
     backgroundColor: '#d3d3d3',
     padding: 10,
-    width: '40%',
+    width: '45%',
     borderRadius: 15,
     borderWidth: 1,
-    alignItems: "center"
+    alignItems: 'center',
   },
   button: {
-    alignSelf: "flex-start",
-    marginTop: 10, 
     backgroundColor: '#d3d3d3',
     padding: 10,
-    width: '40%',
+    width: '45%',
     borderRadius: 15,
     borderWidth: 1,
-    alignItems: "center"
+    alignItems: 'center',
   },
   textButton: {
     fontWeight: '300',
   },
 });
+
+export default Profile;
