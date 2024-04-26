@@ -1,11 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, ScrollView, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; 
 import { FontAwesome6 } from '@expo/vector-icons';
+import { err } from "react-native-svg";
 
 const Tab = createBottomTabNavigator(); 
 
@@ -22,21 +23,85 @@ export default function Home() {
         navigation.navigate('SocialNetworks');
     }
     const openTwitter = () => {
-        // Aquí se especifica el esquema de URL de Twitter
-        const twitterUrl = 'twitter://user?screen_name=nombredeusuario';
+        const twitterUrl = 'twitter:';
     
         Linking.canOpenURL(twitterUrl).then(supported => {
             if (supported) {
-              // Si la aplicación de Twitter está instalada, abre la aplicación
-              return Linking.openURL(twitterUrl);
+                return Linking.openURL(twitterUrl);
             } else {
-              // Si la aplicación de Twitter no está instalada, abre el navegador web
-              return Linking.openURL('https://twitter.com/nombredeusuario');
+                return Linking.openURL('https://twitter.com/');
             }}).catch(err => console.error('Error al abrir Twitter:', err));
     };
-    {/*foros*/}
-    {/*noticias*/}
+    const openInstagram = () => {
+        const instagramUrl = 'instagram:';
+        
+        Linking.canOpenURL(instagramUrl).then(supported => {
+            if(supported) {
+                return Linking.openURL(instagramUrl);
+            } else {
+                return Linking.openURL('https://instagram.com/');
+            }}).catch(err => console.error('Error al abrir Instagram:', err));
+    };
+    const openFacebook = () => {
+        const facebookUrl = 'facebook:';
 
+        Linking.canOpenURL(facebookUrl).then(supported => {
+            if(supported){
+                return Linking.openURL(facebookUrl);
+            } else {
+                return Linking.openURL('https://facebook.com/');
+            }}).catch(err => console.err('Error al abrir Facebook', err)); 
+    };
+    const openDiscord = () => {
+        const discordUrl = 'discord:';
+
+        Linking.canOpenURL(discordUrl).then(supported => {
+            if(supported){
+                return Linking.openURL(facebookUrl);
+            } else {
+                return Linking.openURL('https://discord.com/');
+            }}).catch(err => console.err('Error al abrir Discord', err)); 
+    };
+    const openYouTube = () => {
+        const youtubeUrl = 'youtube:';
+
+        Linking.canOpenURL(youtubeUrl).then(supported => {
+            if(supported){
+                return Linking.openURL(facebookUrl);
+            } else {
+                return Linking.openURL('https://youtube.com/');
+            }}).catch(err => console.err('Error al abrir Youtube', err)); 
+    };
+    const openReddit = () => {
+        const redditUrl = 'reddit:';
+
+        Linking.canOpenURL(redditUrl).then(supported => {
+            if(supported){
+                return Linking.openURL(facebookUrl);
+            } else {
+                return Linking.openURL('https://www.reddit.com/');
+            }}).catch(err => console.err('Error al abrir Youtube', err)); 
+    };
+    const openWhatsapp = () => {
+        const whatsappUrl = 'whatsapp:';
+
+        Linking.canOpenURL(whatsappUrl).then(supported => {
+            if(supported){
+                return Linking.openURL(facebookUrl);
+            } else {
+                return Linking.openURL('https://www.whatsapp.com/');
+            }}).catch(err => console.err('Error al abrir Youtube', err)); 
+    };
+    const openstackoverflow = () => {
+        const stackoverflowUrl = 'stackoverflow:';
+
+        Linking.canOpenURL(stackoverflowUrl).then(supported => {
+            if(supported){
+                return Linking.openURL(facebookUrl);
+            } else {
+                return Linking.openURL('https://stackoverflow.com/');
+            }}).catch(err => console.err('Error al abrir Youtube', err)); 
+    };
     return (
         <SafeAreaView style={styles.container}>
             {/*BODY*/}
@@ -87,7 +152,8 @@ export default function Home() {
                         <Entypo 
                             name="instagram" 
                             size={50} color="black" 
-                            style={styles.insta}/>
+                            style={styles.insta}
+                            onPress={openInstagram}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconTwitter}>
                         <Entypo 
@@ -95,14 +161,15 @@ export default function Home() {
                             size={50} 
                             color="black" 
                             style={styles.twitter}
-                            />
+                            onPress={openTwitter}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconFacebok}>
                         <Entypo 
                             name="facebook" 
                             size={50} 
                             color="black" 
-                            style={styles.facebook}/>
+                            style={styles.facebook}
+                            onPress={openFacebook}/>
                     </TouchableOpacity>
                 </View>
                 {/*
@@ -118,7 +185,8 @@ export default function Home() {
                             name="logo-reddit" 
                             size={50} 
                             color="black" 
-                            style={styles.reddit}/>
+                            style={styles.reddit}
+                            onPress={openReddit}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconSlideshare}>
                         <Entypo 
@@ -131,7 +199,8 @@ export default function Home() {
                         <FontAwesome 
                             name="stack-overflow" 
                             size={50} color="black" 
-                            style={styles.stack}/>
+                            style={styles.stack}
+                            onPress={openstackoverflow}/>
                     </TouchableOpacity>
                 </View>
                 {/*
@@ -176,19 +245,22 @@ export default function Home() {
                         <Entypo 
                             name="youtube"
                             size={50} 
-                            color="black" />
+                            color="black" 
+                            onPress={openYouTube}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoDiscord}>
                         <FontAwesome6 
                             name="discord"
                             size={50} 
-                            color="black" />
+                            color="black"
+                            onPress={openDiscord}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoWhats}>
                         <FontAwesome 
                             name="whatsapp" 
                             size={50} 
-                            color="black" /> 
+                            color="black"
+                            onPress={openWhatsapp} /> 
                     </TouchableOpacity>
                 </View>
             </ScrollView>

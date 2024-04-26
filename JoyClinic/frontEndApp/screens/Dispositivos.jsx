@@ -12,7 +12,7 @@ export default function Dispositivos(){
                 <View style={styles.dispositivos}>
                     <MaterialIcons 
                         name="phone-android" 
-                        size={24} ç
+                        size={24} 
                         color="black" />
                     <AntDesign 
                         name="apple1" 
