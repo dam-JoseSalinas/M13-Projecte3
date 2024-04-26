@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { es } from 'date-fns/locale/es'; // Importar el idioma español de date-fns
-//import { format } from 'date-fns'; // Importar la función de formato de date-fns
+import { format } from 'date-fns'; // Importar la función de formato de date-fns
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());

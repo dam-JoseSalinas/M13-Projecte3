@@ -13,6 +13,7 @@ import Funny from './screens/Funny';
 import SocialNetworks from './screens/SocialNetworks';
 import Profile from './screens/Contacts';
 import EditProfile from './screens/EditProfile';
+import Calendario from './screens/Calendario';
 
 
 const Stack = createStackNavigator();
@@ -22,6 +23,7 @@ function DrawerNavigator() {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="Home" component={StackNavigator} />
+      <Drawer.Screen name="Calendario" component={Calendario}/>
     </Drawer.Navigator>
   );
 }
@@ -76,11 +78,12 @@ function StackNavigator() {
         <Stack.Screen
           name="Dispositivos"
           component={Dispositivos}
-          
+          options={{ headerShown: false}}
         />
         <Stack.Screen
           name="EditProfile"
           component={EditProfile}
+          options={{ headerShown: false}}
         />
       </Stack.Navigator>
   );

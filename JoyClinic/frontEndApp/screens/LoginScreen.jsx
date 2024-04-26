@@ -12,7 +12,7 @@ export default function Login() {
     const [psw , setPsw] = useState('');
     const navigation = useNavigation();
     const ip = 'http:/10.0.2.2:8000/login/';
-    const phoneIP = 'http://192.168.1.1:8000/login/';
+    const phoneIP = 'http://172.20.10.2:8000/login/';
 /*
     const handleLogin = () => {
         if (email && password) {
