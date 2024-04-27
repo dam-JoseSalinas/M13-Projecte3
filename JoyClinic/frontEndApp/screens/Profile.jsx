@@ -8,7 +8,7 @@ const Profile = () => {
       <View style={styles.header}>
         <View style={styles.profileInfo}>
           <Image
-            source={require('../assets/images/foto_perfil/foto.jpg')}
+            source={require('../assets/images/foto_perfil/sebas2.jpg')}
             style={styles.profileImage}/>
           <View style={styles.textosProfile}>
             <Text style={styles.username}>Anthony Sebastian Arias</Text>

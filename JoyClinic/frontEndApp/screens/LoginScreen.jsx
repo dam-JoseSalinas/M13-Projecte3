@@ -12,7 +12,7 @@ export default function Login() {
     const [psw , setPsw] = useState('');
     const navigation = useNavigation();
     const ip = 'http:/10.0.2.2:8000/login/';
-    const phoneIP = 'http://172.20.10.2:8000/login/';
+    const phoneIP = 'http://192.168.1.33:8000/login/';
 /*
     const handleLogin = () => {
         if (email && password) {
@@ -24,7 +24,7 @@ export default function Login() {
 */
     const handleLogin = () => {
         if (email && psw) {
-            fetch(ip, {
+            fetch(phoneIP || ip, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
