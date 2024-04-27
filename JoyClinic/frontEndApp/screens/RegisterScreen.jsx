@@ -12,6 +12,7 @@ export default function Register() {
     const [psw, setPsw] = useState('') 
     const navigation = useNavigation();
     const ip = 'http://10.0.2.2:8000/api/v1/registros/';
+    const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/';
     /*
     const handleRegister = () => {
         if (username && password && userlastname && number && email && confirmEmail && psw) {
@@ -23,7 +24,7 @@ export default function Register() {
     */
     const handleRegister = () => {
         if (username && password && userlastname && number && email && confirmEmail && psw) {
-            fetch(ip, {
+            fetch(phoneIP || ip, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

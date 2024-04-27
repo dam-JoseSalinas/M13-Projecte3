@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
-import { useColorScheme } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useColorScheme, View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import { DrawerItemList, createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import MenuInferior from './screens/MenuInferior';
 import Dispositivos from './screens/Dispositivos';
 import LoadingInicial from './screens/LoadingInicial';
@@ -11,19 +11,110 @@ import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import Funny from './screens/Funny';
 import SocialNetworks from './screens/SocialNetworks';
-import Profile from './screens/Contacts';
 import EditProfile from './screens/EditProfile';
 import Calendario from './screens/Calendario';
-
+import { Foundation } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import Contacts from './screens/Contacts';
+import Profile from './screens/Profile';
+import Settings from './screens/Settings';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Notifications from './screens/Notifications';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={StackNavigator} />
-      <Drawer.Screen name="Calendario" component={Calendario}/>
+    <Drawer.Navigator
+      drawerContent={
+        (props) => {
+          return (
+            <SafeAreaView>
+              <View style={styles.container}>
+                <Image
+                  source={require('./assets/images/foto_perfil/sebas1.jpg')}
+                  style={styles.profileImage}/>
+                  <Text style={styles.name}>
+                    Anthony Sebastian Arias
+                  </Text>
+                  <Text style={styles.text}>
+                    Desarrollador
+                  </Text>
+              </View>
+              <DrawerItemList {...props}/>
+            </SafeAreaView>
+          )
+        }}>
+      <Drawer.Screen 
+        name="Home" 
+        component={StackNavigator}
+        options={{
+          drawerIcon: () => (
+            <Foundation 
+              name="home" 
+              size={24} 
+              color="black"/>
+          )
+        }}/>
+      <Drawer.Screen 
+        name="Calendario" 
+        component={Calendario}
+        options={{
+          drawerIcon: () => (
+            <FontAwesome 
+              name="calendar" 
+              size={20} 
+              color="black" />
+          )
+        }}/>
+        <Drawer.Screen 
+          name="Perfil"
+          component={Profile}
+          options={{
+            drawerIcon: () => (
+              <Ionicons 
+                name="person" 
+                size={24} 
+                color="black" />
+            )
+          }}/>
+          <Drawer.Screen 
+            name="Notificaciones"
+            component={Notifications}
+            options={{
+              drawerIcon: () => (
+                <Ionicons 
+                  name="notifications-outline" 
+                  size={24} 
+                  color="black"
+                  resizeMode='contain'/>
+              )
+            }}/>
+            <Drawer.Screen
+            style={styles.settings}
+            name="Configurarión"
+            component={Settings}
+            options={{
+              drawerIcon: () => (
+                <Ionicons 
+                  name="cog-outline" 
+                  size={24} 
+                  color="black" />
+              )
+            }}/>
+            <Drawer.Screen 
+            name="Salir"
+            component={LoginScreen}
+            options={{
+              drawerIcon: () => (
+                <Ionicons 
+                  name="exit-outline" 
+                  size={24} 
+                  color={"black"} />
+              )
+            }}/>
     </Drawer.Navigator>
   );
 }
@@ -85,6 +176,10 @@ function StackNavigator() {
           component={EditProfile}
           options={{ headerShown: false}}
         />
+        <Stack.Screen
+          name="Contacts"
+          component={Contacts}
+          options={{ headerShown: false}}/>
       </Stack.Navigator>
   );
 }
@@ -99,3 +194,26 @@ export default function Navigation() {
     </NavigationContainer>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    height: 200,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: 'column'
+  },
+  profileImage: {
+    borderRadius: 1000,
+    width: 100,
+    height: 100,
+  },
+  name: {
+    top: 10,
+    fontSize: 17,
+    fontWeight: '500',
+  },
+  text: {
+    top: 15,
+    fontWeight: '200',
+  },
+});
