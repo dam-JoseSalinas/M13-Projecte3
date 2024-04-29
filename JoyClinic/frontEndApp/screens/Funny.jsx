@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, ScrollView, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -11,6 +11,46 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 
 export default function Funny(){
+    const openSpotify = () => {
+        const spotifyUrl = 'spotify:';
+    
+        Linking.canOpenURL(spotifyUrl).then(supported => {
+            if (supported) {
+                return Linking.openURL(spotifyUrl);
+            } else {
+                return Linking.openURL('https://spotify.com/');
+            }}).catch(err => console.error('Error al abrir Spotify:', err));
+    };
+    const openAppleMusic = () => {
+        const AppleMusicUrl = 'music.apple:';
+    
+        Linking.canOpenURL(AppleMusicUrl).then(supported => {
+            if (supported) {
+                return Linking.openURL(AppleMusicUrl);
+            } else {
+                return Linking.openURL('https://music.apple.com/');
+            }}).catch(err => console.error('Error al abrir Appli Music:', err));
+    };
+    const openAmazon = () => {
+        const amazonUrl = 'music.amazon:';
+    
+        Linking.canOpenURL(amazonUrl).then(supported => {
+            if (supported) {
+                return Linking.openURL(amazonUrl);
+            } else {
+                return Linking.openURL('https://music.amazon.es/');
+            }}).catch(err => console.error('Error al abrir Amazon Music:', err));
+    };
+    const openYoutubeMusic = () => {
+        const youtubeUrl = 'music.youtube:';
+    
+        Linking.canOpenURL(youtubeUrl).then(supported => {
+            if (supported) {
+                return Linking.openURL(youtubeUrl);
+            } else {
+                return Linking.openURL('https://music.youtube.com/');
+            }}).catch(err => console.error('Error al abrir Youtube Music:', err));
+    };
     return (
         <SafeAreaView style={styles.container}>
             {/*BODY*/}
@@ -85,13 +125,15 @@ export default function Funny(){
                         <Entypo 
                             name="spotify" 
                             size={50} 
-                            color="black" />
+                            color="black" 
+                            onPress={openSpotify}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconMovie}>
                         <Fontisto 
                             name="applemusic" 
                             size={50} 
-                            color="black" />
+                            color="black" 
+                            onPress={openAppleMusic}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconGame}>
                         <MaterialCommunityIcons 
@@ -103,13 +145,15 @@ export default function Funny(){
                         <AntDesign 
                             name="amazon" 
                             size={50} 
-                            color="black" />
+                            color="black"
+                            onPress={openAmazon} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconMovie}>
                         <Entypo 
                             name="youtube" 
                             size={50} 
-                            color="black" />
+                            color="black" 
+                            onPress={openYoutubeMusic}/>
                     </TouchableOpacity>
                 </View>
                 {/*

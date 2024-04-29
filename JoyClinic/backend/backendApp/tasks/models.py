@@ -40,16 +40,28 @@ class Register(models.Model):
     
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Campos adicionales del perfil
+    register = models.OneToOneField(Register, on_delete=models.CASCADE, null=True, blank=True)
     bio = models.TextField(blank=True)
     birth_date = models.DateField(null=True, blank=True)
-    address = models.CharField(max_length=255, blank=True)
+    address = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=100, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
-    phone_number = models.CharField(max_length=20, blank=True)
-    # Otros campos que desees agregar
+    photo = models.ImageField(blank=True, upload_to='photos_profile')
+    name = models.CharField(max_length=200, blank=True)
+    surname = models.CharField(max_length=200, blank=True)
+    email = models.EmailField(max_length=200, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.register:
+            self.name = self.register.name
+            self.surname = self.register.surname
+            self.email = self.register.email
+        super().save(*args, **kwargs)
+
+    def clean(self):
+        if self.register and self.email != self.register.email:
+            raise ValidationError({'email': 'Los correos electrónicos no coinciden'})
 
     def __str__(self):
-        return self.user.username
+        return self.name

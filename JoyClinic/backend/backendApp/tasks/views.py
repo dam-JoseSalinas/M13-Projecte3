@@ -2,8 +2,10 @@ import sqlite3
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Register
+from .models import Profile
 from rest_framework import viewsets
 from .serializer import RegisterSerializer
+from .serializer import ProfileSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
