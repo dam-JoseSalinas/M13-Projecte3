@@ -54,20 +54,21 @@ export default function Home() {
     };
     const openDiscord = () => {
         const discordUrl = 'discord:';
-
+    
         Linking.canOpenURL(discordUrl).then(supported => {
             if(supported){
-                return Linking.openURL(facebookUrl);
+                return Linking.openURL(discordUrl); 
             } else {
                 return Linking.openURL('https://discord.com/');
-            }}).catch(err => console.err('Error al abrir Discord', err)); 
-    };
+            }
+        }).catch(err => console.error('Error al abrir Discord', err)); 
+    };    
     const openYouTube = () => {
         const youtubeUrl = 'youtube:';
 
         Linking.canOpenURL(youtubeUrl).then(supported => {
             if(supported){
-                return Linking.openURL(facebookUrl);
+                return Linking.openURL(youtubeUrl);
             } else {
                 return Linking.openURL('https://youtube.com/');
             }}).catch(err => console.err('Error al abrir Youtube', err)); 
@@ -77,7 +78,7 @@ export default function Home() {
 
         Linking.canOpenURL(redditUrl).then(supported => {
             if(supported){
-                return Linking.openURL(facebookUrl);
+                return Linking.openURL(redditUrl);
             } else {
                 return Linking.openURL('https://www.reddit.com/');
             }}).catch(err => console.err('Error al abrir Youtube', err)); 
@@ -87,7 +88,7 @@ export default function Home() {
 
         Linking.canOpenURL(whatsappUrl).then(supported => {
             if(supported){
-                return Linking.openURL(facebookUrl);
+                return Linking.openURL(whatsappUrl);
             } else {
                 return Linking.openURL('https://www.whatsapp.com/');
             }}).catch(err => console.err('Error al abrir Youtube', err)); 
@@ -97,7 +98,7 @@ export default function Home() {
 
         Linking.canOpenURL(stackoverflowUrl).then(supported => {
             if(supported){
-                return Linking.openURL(facebookUrl);
+                return Linking.openURL(stackoverflowUrl);
             } else {
                 return Linking.openURL('https://stackoverflow.com/');
             }}).catch(err => console.err('Error al abrir Youtube', err)); 
@@ -176,9 +177,9 @@ export default function Home() {
                 ======================
                 FOROS
                 ======================*/}
-                <TouchableOpacity style={styles.botonesTitulo}>
+                <View style={styles.botonesTitulo}>
                     <Text style={styles.containerText}>Foros</Text> 
-                </TouchableOpacity>
+                </View>
                 <View style={styles.divierte}>
                     <TouchableOpacity style={styles.fondoIconReddit}>
                         <Ionicons 
@@ -205,11 +206,11 @@ export default function Home() {
                 </View>
                 {/*
                 ======================
-                FAVORITOS
+                N O T I C I A S
                 ======================*/}
-                <TouchableOpacity style={styles.botonesTitulo}>
+                <View style={styles.botonesTitulo}>
                     <Text style={styles.containerText}>Noticias</Text> 
-                </TouchableOpacity>
+                </View>
                 <View style={styles.divierte}>
                     <TouchableOpacity style={styles.fondoNewsPaper}>    
                         <FontAwesome 
