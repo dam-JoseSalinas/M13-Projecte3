@@ -45,21 +45,19 @@ class RegisterSerializer(serializers.ModelSerializer):
         return Register.objects.create(**validated_data)
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(write_only=True, queryset=User.objects.all())
     password = serializers.CharField(max_length=200, write_only=True)
 
     class Meta:
         model = Profile
-        fields = ['id', 'user', 'name', 'surname', 'bio', 'birth_date', 'address', 'email', 'password', 'city', 'country', 'postal_code', 'phone_number', 'photo']
+        fields = ['id', 'name', 'surname', 'bio', 'birth_date', 'address', 'email', 'password', 'city', 'country', 'postal_code', 'photo']
 
     def create(self, validated_data):
-        user_data = validated_data.pop('user')
         password = validated_data.pop('password')
         profile = Profile.objects.create(**validated_data)
-        user = User.objects.create_user(username=user_data['username'], password=password)
-        profile.user = user
+        user = User.objects.create_user(username=validated_data['email'], password=password)
         profile.save()
         return profile
+
 
 
 
