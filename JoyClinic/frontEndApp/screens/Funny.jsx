@@ -29,7 +29,7 @@ export default function Funny(){
                 return Linking.openURL(AppleMusicUrl);
             } else {
                 return Linking.openURL('https://music.apple.com/');
-            }}).catch(err => console.error('Error al abrir Appli Music:', err));
+            }}).catch(err => console.error('Error al abrir Apple Music:', err));
     };
     const openAmazon = () => {
         const amazonUrl = 'music.amazon:';
@@ -51,6 +51,56 @@ export default function Funny(){
                 return Linking.openURL('https://music.youtube.com/');
             }}).catch(err => console.error('Error al abrir Youtube Music:', err));
     };
+    const openNetflix= () => {
+        const netflixUrl = 'netflix:';
+    
+        Linking.canOpenURL(netflixUrl).then(supported => {
+            if (supported) {
+                return Linking.openURL(netflixUrl);
+            } else {
+                return Linking.openURL('https://netflix.com/');
+            }}).catch(err => console.error('Error al abrir Netflix:', err));
+    };
+    const openAmazonPrime= () => {
+        const amazonPrime = 'primevideo:';
+    
+        Linking.canOpenURL(amazonPrime).then(supported => {
+            if (supported) {
+                return Linking.openURL(amazonPrime);
+            } else {
+                return Linking.openURL('https://primevideo.com/');
+            }}).catch(err => console.error('Error al abrir Amazon Prime Video:', err));
+    };
+    const openFriv= () => {
+        const friv = 'friv:';
+    
+        Linking.canOpenURL(friv).then(supported => {
+            if (supported) {
+                return Linking.openURL(friv);
+            } else {
+                return Linking.openURL('https://www.friv.com/');
+            }}).catch(err => console.error('Error al abrir Friv:', err));
+    };
+    const openInfinity= () => {
+        const infinity = 'infinityCraft:';
+    
+        Linking.canOpenURL(infinity).then(supported => {
+            if (supported) {
+                return Linking.openURL(infinity);
+            } else {
+                return Linking.openURL('https://neal.fun/infinite-craft/');
+            }}).catch(err => console.error('Error al abrir Infinity Craft:', err));
+    };
+    const openTetris= () => {
+        const tetris = 'tetris:';
+    
+        Linking.canOpenURL(tetris).then(supported => {
+            if (supported) {
+                return Linking.openURL(tetris);
+            } else {
+                return Linking.openURL('https://tetris.com/play-tetris');
+            }}).catch(err => console.error('Error al abrir Tetris:', err));
+    };
     return (
         <SafeAreaView style={styles.container}>
             {/*BODY*/}
@@ -69,19 +119,22 @@ export default function Funny(){
                         <Ionicons 
                             name="game-controller-outline" 
                             size={50} color="black" 
-                            style={styles.game} />
+                            style={styles.game}
+                            onPress={openFriv} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconMusic}>
                         <MaterialIcons 
                             name="games" 
                             size={50} 
-                            color="black" />
+                            color="black"
+                            onPress={openInfinity} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconMovie}>
                         <MaterialCommunityIcons 
                             name="nintendo-game-boy" 
                             size={50} 
-                            color="black" />
+                            color="black"
+                            onPress={openTetris}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconGame}>
                         <FontAwesome5 
@@ -168,13 +221,15 @@ export default function Funny(){
                         <MaterialCommunityIcons 
                             name="netflix" 
                             size={50} 
-                            color="black" />
+                            color="black" 
+                            onPress={openNetflix}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconMovie}>
                         <FontAwesome6 
                             name="cc-amazon-pay" 
                             size={50} 
-                            color="black" />
+                            color="black" 
+                            onPress={openAmazonPrime}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.fondoIconMovie}>
                         <FontAwesome 
