@@ -1,8 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator
-
 # Create your models here.
 from django.core.exceptions import ValidationError
 
@@ -29,39 +27,19 @@ class Register(models.Model):
     psw = models.CharField(max_length=200, validators=[validate_password])
     pwd2 = models.CharField(max_length=200)
 
+    bio = models.TextField(blank=True)
+    birth_date = models.DateField(null=True, blank=True, default=None)
+    address = models.CharField(max_length=100, blank=True, default=None, null=True)
+    city = models.CharField(max_length=100, blank=True, default=None, null=True)
+    country = models.CharField(max_length=100, blank=True, default=None, null=True)
+    postal_code = models.CharField(max_length=20, blank=True, default=None, null=True)
+    photo = models.ImageField(blank=True, upload_to='photos_profile', default='assets/images/foto_perfil/default.jpg')
+
     def clean(self):
         if self.email != self.email2:
             raise ValidationError({'email': 'Los correos electrónicos no coinciden'})
         if self.psw != self.pwd2:
             raise ValidationError({'psw': 'Las contraseñas no coinciden'})
-
-    def __str__(self) -> str:
-        return self.name
     
-
-class Profile(models.Model):
-    register = models.OneToOneField(Register, on_delete=models.CASCADE, null=True, blank=True)
-    bio = models.TextField(blank=True)
-    birth_date = models.DateField(null=True, blank=True)
-    address = models.CharField(max_length=100, blank=True)
-    city = models.CharField(max_length=100, blank=True)
-    country = models.CharField(max_length=100, blank=True)
-    postal_code = models.CharField(max_length=20, blank=True)
-    photo = models.ImageField(blank=True, upload_to='photos_profile')
-    name = models.CharField(max_length=200, blank=True)
-    surname = models.CharField(max_length=200, blank=True)
-    email = models.EmailField(max_length=200, blank=True)
-
-    def save(self, *args, **kwargs):
-        if self.register:
-            self.name = self.register.name
-            self.surname = self.register.surname
-            self.email = self.register.email
-        super().save(*args, **kwargs)
-
-    def clean(self):
-        if self.register and self.email != self.register.email:
-            raise ValidationError({'email': 'Los correos electrónicos no coinciden'})
-
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name

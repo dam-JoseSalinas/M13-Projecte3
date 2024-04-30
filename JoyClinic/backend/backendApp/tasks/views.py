@@ -2,10 +2,8 @@ import sqlite3
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Register
-from .models import Profile
 from rest_framework import viewsets
 from .serializer import RegisterSerializer
-from .serializer import ProfileSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -41,7 +39,9 @@ class LoginApiView(APIView):
     def get(self, request, *args, **kwargs):
         return Response({"message": "Método no permitido"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     
-
+def profileDefault(request):
+    default_photo_url = 'http://127.0.0.1:8000/frontEndApp/asset/images/foto_perfil/perfil.jpg'
+    return HttpResponse(default_photo_url)
 
 
 
