@@ -1,153 +1,221 @@
-import React , { useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput,Image } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, Image, Button, Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { AntDesign } from '@expo/vector-icons';
-import { Entypo } from "@expo/vector-icons";
-import { useNavigation } from '@react-navigation/native';
+import { format } from 'date-fns';
 
+export default function EditProfile() {
+  const [username, setUsername] = useState("");
+  const [surname, setSurname] = useState("");
+  const [number, setNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [code, setCode] = useState("");
+  const [bio, setBio] = useState("");
 
-export default function EditProfile(){
+  const changeProfileImage = () => {};
 
-    const [username, setUsername] = useState("");
-    const [bio, setBio] = useState("");
-    const [location, setLocation] = useState("");
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
-    const changeProfileImage = () => {
-    };
+  const handleDateChange = (event, selectedDate) => {
+    if (selectedDate) {
+      const formattedDate = format(selectedDate, "yyyy-MM-dd");
+      setBirthdate(formattedDate);
+    }
+    setShowDatePicker(Platform.OS === 'ios');
+  };
 
-    return (
-        <View style={styles.container}>
-        <View style={styles.header}>
-        <View style={styles.profileInfo}>
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>EDITAR PERFIL</Text>
+      <View style={styles.headerInfo}>
         <TouchableOpacity onPress={changeProfileImage}>
+          <View style={styles.profileImageContainer}>
             <Image
               source={require('../assets/images/foto_perfil/sebas2.jpg')}
-              style={styles.profileImage}/>
+              style={styles.profileImage}
+            />
             <View style={styles.editIconContainer}>
               <AntDesign name="edit" size={24} color="black" />
             </View>
-          </TouchableOpacity>
-          <View style={styles.textosProfile}>
-          <TextInput
-              style={styles.input}
-              value={username}
-              onChangeText={setUsername}
-              placeholder="Nombre de usuario"
-            />
-            <TextInput
-              style={styles.input}
-              value={bio}
-              onChangeText={setBio}
-              placeholder="Biografía"
-            />
-           
-              <TextInput
-                style={styles.input}
-                value={location}
-                onChangeText={setLocation}
-                placeholder="Ubicación"
-              />
-           
-            <TextInput
-              style={styles.input}
-              value={bio}
-              onChangeText={setBio}
-              placeholder="Contraseña"
-            />
-            <TextInput
-              style={styles.input}
-              value={bio}
-              onChangeText={setBio}
-              placeholder="Repetir Contraseña"
-            />
           </View>
+        </TouchableOpacity>
+        <View style={styles.nameContainer}>
+          <TextInput
+            style={styles.inputNames}
+            value={username}
+            onChangeText={setUsername}
+            placeholder="Nombre"
+          />
+          <TextInput
+            style={styles.inputNames}
+            value={surname}
+            onChangeText={setSurname}
+            placeholder="Apellido"
+          />
         </View>
       </View>
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.buttonEditProfile}>
-          <Text style={styles.textButton}>Guardar</Text>
-        </TouchableOpacity>    
+      <View style={styles.textFieldsContainer}>
+        <TextInput
+          style={styles.input}
+          value={number}
+          onChangeText={setNumber}
+          placeholder="Número"
+        />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Email"
+        />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Password"
+          secureTextEntry={true}
+        />
+        <View style={styles.date}>
+          <TextInput
+            style={styles.inputFecha}
+            value={birthdate}
+            placeholder="Cumpleaños (yyyy-mm-dd)"
+            keyboardType="numeric"
+            editable={false} 
+          />
+          {showDatePicker && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={birthdate ? new Date(birthdate) : new Date()}
+              mode="date"
+              display="default"
+              onChange={handleDateChange}
+            />
+          )}
+        </View>
+        <View style={styles.viewAddress}>
+          <TextInput
+            style={styles.inputAddres}
+            value={address}
+            onChangeText={setAddress}
+            placeholder="Dirección"
+          />
+          <TextInput
+            style={styles.inputCode}
+            value={code}
+            onChangeText={setCode}
+            placeholder="Código Postal"
+          />
+        </View>
+        <TextInput
+          style={styles.input}
+          value={city}
+          onChangeText={setCity}
+          placeholder="Ciudad"
+        />
+        <TextInput
+          style={styles.input}
+          value={country}
+          onChangeText={setCountry}
+          placeholder="País"
+        />
+        <TextInput
+          style={styles.bioInput}
+          value={bio}
+          onChangeText={setBio}
+          placeholder="Biografía"
+          multiline={true}
+        />
       </View>
-    </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Guardar</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
-  header: {
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    marginBottom: 20,
   },
-  profileInfo: {
+  headerInfo: {
     flexDirection: 'row',
-    marginBottom: 10,
+    alignItems: 'center',
+  },
+  profileImageContainer: {
+    position: 'relative',
   },
   profileImage: {
-    borderRadius: 1000,
     width: 80,
     height: 80,
+    borderRadius: 40,
   },
-  textosProfile: {
-    marginTop: 160,
-    marginLeft: -80,
-    flex: 1,
+  editIconContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 4,
   },
-  editButton: {
-    alignSelf: 'flex-end',
+  nameContainer: {
+    marginLeft: 20,
   },
-  editText: {
-    fontSize: 16,
-    color: '#3498db',
+  textFieldsContainer: {
+    marginTop: 20,
   },
-  username: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  bio: {
-    fontSize: 15,
-    marginBottom: 2,
-  },
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  locationText: {
-    marginLeft: 5,
-    fontSize: 15,
-  },
-  
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  stat: {
-    alignItems: 'center',
-  },
-  statNumber: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  statText: {
-    fontSize: 16,
-    color: '#777777',
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginTop: 10,
-  },
-  buttonEditProfile: {
-    backgroundColor: '#d3d3d3',
-    padding: 10,
-    width: '45%',
-    borderRadius: 15,
+  inputNames: {
+    alignSelf: "center",
+    width: 305,
+    height: 40,
     borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'gray',
+    backgroundColor: '#f8f8f8',
+    marginBottom: 10,
+    paddingLeft: 10,
+  },
+  input: {
+    alignSelf: "center",
+    width: '95%',
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'gray',
+    backgroundColor: '#f8f8f8',
+    marginBottom: 10,
+    paddingLeft: 10,
+  },
+  bioInput: {
+    alignSelf: "center",
+    height: 100,
+    width: '95%',
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'gray',
+    backgroundColor: '#f8f8f8',
+    marginBottom: 10,
+    paddingLeft: 10,
+    paddingTop: 10,
+  },
+  buttonContainer: {
     alignItems: 'center',
+    marginTop: 20,
   },
   button: {
     backgroundColor: '#d3d3d3',
@@ -157,19 +225,44 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
   },
-  textButton: {
-    fontWeight: '300',
-  },
-  input: {
+  inputFecha:{
+    alignSelf: "flex-start",
+    marginHorizontal: 10,
+    width: '65%',
     height: 40,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: 'gray',
-    backgroundColor: '#fffafa',
+    backgroundColor: '#f8f8f8',
     marginBottom: 10,
     paddingLeft: 10,
-    paddingRight: 10,
-
-},
+  },
+  date: {
+    flexDirection: "row",
+  },
+  viewAddress: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  inputAddres: {
+    width: '65%',
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'gray',
+    backgroundColor: '#f8f8f8',
+    marginBottom: 10,
+    paddingLeft: 10,
+  },
+  inputCode: {
+    //alignSelf: "center",
+    width: '20%',
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'gray',
+    backgroundColor: '#f8f8f8',
+    marginBottom: 10,
+    paddingLeft: 10,
+  },
 });
-

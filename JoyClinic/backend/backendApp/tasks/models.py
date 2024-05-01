@@ -33,7 +33,7 @@ class Register(models.Model):
     city = models.CharField(max_length=100, blank=True, default=None, null=True)
     country = models.CharField(max_length=100, blank=True, default=None, null=True)
     postal_code = models.CharField(max_length=20, blank=True, default=None, null=True)
-    photo = models.ImageField(blank=True, upload_to='photos_profile', default='assets/images/foto_perfil/default.jpg')
+    photo = models.ImageField(blank=True, upload_to='', default='default.jpg')
 
     def clean(self):
         if self.email != self.email2:
