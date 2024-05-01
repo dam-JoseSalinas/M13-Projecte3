@@ -1,109 +1,162 @@
-import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
+import React , { useState } from "react";
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput,Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
 
-export default function Dispositivos(){
+
+export default function EditProfile(){
+
+    const [username, setUsername] = useState("");
+    const [bio, setBio] = useState("");
+    const [location, setLocation] = useState("");
+
+    const changeProfileImage = () => {
+    };
+
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.content}>
-                <Text style={styles.info}>En el apartado de dispositivos, puedes ver los dipositivos en los que se encuentra la aplicación. Cuando se agregue un nuevo dispositivo, aparecerá aquí mismo.</Text>
-                <Text style={styles.texto}>Todos los dispositivos</Text>
-                <View style={styles.dispositivos}>
-                    <MaterialIcons 
-                        name="phone-android" 
-                        size={24} ç
-                        color="black" />
-                    <AntDesign 
-                        name="apple1" 
-                        size={24} 
-                        color="black" />
-                    <View styles={styles.dentroTexto}>
-                        <Text style={styles.textoDispositivo}>iOS</Text>
-                        <Text style={styles.textoDispositivo}>Barcelona, Catalonia, Barcelona, Spain</Text>
-                    </View>
-                </View>
-                <View style={styles.dispositivos}>
-                    <MaterialIcons 
-                        name="phone-android" 
-                        size={24} 
-                        color="black" />
-                    <AntDesign 
-                        name="android1" 
-                        size={24} 
-                        color="black" />
-                    <View styles={styles.dentroTexto}>
-                        <Text style={styles.textoDispositivo}>Android</Text>
-                        <Text style={styles.textoDispositivo}>Barcelona, Catalonia, Barcelona, Spain</Text>
-                    </View>
-                </View>
-                <View style={styles.dispositivos}>
-                    <MaterialIcons 
-                        name="phone-android" 
-                        size={24} 
-                        color="black" />
-                    <AntDesign 
-                        name="android1" 
-                        size={24} 
-                        color="black" />
-                    <View styles={styles.dentroTexto}>
-                        <Text style={styles.textoDispositivo}>Android</Text>
-                        <Text style={styles.textoDispositivo}>Barcelona, Catalonia, Barcelona, Spain</Text>
-                    </View>
-                </View>
-                <View style={styles.dispositivos}>
-                    <MaterialIcons 
-                        name="phone-android" 
-                        size={24} 
-                        color="black" />
-                    <AntDesign 
-                        name="android1" 
-                        size={24} 
-                        color="black" />
-                    <View styles={styles.dentroTexto}>
-                        <Text style={styles.textoDispositivo}>Android</Text>
-                        <Text style={styles.textoDispositivo}>Barcelona, Catalonia, Barcelona, Spain</Text>
-                    </View>
-                </View>
+        <View style={styles.container}>
+        <View style={styles.header}>
+        <View style={styles.profileInfo}>
+        <TouchableOpacity onPress={changeProfileImage}>
+            <Image
+              source={require('../assets/images/foto_perfil/sebas2.jpg')}
+              style={styles.profileImage}/>
+            <View style={styles.editIconContainer}>
+              <AntDesign name="edit" size={24} color="black" />
             </View>
-        </SafeAreaView>
-    );
+          </TouchableOpacity>
+          <View style={styles.textosProfile}>
+          <TextInput
+              style={styles.input}
+              value={username}
+              onChangeText={setUsername}
+              placeholder="Nombre de usuario"
+            />
+            <TextInput
+              style={styles.input}
+              value={bio}
+              onChangeText={setBio}
+              placeholder="Biografía"
+            />
+            <View style={styles.locationContainer}>
+              <TextInput
+                style={styles.input}
+                value={location}
+                onChangeText={setLocation}
+                placeholder="Ubicación"
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.buttonEditProfile}>
+          <Text style={styles.textButton}>Guardar</Text>
+        </TouchableOpacity>    
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    content: {
-        alignItems: 'flex-start',
-        marginHorizontal: 15,
-        top: 15,
-    },
-    info: {
-        fontWeight: "200"
-    },
-    texto: {
-        top: 20,
-        fontSize: 15,
-        fontWeight: "700"
-    },
-    dispositivos: {
-        flexDirection: "row",
-        alignSelf: "center",
-        top: 30,
-        padding: 25,
-        backgroundColor: '#d3d3d3',
-        borderRadius: 20,
-        width: "95%",
-        marginTop: 15,
-        borderWidth: 1,
-    },
-    dentroTexto: {
-        padding: 10,
-    },
-    textoDispositivo: {
-        marginHorizontal: 10,
-        fontSize: 12,
-        fontWeight: '300',
-    },
-})
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+  header: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#cccccc',
+  },
+  profileInfo: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  profileImage: {
+    borderRadius: 1000,
+    width: 80,
+    height: 80,
+  },
+  textosProfile: {
+    marginTop: 160,
+    marginLeft: -80,
+    flex: 1,
+  },
+  editButton: {
+    alignSelf: 'flex-end',
+  },
+  editText: {
+    fontSize: 16,
+    color: '#3498db',
+  },
+  username: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  bio: {
+    fontSize: 15,
+    marginBottom: 2,
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  locationText: {
+    marginLeft: 5,
+    fontSize: 15,
+  },
+  
+  statsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  stat: {
+    alignItems: 'center',
+  },
+  statNumber: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  statText: {
+    fontSize: 16,
+    color: '#777777',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 10,
+  },
+  buttonEditProfile: {
+    backgroundColor: '#d3d3d3',
+    padding: 10,
+    width: '45%',
+    borderRadius: 15,
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: '#d3d3d3',
+    padding: 10,
+    width: '45%',
+    borderRadius: 15,
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  textButton: {
+    fontWeight: '300',
+  },
+  input: {
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'gray',
+    backgroundColor: '#fffafa',
+    marginBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+
+},
+});
