@@ -1,8 +1,17 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
 
 const Profile = () => {
+
+  const navigation = useNavigation();
+
+  {/*Editrofile*/}
+  const redirectEditProfile = () => {
+    navigation.navigate('EditProfile');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -38,7 +47,7 @@ const Profile = () => {
         </View>
       </View>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.buttonEditProfile}>
+        <TouchableOpacity style={styles.buttonEditProfile} onPress={redirectEditProfile}>
           <Text style={styles.textButton}>Editar Perfil</Text>
         </TouchableOpacity>    
         <TouchableOpacity style={styles.button}>
