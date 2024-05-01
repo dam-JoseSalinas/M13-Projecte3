@@ -40,14 +40,26 @@ export default function EditProfile(){
               onChangeText={setBio}
               placeholder="Biografía"
             />
-            <View style={styles.locationContainer}>
+           
               <TextInput
                 style={styles.input}
                 value={location}
                 onChangeText={setLocation}
                 placeholder="Ubicación"
               />
-            </View>
+           
+            <TextInput
+              style={styles.input}
+              value={bio}
+              onChangeText={setBio}
+              placeholder="Contraseña"
+            />
+            <TextInput
+              style={styles.input}
+              value={bio}
+              onChangeText={setBio}
+              placeholder="Repetir Contraseña"
+            />
           </View>
         </View>
       </View>
@@ -160,3 +172,4 @@ const styles = StyleSheet.create({
 
 },
 });
+
