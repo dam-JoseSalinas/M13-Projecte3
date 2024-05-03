@@ -23,9 +23,7 @@ class Register(models.Model):
     surname = models.CharField(max_length=200)
     number = models.CharField(max_length=200, unique=True, validators=[validate_number]) 
     email = models.EmailField(max_length=200, unique=True, validators=[EmailValidator(message='Ingrese un correo válido.')])
-    email2 = models.EmailField(max_length=200, unique=True, validators=[EmailValidator(message='Ingrese un correo válido.')])
     psw = models.CharField(max_length=200, validators=[validate_password])
-    pwd2 = models.CharField(max_length=200)
 
     bio = models.TextField(blank=True)
     birth_date = models.DateField(null=True, blank=True, default=None)
@@ -35,11 +33,6 @@ class Register(models.Model):
     postal_code = models.CharField(max_length=20, blank=True, default=None, null=True)
     photo = models.ImageField(blank=True, upload_to='', default='default.jpg')
 
-    def clean(self):
-        if self.email != self.email2:
-            raise ValidationError({'email': 'Los correos electrónicos no coinciden'})
-        if self.psw != self.pwd2:
-            raise ValidationError({'psw': 'Las contraseñas no coinciden'})
     
     def __str__(self) -> str:
         return self.name
