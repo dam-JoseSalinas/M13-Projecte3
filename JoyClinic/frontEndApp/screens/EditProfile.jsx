@@ -1,74 +1,121 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Alert, TouchableOpacity, TextInput, Image, ScrollView, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { AntDesign } from '@expo/vector-icons';
 import { format } from 'date-fns';
 import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker'; 
 
 export default function EditProfile() {
-  const [username, setUsername] = useState("");
-  const [surname, setSurname] = useState("");
-  const [number, setNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [code, setCode] = useState("");
-  const [bio, setBio] = useState("");
+  const [userData, setUserData] = useState({
+    name: "",
+    surname: "",
+    number: "",
+    email: "",
+    psw: "",
+    bio: "",
+    birth_date: new Date(), 
+    address: "",
+    city: "",
+    country: "",
+    postal_code: "",
+    photo: "",
+  });
+
+  const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/sebas2.jpg'));
+
   const navigation = useNavigation();
   const ip = 'http://10.0.2.2:8000/api/v1/registros/';
-  const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/';
-  const changeProfileImage = () => {};
+  const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/1/';
 
+  const changeProfileImage = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      Alert.alert('Permiso necesario', 'Se necesita permiso para acceder a la galería.');
+      return;
+    }
+  
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    setProfileImage({ uri: pickerResult.uri });
+    setUserData(prevData => ({ ...prevData, photo: pickerResult.uri }));
+  };  
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+  try {
+    const response = await fetch(phoneIP || ip);
+    if (response.ok) {
+      const data = await response.json();
+      setUserData(data);
+      if (data.photo) {
+        setProfileImage({ uri: data.photo });
+      }
+    } else {
+      throw new Error('Error fetching user data');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
+  }
+};
+
+  const handleEditProfile = async () => {
+    const formData = new FormData();
+    formData.append('name', userData.name);
+    formData.append('surname', userData.surname);
+    formData.append('number', userData.number);
+    formData.append('email', userData.email);
+    formData.append('psw', userData.psw);
+    formData.append('bio', userData.bio);
+    formData.append('birth_date', userData.birth_date);
+    formData.append('address', userData.address);
+    formData.append('city', userData.city);
+    formData.append('country', userData.country);
+    formData.append('postal_code', userData.postal_code);
+    if (userData.photo) {
+      const photoUriParts = userData.photo.split('.');
+      const photoFileType = photoUriParts[photoUriParts.length - 1];
+      const photoFile = {
+        uri: userData.photo,
+        name: `photo.${photoFileType}`,
+        type: `image/${photoFileType}`,
+      };
+      formData.append('photo', photoFile);
+    }
+  
+    try {
+      const response = await fetch(phoneIP || ip, {
+        method: 'PUT',
+        body: formData,
+      });
+      if (response.ok) {
+        navigation.navigate('Profile');
+      } else {
+        const errorMessage = await response.text();
+        Alert.alert(errorMessage);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      Alert.alert('Error', 'Hubo un problema durante la actualización del perfil. Por favor, inténtalo de nuevo.');
+    }
+  };
+  
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleDateChange = (event, selectedDate) => {
-    if (selectedDate) {
-      const formattedDate = format(selectedDate, "yyyy-MM-dd");
-      setBirthdate(formattedDate);
-    }
+    const currentDate = selectedDate || userData.birth_date;
     setShowDatePicker(Platform.OS === 'ios');
-  };
-  const handlerEditProfile = () => {
-    if (username && surname && number & email && password || birthdate || address || city || country ||code ||bio){
-      fetch(phoneIP || ip, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name : username,
-          lastname : surname,
-          email: email,
-          number : number,
-          password : password,
-          birthdate: birthdate,
-          address : address,
-          city : city,
-          country : country,
-          code : code,
-          bio: bio,
-        }),
-      })
-      .then(response => {
-        if (response.ok){
-          navigation.navigate('Profile')
-        } else {
-          response.text.then(errorMessage => {
-            Alert.alert(errorMessage)
-          })
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        Alert.alert('Error', 'Hubo un problema durante el registro. Por favor, inténtalo de nuevo.');
-      });
-    } else {
-      Alert.alert('Error', 'Por favor, completa todos los campos');
-    }
-  };
+    const formattedDate = currentDate.toISOString().split('T')[0];
+    setUserData(prevData => ({ ...prevData, birth_date: formattedDate }));
+  };  
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -78,7 +125,7 @@ export default function EditProfile() {
           <TouchableOpacity onPress={changeProfileImage}>
             <View style={styles.profileImageContainer}>
               <Image
-                source={require('../assets/images/foto_perfil/sebas2.jpg')}
+                source={profileImage}
                 style={styles.profileImage}
               />
               <View style={styles.editIconContainer}>
@@ -86,57 +133,58 @@ export default function EditProfile() {
               </View>
             </View>
           </TouchableOpacity>
+
           <View style={styles.nameContainer}>
             <TextInput
               style={styles.inputNames}
-              value={username}
-              onChangeText={setUsername}
+              value={userData.name}
+              onChangeText={text => setUserData(prevData => ({ ...prevData, name: text }))}
               placeholder="Nombre"
             />
             <TextInput
               style={styles.inputNames}
-              value={surname}
-              onChangeText={setSurname}
+              value={userData.surname}
+              onChangeText={text => setUserData(prevData => ({ ...prevData, surname: text }))}
               placeholder="Apellido"
             />
           </View>
         </View>
         <View style={styles.textFieldsContainer}>
           <View style={styles.viewNumber}>
-          <TextInput
+            <TextInput
               style={styles.inputEmail}
-              value={email}
-              onChangeText={setEmail}
+              value={userData.email}
+              onChangeText={text => setUserData(prevData => ({ ...prevData, email: text }))}
               placeholder="Email"
             />
             <TextInput
               style={styles.inputNumber}
-              value={number}
-              onChangeText={setNumber}
+              value={userData.number}
+              onChangeText={text => setUserData(prevData => ({ ...prevData, number: text }))}
               placeholder="Número"
             />
           </View>
           <TextInput
             style={styles.input}
-            value={password}
-            onChangeText={setPassword}
+            value={userData.psw}
+            onChangeText={text => setUserData(prevData => ({ ...prevData, psw: text }))}
             placeholder="Password"
             secureTextEntry={true}
           />
           <View style={styles.date}>
             <TextInput
               style={styles.inputFecha}
-              value={address}
-              onChangeText={setAddress}
+              value={userData.birth_date ? format(new Date(userData.birth_date), "yyyy-MM-dd") : ""}
               placeholder="Fecha de nacimiento"
             />
             <View style={styles.datePickerContainer}>
               <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                <Text style={styles.textFecha}>Seleccionar fecha</Text>
               </TouchableOpacity>
               {showDatePicker && (
                 <DateTimePicker
                   testID="dateTimePicker"
-                  value={birthdate ? new Date(birthdate) : new Date()}
+                  value={userData.birth_date ? new Date(userData.birth_date) : new Date()}
                   mode="date"
                   display="default"
                   onChange={handleDateChange}
@@ -147,41 +195,41 @@ export default function EditProfile() {
           <View style={styles.viewAddress}>
             <TextInput
               style={styles.inputAddres}
-              value={address}
-              onChangeText={setAddress}
+              value={userData.address}
+              onChangeText={text => setUserData(prevData => ({ ...prevData, address: text }))}
               placeholder="Dirección"
             />
             <TextInput
               style={styles.inputCode}
-              value={code}
-              onChangeText={setCode}
+              value={userData.postal_code}
+              onChangeText={text => setUserData(prevData => ({ ...prevData, postal_code: text }))}
               placeholder="Código Postal"
             />
           </View>
           <View style={styles.viewNumber}>
-          <TextInput
+            <TextInput
               style={styles.inputAddres}
-              value={city}
-              onChangeText={setCity}
+              value={userData.city}
+              onChangeText={text => setUserData(prevData => ({ ...prevData, city: text }))}
               placeholder="Ciudad"
             />
             <TextInput
               style={styles.inputCode}
-              value={country}
-              onChangeText={setCountry}
+              value={userData.country}
+              onChangeText={text => setUserData(prevData => ({ ...prevData, country: text }))}
               placeholder="País"
             />
           </View>
           <TextInput
             style={styles.bioInput}
-            value={bio}
-            onChangeText={setBio}
+            value={userData.bio}
+            onChangeText={text => setUserData(prevData => ({ ...prevData, bio: text }))}
             placeholder="Biografía"
             multiline={true}
           />
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleEditProfile}>
             <Text style={styles.buttonText}>Guardar</Text>
           </TouchableOpacity>
         </View>
@@ -200,12 +248,12 @@ const styles = StyleSheet.create({
   title: {
     top: 10,
     fontSize: 30,
-    fontWeight: 'bold',
     alignSelf: 'center',
     marginBottom: 20,
     color: '#333',
-    textShadowColor: '#888', 
-  },
+    textShadowColor: '#888',
+    fontFamily: 'Georgia',
+  },   
   viewNumber: {
     flexDirection: "row",
     justifyContent: "space-around"
@@ -347,26 +395,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 10,
   },
-  inputPais: {
-    alignSelf: "center",
-    width: '95%',
-    height: 40,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: 'gray',
-    backgroundColor: '#f8f8f8',
-    marginBottom: 10,
-    paddingLeft: 10,
-  },
-  inputCiudad: {
-    alignSelf: "center",
-    width: '95%',
-    height: 40,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: 'gray',
-    backgroundColor: '#f8f8f8',
-    marginBottom: 10,
-    paddingLeft: 10,
+  textFecha: {
+    marginHorizontal: 10,
+    color: Platform.OS === 'ios' ? '#888' : '', 
   }
 });

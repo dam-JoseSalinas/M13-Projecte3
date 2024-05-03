@@ -7,8 +7,6 @@ export default function Register() {
     const [userlastname, setUserLastname] = useState('')
     const [number, setNumber] = useState('')
     const [email, setEmail] = useState('')
-    const [confirmEmail, setConfirEmail] = useState('')
-    const [password, setPassword] = useState('');
     const [psw, setPsw] = useState('') 
     const navigation = useNavigation();
     const ip = 'http://10.0.2.2:8000/api/v1/registros/';
@@ -23,7 +21,7 @@ export default function Register() {
     };
     */
     const handleRegister = () => {
-        if (username && password && userlastname && number && email && confirmEmail && psw) {
+        if (username && psw && userlastname && number && email) {
             fetch(phoneIP || ip, {
                 method: 'POST',
                 headers: {
@@ -34,9 +32,8 @@ export default function Register() {
                     surname: userlastname,
                     number: number,
                     email: email,
-                    email2: confirmEmail,
-                    psw: password,
-                    pwd2: psw,
+                    psw: psw,
+
                 }),
             })
             .then(response => {
@@ -89,21 +86,9 @@ export default function Register() {
                     onChangeText={text => setEmail(text)}
                     style={styles.input}
                 />
-                <TextInput
-                    placeholder='Confirmar Email'
-                    value={confirmEmail}
-                    onChangeText={text => setConfirEmail(text)}
-                    style={styles.input}
-                />
+
                 <TextInput
                     placeholder='Contraseña'
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                    secureTextEntry={true}
-                    style={styles.input}
-                />
-                <TextInput
-                    placeholder='Confirmar Contraseña'
                     value={psw}
                     onChangeText={text => setPsw(text)}
                     secureTextEntry={true}
