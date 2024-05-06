@@ -32,6 +32,7 @@ export default function EditProfile() {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync(); 
     if (permissionResult.granted === false) {
       Alert.alert('Permiso necesario', 'Se necesita permiso para acceder a la galería.'); 
+
       return;
     }
   
