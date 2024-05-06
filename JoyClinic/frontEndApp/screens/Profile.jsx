@@ -1,33 +1,69 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, {useState, useEffect}from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 
 const Profile = () => {
-
   const navigation = useNavigation();
+  const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/default.jpg'));
+  const [userData, setUserData] = useState({
+    name: "",
+    surname: "",
+    bio: "",
+    birth_date: new Date(), 
+    city: "",
+    country: "",
+    photo: "",  
+  });
 
   {/*Editrofile*/}
   const redirectEditProfile = () => {
     navigation.navigate('EditProfile');
   }
+  const ip = 'http://10.0.2.2:8000/api/v1/registros/1/';
+  const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/1/';
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(phoneIP || ip);
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data);
+        if (data.photo) {
+          setProfileImage({ uri: data.photo });
+        }
+      } else {
+        throw new Error('Error fetching user data');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.profileInfo}>
           <Image
-            source={require('../assets/images/foto_perfil/sebas2.jpg')}
+            source={userData.photo ? { uri: userData.photo } : profileImage}
             style={styles.profileImage}/>
           <View style={styles.textosProfile}>
-            <Text style={styles.username}>Anthony Sebastian Arias</Text>
-            <Text style={styles.bio}>Desarrollador de aplicaciones</Text>
+            <View styles={styles.textName}>
+              <Text style={styles.username}>{userData.name} {userData.surname}</Text>
+            </View>
+            <Text style={styles.bio}>{userData.bio}</Text>
             <View style={styles.locationContainer}>
               <Entypo 
                 name="location-pin" 
                 size={15} 
                 color="black" />
-              <Text style={styles.locationText}>Spain-Barcelona</Text>
+              <Text style={styles.locationText}>{userData.country}</Text>
+              <Text style={styles.locationText}>{userData.city}</Text>
             </View>
           </View>
         </View>
@@ -64,13 +100,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   header: {
-    padding: 20,
+    padding: 20, 
     borderBottomWidth: 1,
     borderBottomColor: '#cccccc',
   },
   profileInfo: {
     flexDirection: 'row',
     marginBottom: 10,
+  },
+  textName: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   profileImage: {
     borderRadius: 1000,

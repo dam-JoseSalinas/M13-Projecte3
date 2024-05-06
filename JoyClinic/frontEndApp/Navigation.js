@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect}from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
-import { useColorScheme, View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import { useColorScheme, View, StyleSheet, Image, Text, TouchableOpacity, Alert } from 'react-native';
 import { DrawerItemList, createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import MenuInferior from './screens/MenuInferior';
 import Dispositivos from './screens/Dispositivos';
@@ -21,11 +21,49 @@ import Profile from './screens/Profile';
 import Settings from './screens/Settings';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Notifications from './screens/Notifications';
+import { useNavigation } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function DrawerNavigator() {
+  const navigation = useNavigation();
+  const [profileImage, setProfileImage] = useState(require('./assets/images/foto_perfil/default.jpg'));
+  const [userData, setUserData] = useState({
+    name: "",
+    surname: "",
+    bio: "",
+    birth_date: new Date(), 
+    city: "",
+    country: "",
+    photo: "",
+  });
+
+  const ip = 'http://10.0.2.2:8000/api/v1/registros/1/';
+  const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/1/';
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(phoneIP || ip);
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data);
+        if (data.photo) {
+          setProfileImage({ uri: data.photo });
+        }
+      } else {
+        throw new Error('Error fetching user data');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Drawer.Navigator
       drawerContent={
@@ -34,15 +72,15 @@ function DrawerNavigator() {
             <SafeAreaView>
               <View style={styles.container}>
                 <Image
-                  source={require('./assets/images/foto_perfil/sebas1.jpg')}
+                  source={userData.photo ? { uri: userData.photo } : profileImage}
                   style={styles.profileImage}/>
                   <Text style={styles.name}>
-                    Anthony Sebastian Arias
+                    {userData.name} {userData.surname}
                   </Text>
                   <Text style={styles.text}>
-                    Desarrollador
+                    {userData.bio}
                   </Text>
-              </View>
+              </View> 
               <DrawerItemList {...props}/>
             </SafeAreaView>
           )
