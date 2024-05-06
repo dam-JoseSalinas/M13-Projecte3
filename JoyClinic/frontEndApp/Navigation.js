@@ -70,7 +70,7 @@ function DrawerNavigator() {
         (props) => {
           return (
             <SafeAreaView>
-              <View style={styles.container}>
+              <View style={styles.container}> 
                 <Image
                   source={userData.photo ? { uri: userData.photo } : profileImage}
                   style={styles.profileImage}/>

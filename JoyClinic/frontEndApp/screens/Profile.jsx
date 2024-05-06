@@ -14,7 +14,7 @@ const Profile = () => {
     city: "",
     country: "",
     photo: "",  
-  });
+  }); 
 
   {/*Editrofile*/}
   const redirectEditProfile = () => {
