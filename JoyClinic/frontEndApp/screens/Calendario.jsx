@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { es } from 'date-fns/locale/es'; // Importar el idioma español de date-fns
-import { format } from 'date-fns'; // Importar la función de formato de date-fns
+import { format, addMonths, subMonths } from 'date-fns'; // Importar la función de formato de date-fns
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -58,9 +58,25 @@ const Calendar = () => {
     setSelectedDate(date);
   };
 
+  const goToPreviousMonth = () => {
+    setSelectedDate((prevDate) => subMonths(prevDate, 1));
+  };
+
+  const goToNextMonth = () => {
+    setSelectedDate((prevDate) => addMonths(prevDate, 1));
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Calendario</Text>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={goToPreviousMonth} style={styles.navigationButton}>
+          <Text style={styles.navigationButtonText}>{'<'}</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>{format(selectedDate, 'MMMM yyyy', { locale: es })}</Text>
+        <TouchableOpacity onPress={goToNextMonth} style={styles.navigationButton}>
+          <Text style={styles.navigationButtonText}>{'>'}</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.calendarContainer}>
         {/* Renderizar el calendario */}
         {renderCalendar()}
@@ -77,13 +93,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start', // Alinear hacia arriba
     paddingHorizontal: 20,
+    paddingTop: 20, // Espacio arriba del calendario
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  navigationButton: {
+    borderRadius: 25,
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+  },
+  navigationButtonText: {
+    fontSize: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    flex: 1,
+    textAlign: 'center',
   },
   calendarContainer: {
     marginBottom: 20,
@@ -91,14 +122,15 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
   },
   dateButton: {
     width: 50,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 2,
+    marginVertical: 2,
     borderRadius: 25,
     backgroundColor: '#f0f0f0',
   },
