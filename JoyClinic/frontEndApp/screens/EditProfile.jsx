@@ -25,7 +25,6 @@ export default function EditProfile() {
   const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/sebas2.jpg'));
 
   const navigation = useNavigation();
-  const ip = 'http://10.0.2.2:8000/api/v1/registros/1/';
   const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/1/';
 
   const changeProfileImage = async () => {
@@ -51,7 +50,7 @@ export default function EditProfile() {
 
   const fetchData = async () => {
   try {
-    const response = await fetch(phoneIP || ip);
+    const response = await fetch(phoneIP);
     if (response.ok) {
       const data = await response.json();
       setUserData(data);
@@ -92,7 +91,7 @@ export default function EditProfile() {
     }
   
     try {
-      const response = await fetch(phoneIP || ip, {
+      const response = await fetch(phoneIP, {
         method: 'PUT',
         body: formData,
       });

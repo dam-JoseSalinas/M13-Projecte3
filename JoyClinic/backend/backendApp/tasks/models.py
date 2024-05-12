@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator
-# Create your models here.
-from django.core.exceptions import ValidationError
+from django.contrib.auth.hashers import make_password, check_password
+
 
 def validate_password(value):
     if len(str(value)) < 8:
@@ -32,6 +32,13 @@ class Register(models.Model):
     country = models.CharField(max_length=100, blank=True, default=None, null=True)
     postal_code = models.CharField(max_length=20, blank=True, default=None, null=True)
     photo = models.ImageField(blank=True, upload_to='', default='default.jpg')
+
+    def set_password(self, raw_password):
+        self.psw = make_password(raw_password)
+    
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.psw)
     
     def __str__(self) -> str:
         return self.name
+    

@@ -1,7 +1,8 @@
 import React, {useState, useEffect}from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Entypo } from "@expo/vector-icons";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -15,32 +16,32 @@ const Profile = () => {
     country: "",
     photo: "",  
   }); 
-
+ 
   {/*Editrofile*/}
   const redirectEditProfile = () => {
     navigation.navigate('EditProfile');
   }
-  const ip = 'http://10.0.2.2:8000/api/v1/registros/1/';
-  const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/1/';
+  const phoneIP = `http://192.168.1.33:8000/api/v1/registros/1/`;
 
   const fetchData = async () => {
     try {
-      const response = await fetch(phoneIP || ip);
+      console.log('Fetching data from:', phoneIP); 
+      const response = await fetch(phoneIP);
       if (response.ok) {
         const data = await response.json();
+        console.log('User data received:', data); 
         setUserData(data);
         if (data.photo) {
-          setProfileImage({ uri: data.photo });
+          setProfileImage({ uri: data.photo }); 
         }
       } else {
         throw new Error('Error fetching user data');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error fetching user data:', error); 
       Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);
