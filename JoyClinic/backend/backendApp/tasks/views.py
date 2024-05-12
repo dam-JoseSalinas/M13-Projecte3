@@ -1,4 +1,5 @@
 import sqlite3
+import json
 from django.http import HttpResponse
 from .models import Register
 from rest_framework import viewsets
@@ -11,6 +12,12 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_http_methods
+from .models import Event
+from django.http import JsonResponse 
 
 # Vista para manejar solicitudes GET, POST, PUT, DELETE relacionadas con el registro de usuarios
 class RegisterAPIsREST(viewsets.ModelViewSet):
@@ -103,8 +110,103 @@ def register(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def profile(request):
-    # Accede al usuario autenticado a través del atributo `user` del request
-    print(request.user.id)
+
     serializer = RegisterSerializer(instance=request.user)
-    # Devuelve la información del perfil del usuario
+
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+def index(request):  
+    all_events = Event.objects.all()
+    context = {
+        "events":all_events,
+    }
+    return render(request,'index.html',context)
+ 
+def all_events(request):
+    try:
+        if request.method == 'GET':
+            all_events = Event.objects.all()
+
+            # Crear una lista de diccionarios con los detalles de cada evento
+            event_list = []
+            for event in all_events:
+                event_dict = {
+                    'id': event.id,
+                    'title': event.name,
+                    'start': event.start.strftime("%m/%d/%Y, %H:%M:%S"),
+                    'end': event.end.strftime("%m/%d/%Y, %H:%M:%S"),
+                }
+                event_list.append(event_dict)
+
+            # Devolver la lista de eventos como una respuesta JSON
+            return JsonResponse(event_list, safe=False)
+        else:
+            return JsonResponse({"success": False, "message": "Only GET requests are allowed"}, status=405)
+    except Exception as e:
+        # Imprimir la excepción en la consola del servidor Django
+        print(e)
+        # Devolver una respuesta JSON indicando que ocurrió un error interno del servidor
+        return JsonResponse({"success": False, "message": "Internal Server Error"}, status=500)
+
+@csrf_exempt
+def add_event(request):
+    if request.method == "POST": 
+        try:
+            # Obtener los datos del cuerpo de la solicitud
+            data = json.loads(request.body)
+            start = data.get("start", None)
+            end = data.get("end", None)
+            title = data.get("title", None)
+            
+            # Verificar si todos los campos requeridos están presentes
+            if start is not None and end is not None and title is not None:
+                # Crear el evento
+                event = Event(name=str(title), start=start, end=end)
+                event.save()
+                return JsonResponse({"success": True})
+            else:
+                return JsonResponse({"success": False, "message": "Missing required fields"}, status=400)
+        except Exception as e:
+            return JsonResponse({"success": False, "message": str(e)}, status=400)
+    else:
+        return JsonResponse({"success": False, "message": "Only POST requests are allowed"}, status=405)
+ 
+@csrf_exempt
+def update(request, event_id):
+    if request.method == "PUT":
+        try:
+            data = json.loads(request.body)
+            start = data.get("start", None)
+            end = data.get("end", None)
+            title = data.get("title", None)
+            
+            if start is not None and end is not None and title is not None:
+                event = Event.objects.get(id=event_id)
+                event.start = start
+                event.end = end
+                event.name = title
+                event.save()
+                return JsonResponse({"success": True})
+            else:
+                return JsonResponse({"success": False, "message": "Missing required fields"}, status=400)
+        except Event.DoesNotExist:
+            return JsonResponse({"success": False, "message": "Event not found"}, status=404)
+        except Exception as e:
+            return JsonResponse({"success": False, "message": str(e)}, status=400)
+    else:
+        return JsonResponse({"success": False, "message": "Only PUT requests are allowed"}, status=405)
+
+@csrf_exempt
+def remove(request, event_id):
+    if request.method == "DELETE":
+        try:
+            event = Event.objects.get(id=event_id)
+            # Eliminar el evento
+            event.delete()
+            return JsonResponse({"success": True})
+        except Event.DoesNotExist:
+            return JsonResponse({"success": False, "message": "Event not found"}, status=404)
+        except Exception as e:
+            return JsonResponse({"success": False, "message": str(e)}, status=400)
+    else:
+        return JsonResponse({"success": False, "message": "Only DELETE requests are allowed"}, status=405)

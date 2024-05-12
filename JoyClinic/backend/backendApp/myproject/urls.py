@@ -16,13 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from tasks.views import saludo, profileDefault, login, profile
+from tasks.views import saludo, profileDefault, login, profile, index, all_events, add_event, update, remove
 from django.conf import settings
 from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index/', index, name='index'), 
+    path('all_events/', all_events, name='all_events'), 
+    path('add_event/', add_event, name='add_event'), 
+    path('update/<int:event_id>/', update, name='update'),
+    path('remove/<int:event_id>/', remove, name='remove'),
     path('saludo/', saludo),
     path('image/', profileDefault),
     path('', include('tasks.urls')),
