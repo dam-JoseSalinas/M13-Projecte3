@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Register
+from .models import Event
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +10,11 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # Realiza cualquier acción de creación necesaria
         return Register.objects.create(**validated_data)
-
+    
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['id', 'name', 'start', 'end']
 
 
 
