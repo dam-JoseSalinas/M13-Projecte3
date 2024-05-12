@@ -4,24 +4,14 @@ import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, TextInpu
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; 
 
-const Tab = createBottomTabNavigator(); 
-
-export default function Login() {
-
+const Login = () => {
+    
     const [email, setEmail] = useState('');
     const [psw , setPsw] = useState('');
     const navigation = useNavigation();
     const ip = 'http:/10.0.2.2:8000/login/';
     const phoneIP = 'http://192.168.1.33:8000/login/';
-/*
-    const handleLogin = () => {
-        if (email && password) {
-            navigation.navigate('MenuInferior');
-        } else {
-            Alert.alert('Error', 'Por favor, completa todos los campos');
-        }
-    };
-*/
+    const [id, setId] = useState(0)
     const handleLogin = () => {
         if (email && psw) {
             fetch(phoneIP || ip, {
@@ -36,13 +26,14 @@ export default function Login() {
             })
             .then(response => {
                 if(response.ok) {
-                    navigation.navigate('MenuInferior');
+                    setId(response.ok); 
+                    navigation.navigate('MenuInferior') 
                 } else {
                     response.text().then(errorMessage => {
                         Alert.alert(errorMessage.split(":")[1].split("\"")[1]);
                     })
                 }
-            })
+            })           
             .catch(error => {
                 console.error('Error de red:', error);
                 Alert.alert('Error de red', 'Ha ocurrido un error de red. Por favor, inténtalo de nuevo más tarde.');
@@ -57,7 +48,7 @@ export default function Login() {
     const handleGuestPress = () => {
         navigation.navigate('MenuInferior')
     }
-
+    
     return (
         <SafeAreaView 
             style={styles.container}>
@@ -165,3 +156,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,     
     },
 });
+
+Login.id = 0;
+
+export default Login;
