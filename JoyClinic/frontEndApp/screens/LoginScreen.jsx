@@ -9,7 +9,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [psw , setPsw] = useState('');
     const navigation = useNavigation();
-    const ip = 'http:/10.0.2.2:8000/login/';
+    const ip = 'http://172.20.10.2:8000/login/';
     const phoneIP = 'http://192.168.1.33:8000/login/';
     const [id, setId] = useState(0)
     const handleLogin = () => {
