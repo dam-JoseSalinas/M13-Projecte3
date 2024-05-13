@@ -210,3 +210,4 @@ def remove(request, event_id):
             return JsonResponse({"success": False, "message": str(e)}, status=400)
     else:
         return JsonResponse({"success": False, "message": "Only DELETE requests are allowed"}, status=405)
+    

@@ -22,6 +22,7 @@ import Settings from './screens/Settings';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Notifications from './screens/Notifications';
 import { useNavigation } from '@react-navigation/native';
+import Eventos from './screens/Eventos';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -217,7 +218,13 @@ function StackNavigator() {
         <Stack.Screen
           name="Contacts"
           component={Contacts}
-          options={{ headerShown: false}}/>
+          options={{ headerShown: false}}
+        />
+        <Stack.Screen
+          name="Eventos"
+          component={Eventos}
+          options={{ headerShown: false}}
+        />
       </Stack.Navigator>
   );
 }
