@@ -1,47 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, Text, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
 import axios from 'axios';
 import moment from 'moment';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-const Eventos = ({ route }) => {
-    const { selectedDate } = route.params;
+const Eventos = () => {
     const [events, setEvents] = useState([]);
+    const [editingEvent, setEditingEvent] = useState(null);
+    const [editedTitle, setEditedTitle] = useState('');
+    const [editedStartDate, setEditedStartDate] = useState(new Date());
+    const [editedEndDate, setEditedEndDate] = useState(new Date());
+    const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+    const [showEndDatePicker, setShowEndDatePicker] = useState(false);
 
     useEffect(() => {
         fetchEvents();
-    }, [selectedDate]);
+    }, []);
 
     const fetchEvents = async () => {
         try {
-            const response = await axios.get(`http://192.168.1.33:8000/all_events/?date=${selectedDate}`);
-            setEvents(response.data);
+            const response = await axios.get('http://192.168.1.33:8000/all_events/');
+            const formattedEvents = response.data.map(event => ({
+                ...event,
+                start: moment(event.start, "MM/DD/YYYY, HH:mm:ss").toDate(),
+                end: moment(event.end, "MM/DD/YYYY, HH:mm:ss").toDate(),
+            }));
+            setEvents(formattedEvents);
         } catch (error) {
             console.error('Error fetching events:', error);
         }
     };
 
-    const handleEditEvent = async (eventId) => {
+    const handleEditEvent = async () => {
         try {
-            // Aquí haces la solicitud para actualizar el evento con el ID dado
-            const response = await axios.put(`http://192.168.1.33:8000/update/${eventId}/`);
+            const formattedStartDate = moment(editedStartDate).format("YYYY-MM-DD HH:mm:ss");
+            const formattedEndDate = moment(editedEndDate).format("YYYY-MM-DD HH:mm:ss");
+
+            const response = await axios.put(`http://192.168.1.33:8000/update/${editingEvent.id}/`, {
+                title: editedTitle,
+                start: formattedStartDate,
+                end: formattedEndDate,
+            });
+
             if (response.status === 200) {
                 Alert.alert('Evento actualizado correctamente');
-                // Actualizas la lista de eventos
                 fetchEvents();
+                setEditingEvent(null);
+                setEditedTitle('');
             } else {
                 console.error('Error updating event:', response.data);
             }
         } catch (error) {
             console.error('Error updating event:', error);
+            if (error.response) {
+                console.error('Response data:', error.response.data);
+                console.error('Response status:', error.response.status);
+            }
         }
+    };
+
+    const handleCancelEdit = () => {
+        setEditingEvent(null);
+        setEditedTitle('');
     };
 
     const handleDeleteEvent = async (eventId) => {
         try {
-            // Aquí haces la solicitud para eliminar el evento con el ID dado
             const response = await axios.delete(`http://192.168.1.33:8000/remove/${eventId}/`);
             if (response.status === 200) {
-                // Eliminas el evento de la lista de eventos
                 setEvents(events.filter(event => event.id !== eventId));
                 Alert.alert('Evento eliminado correctamente');
             } else {
@@ -52,21 +78,90 @@ const Eventos = ({ route }) => {
         }
     };
 
-    const renderItem = ({ item }) => (
-        <View style={styles.eventItem}>
-            <Text style={styles.eventTitle}>{item.title}</Text>
-            <TouchableOpacity onPress={() => handleEditEvent(item.id)}>
-                <Text style={styles.editButton}>Editar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleDeleteEvent(item.id)}>
-                <Text style={styles.deleteButton}>Borrar</Text>
-            </TouchableOpacity>
-        </View>
-    );
+    const renderItem = ({ item }) => {
+        if (editingEvent && editingEvent.id === item.id) {
+            return (
+                <View style={styles.editContainer}>
+                    <TextInput
+                        style={styles.editInput}
+                        value={editedTitle}
+                        onChangeText={setEditedTitle}
+                        placeholder="Nuevo título"
+                    />
+                    <View style={styles.dateTimeContainer}>
+                        <TouchableOpacity onPress={() => setShowStartDatePicker(true)}>
+                            <Text style={styles.dateTimeText}>Seleccionar fecha y hora de inicio</Text>
+                        </TouchableOpacity>
+                        {showStartDatePicker && (
+                            <DateTimePicker
+                                value={editedStartDate}
+                                mode="datetime"
+                                display="default"
+                                onChange={(event, selectedDate) => {
+                                    setShowStartDatePicker(false);
+                                    if (selectedDate) {
+                                        setEditedStartDate(selectedDate);
+                                    }
+                                }}
+                            />
+                        )}
+                    </View>
+                    <View style={styles.dateTimeContainer}>
+                        <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
+                            <Text style={styles.dateTimeText}>Seleccionar fecha y hora de fin</Text>
+                        </TouchableOpacity>
+                        {showEndDatePicker && (
+                            <DateTimePicker
+                                value={editedEndDate}
+                                mode="datetime"
+                                display="default"
+                                onChange={(event, selectedDate) => {
+                                    setShowEndDatePicker(false);
+                                    if (selectedDate) {
+                                        setEditedEndDate(selectedDate);
+                                    }
+                                }}
+                            />
+                        )}
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity onPress={handleEditEvent} style={styles.saveButton}>
+                            <Text style={styles.buttonText}>Guardar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={handleCancelEdit} style={styles.cancelButton}>
+                            <Text style={styles.buttonText}>Cancelar</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            );
+        } else {
+            return (
+                <View style={styles.eventItem}>
+                    <View style={styles.eventDetails}>
+                        <Text style={styles.eventTitle}>{item.title}</Text>
+                        <Text style={styles.eventDate}>
+                            {`Fecha de inicio: ${moment(item.start).format("DD/MM/YYYY HH:mm")}`}
+                        </Text>
+                        <Text style={styles.eventDate}>
+                            {`Fecha de finalización: ${moment(item.end).format("DD/MM/YYYY HH:mm")}`}
+                        </Text>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity onPress={() => setEditingEvent(item)}>
+                            <Text style={styles.editButton}>Editar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => handleDeleteEvent(item.id)}>
+                            <Text style={styles.deleteButton}>Borrar</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            );
+        }
+    };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Eventos del {moment(selectedDate).format("DD/MM/YYYY")}</Text>
+            <Text style={styles.title}>Todos los Eventos</Text>
             <FlatList
                 data={events}
                 renderItem={renderItem}
@@ -105,12 +200,68 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     editButton: {
-        color: 'blue',
+        color: 'black',
         marginLeft: 10,
+        fontWeight: '200',
     },
     deleteButton: {
-        color: 'red',
+        color: 'black',
         marginLeft: 10,
+        fontWeight: '200'
+    },
+    cancelButton: {
+        color: 'gray',
+        marginLeft: 10,
+    },
+    eventDate: {
+        fontSize: 16,
+        color: '#666',
+    },
+    eventDetails: {
+        flex: 1,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+    },
+    editContainer: {
+        padding: 10,
+        marginBottom: 10, 
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+    },
+    editInput: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        padding: 5,
+        marginBottom: 10,
+    },
+    dateTimeContainer: {
+        marginBottom: 10,
+    },
+    dateTimeText: {
+        color: 'black',
+        fontWeight: '300',
+    },
+    buttonText: {
+        color: 'black',
+        textAlign: 'center',
+    },
+    saveButton: {
+        backgroundColor: '#d3d3d3',
+        padding: 10,
+        width: '25%',
+        borderRadius: 10,
+        borderWidth: 1,
+        marginHorizontal: 10,
+    },
+    cancelButton: {
+        backgroundColor: '#d3d3d3',
+        padding: 10,
+        width: '25%',
+        borderRadius: 10,
+        borderWidth: 1,
     },
 });
 
