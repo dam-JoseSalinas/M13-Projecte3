@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button, FlatList } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import moment from 'moment';
 import axios from 'axios';
+import { useNavigation} from '@react-navigation/native';
 
 const CalendarScreen = () => {
   const [events, setEvents] = useState({});
   const [selectedDate, setSelectedDate] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [eventName, setEventName] = useState('');
+  const [eventList, setEventList] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     fetchEvents();
@@ -38,6 +41,10 @@ const CalendarScreen = () => {
 
   const handleAddEvent = () => {
     setModalVisible(true);
+  };
+
+  const redirectGetEvents = () => {
+    navigation.navigate('Eventos', { selectedDate });
   };
 
   const handleSaveEvent = async () => {
@@ -73,7 +80,7 @@ const CalendarScreen = () => {
         style={styles.calendar}
         theme={{
           calendarBackground: '#ffffff',
-          textSectionTitleColor: '#000000', // Color del texto del título del mes
+          textSectionTitleColor: '#000000', 
           selectedDayBackgroundColor: '#00adf5', 
           selectedDayTextColor: '#ffffff',
           todayTextColor: '#00adf5',
@@ -81,8 +88,8 @@ const CalendarScreen = () => {
           textDisabledColor: '#d9e1e8',
           dotColor: '#00adf5',
           selectedDotColor: '#ffffff',
-          arrowColor: 'orange', // Color de los indicadores de cambio de mes
-          monthTextColor: '#000000', // Color del texto del título del mes
+          arrowColor: 'orange', 
+          monthTextColor: '#000000', 
           indicatorColor: 'blue',
           textDayFontFamily: 'monospace',
           textMonthFontFamily: 'monospace',
@@ -100,14 +107,17 @@ const CalendarScreen = () => {
           <TouchableOpacity onPress={handleAddEvent} style={styles.button}>
             <Text style={styles.buttonText}>Agregar evento</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={redirectGetEvents} style={styles.button}>
+            <Text style={styles.buttonText}>Mostrar eventos</Text>
+          </TouchableOpacity>
         </View>
       )}
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={modalVisible && !eventList.length} 
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setModalVisible(false);
         }}
       >
         <View style={styles.centeredView}>
@@ -120,6 +130,26 @@ const CalendarScreen = () => {
               placeholder="Nombre del evento"
             />
             <Button title="Guardar" onPress={handleSaveEvent} />
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible && !!eventList.length} 
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text>Eventos del día {moment(selectedDate).format("DD/MM/YYYY")}:</Text>
+            <FlatList
+              data={eventList}
+              renderItem={({ item }) => <Text>{item.title}</Text>}
+              keyExtractor={(item) => item.id.toString()}
+            />
+            <Button title="Cerrar" onPress={() => setModalVisible(false)} />
           </View>
         </View>
       </Modal>
@@ -144,7 +174,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#d3d3d3',
     padding: 10,
-    width: '45%',
+    width: '35%',
     borderRadius: 15,
     borderWidth: 1,
     alignItems: 'center',
