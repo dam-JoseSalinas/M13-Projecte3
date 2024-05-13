@@ -9,7 +9,7 @@ export default function Register() {
     const [email, setEmail] = useState('')
     const [psw, setPsw] = useState('') 
     const navigation = useNavigation();
-    const ip = 'http://10.0.2.2:8000/api/v1/registros/';
+    const ip = 'http://172.20.10.2:8000/api/v1/registros/';
     const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/';
     /*
     const handleRegister = () => {
