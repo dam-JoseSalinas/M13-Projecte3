@@ -1,17 +1,23 @@
+// Importa useState, useEffect, View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button, FlatList, Calendar, moment, axios, useNavigation y DateTimePicker
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button, FlatList } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import moment from 'moment';
 import axios from 'axios';
-import { useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const CalendarScreen = () => {
   const [events, setEvents] = useState({});
   const [selectedDate, setSelectedDate] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [eventName, setEventName] = useState('');
+  const [eventStart, setEventStart] = useState(new Date());
+  const [eventEnd, setEventEnd] = useState(new Date());
   const [eventList, setEventList] = useState([]);
   const navigation = useNavigation();
+  const [showStartPicker, setShowStartPicker] = useState(false);
+  const [showEndPicker, setShowEndPicker] = useState(false);
 
   useEffect(() => {
     fetchEvents();
@@ -51,14 +57,16 @@ const CalendarScreen = () => {
     try {
       const response = await axios.post('http://192.168.1.33:8000/add_event/', {
         title: eventName,
-        start: moment(selectedDate).format("YYYY-MM-DD HH:mm:ss"),
-        end: moment(selectedDate).format("YYYY-MM-DD HH:mm:ss"),
+        start: moment(eventStart).format("YYYY-MM-DD HH:mm:ss"),
+        end: moment(eventEnd).format("YYYY-MM-DD HH:mm:ss"),
       });
   
       if (response.status === 200) {
         fetchEvents();
         setModalVisible(false);
         setEventName('');
+        setEventStart(new Date());
+        setEventEnd(new Date());
       } else {
         Alert.alert('Error', 'No se pudo guardar el evento. Por favor, inténtalo de nuevo.');
       }
@@ -115,41 +123,55 @@ const CalendarScreen = () => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible && !eventList.length} 
+        visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(false);
         }}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text>Ingrese el nombre del evento:</Text>
+            <Text style={styles.modalText}>Ingrese el nombre del evento:</Text>
             <TextInput
               style={styles.textInput}
               value={eventName}
               onChangeText={(text) => setEventName(text)}
               placeholder="Nombre del evento"
             />
+            <Text style={styles.modalText}>Seleccione la hora de inicio:</Text>
+            <TouchableOpacity onPress={() => setShowStartPicker(true)}>
+              <Text style={styles.timeText}>{moment(eventStart).format('HH:mm')}</Text>
+            </TouchableOpacity>
+            {showStartPicker && (
+              <DateTimePicker
+                value={eventStart}
+                mode="time"
+                display="default"
+                onChange={(event, selectedDate) => {
+                  setShowStartPicker(false);
+                  if (selectedDate) {
+                    setEventStart(selectedDate);
+                  }
+                }}
+              />
+            )}
+            <Text style={styles.modalText}>Seleccione la hora de fin:</Text>
+            <TouchableOpacity onPress={() => setShowEndPicker(true)}>
+              <Text style={styles.timeText}>{moment(eventEnd).format('HH:mm')}</Text>
+            </TouchableOpacity>
+            {showEndPicker && (
+              <DateTimePicker
+                value={eventEnd}
+                mode="time"
+                display="default"
+                onChange={(event, selectedDate) => {
+                  setShowEndPicker(false);
+                  if (selectedDate) {
+                    setEventEnd(selectedDate);
+                  }
+                }}
+              />
+            )}
             <Button title="Guardar" onPress={handleSaveEvent} />
-          </View>
-        </View>
-      </Modal>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible && !!eventList.length} 
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text>Eventos del día {moment(selectedDate).format("DD/MM/YYYY")}:</Text>
-            <FlatList
-              data={eventList}
-              renderItem={({ item }) => <Text>{item.title}</Text>}
-              keyExtractor={(item) => item.id.toString()}
-            />
-            <Button title="Cerrar" onPress={() => setModalVisible(false)} />
           </View>
         </View>
       </Modal>
@@ -178,21 +200,21 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     alignItems: 'center',
+    marginHorizontal: 5,
   },
   buttonText: {
     fontWeight: '300',
   },
   centeredView: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
-    top: 100,
   },
   modalView: {
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
+    padding: 10,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -203,16 +225,26 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  modalText: {
+    marginBottom: 10,
+    fontWeight: '300',
+    fontSize: 16,
+    textAlign: 'center',
+  },
   textInput: {
-    top: 10,
     height: 40,
-    width: 150, 
+    width: 200, 
     borderWidth: 1,
     borderRadius: 10,
     borderColor: 'gray',
     backgroundColor: '#fffafa',
     marginBottom: 10,
     paddingLeft: 10,
+  },
+  timeText: {
+    fontSize: 18,
+    marginBottom: 10,
+    textDecorationLine: 'underline',
   },
 });
 
