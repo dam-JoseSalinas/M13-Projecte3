@@ -1,3 +1,4 @@
+// Importa useState, useEffect, View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button, FlatList, Calendar, moment, axios, useNavigation y DateTimePicker
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button, FlatList } from 'react-native';
 import { Calendar } from 'react-native-calendars';
