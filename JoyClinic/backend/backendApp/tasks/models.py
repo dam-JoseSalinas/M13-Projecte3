@@ -44,6 +44,7 @@ class Register(models.Model):
 
 class Event(models.Model):
     id = models.AutoField(primary_key=True)
+    #user = models.OneToOneField(Register, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=True, blank=True)
     start = models.DateTimeField(null=True, blank=True)
     end = models.DateTimeField(null=True, blank=True)
