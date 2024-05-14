@@ -3,13 +3,14 @@ import { StatusBar, Alert } from 'react-native';
 import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; 
+import SecureStorage from 'react-native-secure-storage';
 
 const Login = () => {
     
     const [email, setEmail] = useState('');
     const [psw , setPsw] = useState('');
     const navigation = useNavigation();
-    const ip = 'http://172.20.10.2:8000/login/';
+    const ip = 'http://10.0.2.2:8000/login/';
     const phoneIP = 'http://192.168.1.33:8000/login/';
     const [id, setId] = useState(0)
     const handleLogin = () => {
@@ -27,6 +28,7 @@ const Login = () => {
             .then(response => {
                 if(response.ok) {
                     setId(response.ok); 
+                    SecureStorage.setItem("token", response.token);
                     navigation.navigate('MenuInferior') 
                 } else {
                     response.text().then(errorMessage => {

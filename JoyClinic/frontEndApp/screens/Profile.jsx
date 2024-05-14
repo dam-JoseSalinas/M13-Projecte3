@@ -2,11 +2,12 @@ import React, {useState, useEffect}from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation, useRoute } from '@react-navigation/native';
-
+import SecureStorage from 'react-native-secure-storage';
 
 const Profile = () => {
   const navigation = useNavigation();
   const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/default.jpg'));
+
   const [userData, setUserData] = useState({
     name: "",
     surname: "",
@@ -21,12 +22,19 @@ const Profile = () => {
   const redirectEditProfile = () => {
     navigation.navigate('EditProfile');
   }
-  const phoneIP = `http://192.168.1.33:8000/api/v1/registros/1/`;
+  const phoneIP = `http://192.168.1.33:8000/profile`;
 
   const fetchData = async () => {
+
     try {
+      const token = await SecureStorage.getItem("token");
+    
       console.log('Fetching data from:', phoneIP); 
-      const response = await fetch(phoneIP);
+      const response = await fetch(phoneIP, {
+        "Content-Type": "application/json",
+        "Authorization": token
+      });
+
       if (response.ok) {
         const data = await response.json();
         console.log('User data received:', data); 

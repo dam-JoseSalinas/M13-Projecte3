@@ -107,12 +107,25 @@ def register(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 '''
 
+'''
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def profile(request):
 
-    serializer = RegisterSerializer(instance=request.user)
+    serializer = RegisterSerializer(instance=request.register)
 
+    return Response(serializer.data, status=status.HTTP_200_OK)
+'''
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def profile(request):
+    try:
+        register_instance = Register.objects.get(email=request.user.email)
+    except Register.DoesNotExist:
+        return Response({"message": "Profile not found."}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = RegisterSerializer(instance=register_instance)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 def index(request):  
