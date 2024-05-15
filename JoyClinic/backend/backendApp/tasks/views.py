@@ -7,7 +7,6 @@ from .serializer import RegisterSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated
@@ -16,6 +15,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from .models import Event
 from django.http import JsonResponse 
 
@@ -87,35 +88,6 @@ def login(request):
 
     serializer = RegisterSerializer(instance=register)
     return Response({"token": token, "user": serializer.data}, status=status.HTTP_200_OK)
-'''
-@api_view(['POST'])
-def register(request):
-    serializer = RegisterSerializer(data=request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-
-        register = Register.objects.get(email=serializer.data['email'])
-        register.set_password(serializer.data['psw'])
-        register.save()
-
-        # Generar token de actualización
-        refresh = RefreshToken.for_user(register)
-        token = str(refresh.access_token)
-
-        return Response({'token': token, "user": serializer.data}, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-'''
-
-'''
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def profile(request):
-
-    serializer = RegisterSerializer(instance=request.register)
-
-    return Response(serializer.data, status=status.HTTP_200_OK)
-'''
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -134,20 +106,23 @@ def index(request):
         "events":all_events,
     }
     return render(request,'index.html',context)
- 
+
+@login_required
 def all_events(request):
     try:
         if request.method == 'GET':
-            all_events = Event.objects.all()
+            # Obtener todos los eventos asociados al usuario autenticado
+            user_events = Event.objects.filter(owner=request.user)
 
             # Crear una lista de diccionarios con los detalles de cada evento
             event_list = []
-            for event in all_events:
+            for event in user_events:
                 event_dict = {
                     'id': event.id,
                     'title': event.name,
                     'start': event.start.strftime("%m/%d/%Y, %H:%M:%S"),
                     'end': event.end.strftime("%m/%d/%Y, %H:%M:%S"),
+                    'owner': event.owner.name if event.owner else None
                 }
                 event_list.append(event_dict)
 
@@ -162,29 +137,36 @@ def all_events(request):
         return JsonResponse({"success": False, "message": "Internal Server Error"}, status=500)
 
 @csrf_exempt
+@login_required
 def add_event(request):
-    if request.method == "POST": 
+    if request.method == "POST":
         try:
             # Obtener los datos del cuerpo de la solicitud
             data = json.loads(request.body)
             start = data.get("start", None)
             end = data.get("end", None)
             title = data.get("title", None)
-            
+            owner_id = data.get("owner_id", None)
+
             # Verificar si todos los campos requeridos están presentes
-            if start is not None and end is not None and title is not None:
-                # Crear el evento
-                event = Event(name=str(title), start=start, end=end)
-                event.save()
-                return JsonResponse({"success": True})
+            if start is not None and end is not None and title is not None and owner_id is not None:
+                # Verificar si el usuario existe
+                owner = Register.objects.filter(id=owner_id).first()
+                if owner is None:
+                    return JsonResponse({"success": False, "message": "Owner with id {} not found".format(owner_id)}, status=404)
+                
+                # Crear el evento asociado al usuario especificado
+                event = Event.objects.create(name=str(title), start=start, end=end, owner=owner)
+                return JsonResponse({"success": True, "event_id": event.id})
             else:
                 return JsonResponse({"success": False, "message": "Missing required fields"}, status=400)
         except Exception as e:
             return JsonResponse({"success": False, "message": str(e)}, status=400)
     else:
         return JsonResponse({"success": False, "message": "Only POST requests are allowed"}, status=405)
- 
+    
 @csrf_exempt
+@login_required
 def update(request, event_id):
     if request.method == "PUT":
         try:
@@ -195,6 +177,8 @@ def update(request, event_id):
             
             if start is not None and end is not None and title is not None:
                 event = Event.objects.get(id=event_id)
+
+                # Actualiza los campos del evento
                 event.start = start
                 event.end = end
                 event.name = title
@@ -208,8 +192,9 @@ def update(request, event_id):
             return JsonResponse({"success": False, "message": str(e)}, status=400)
     else:
         return JsonResponse({"success": False, "message": "Only PUT requests are allowed"}, status=405)
-
+    
 @csrf_exempt
+@login_required
 def remove(request, event_id):
     if request.method == "DELETE":
         try:
@@ -223,4 +208,3 @@ def remove(request, event_id):
             return JsonResponse({"success": False, "message": str(e)}, status=400)
     else:
         return JsonResponse({"success": False, "message": "Only DELETE requests are allowed"}, status=405)
-    

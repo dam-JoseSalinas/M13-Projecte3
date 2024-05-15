@@ -143,17 +143,6 @@ function DrawerNavigator() {
                   color="black" />
               )
             }}/>
-            <Drawer.Screen 
-            name="Salir"
-            component={LoginScreen}
-            options={{
-              drawerIcon: () => (
-                <Ionicons 
-                  name="exit-outline" 
-                  size={24} 
-                  color={"black"} />
-              )
-            }}/>
     </Drawer.Navigator>
   );
 }

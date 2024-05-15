@@ -3,8 +3,10 @@ import { View, StyleSheet, Text, FlatList, TouchableOpacity, TextInput, Alert } 
 import axios from 'axios';
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useNavigation } from '@react-navigation/native';
 
 const Eventos = () => {
+    const navigation = useNavigation();
     const [events, setEvents] = useState([]);
     const [editingEvent, setEditingEvent] = useState(null);
     const [editedTitle, setEditedTitle] = useState('');
@@ -13,6 +15,9 @@ const Eventos = () => {
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = useState(false);
 
+    const redirecCalendario = () => {
+        navigation.navigate('Calendario');
+      }
     useEffect(() => {
         fetchEvents();
     }, []);
@@ -29,7 +34,7 @@ const Eventos = () => {
         } catch (error) {
             console.error('Error fetching events:', error);
         }
-    };
+    };    
 
     const handleEditEvent = async () => {
         try {
@@ -162,6 +167,11 @@ const Eventos = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Todos los Eventos</Text>
+            <TouchableOpacity 
+                style={styles.styleCalendario}
+                onPress={redirecCalendario}>
+                    <Text>Calendario</Text>
+            </TouchableOpacity>
             <FlatList
                 data={events}
                 renderItem={renderItem}
@@ -181,8 +191,18 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        fontWeight: 'bold',
+        fontWeight: '300', 
         marginBottom: 20,
+        alignSelf: 'center',
+    },
+    styleCalendario: {
+        alignSelf: 'center',
+        backgroundColor: '#d3d3d3',
+        padding: 10,
+        width: '85%', 
+        borderRadius: 10,
+        borderWidth: 1,
+        alignItems: 'center',
     },
     flatList: {
         width: '100%',

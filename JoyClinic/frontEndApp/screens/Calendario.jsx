@@ -26,20 +26,18 @@ const CalendarScreen = () => {
   const fetchEvents = async () => {
     try {
       const response = await axios.get('http://192.168.1.33:8000/all_events/');
-      const eventData = response.data.reduce((acc, event) => {
-        acc[event.id] = { 
-          name: event.title, 
-          start: event.start, 
-          end: event.end,
-          marked: true,
-        };
-        return acc;
-      }, {});
+      const eventData = response.data.map(event => ({
+        id: event.id,
+        title: event.title,
+        start: new Date(event.start),
+        end: new Date(event.end),
+      }));
       setEvents(eventData);
     } catch (error) {
       console.error('Error fetching events:', error);
     }
   };
+  
 
   const handleDatePress = (date) => {
     setSelectedDate(date.dateString);
@@ -188,7 +186,7 @@ const styles = StyleSheet.create({
   calendar: {
     width: '100%',
   },
-  actions: {
+  actions: { 
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
