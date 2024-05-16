@@ -3,7 +3,8 @@ import { StatusBar, Alert } from 'react-native';
 import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; 
-import SecureStorage from 'react-native-secure-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CommonActions } from '@react-navigation/native';
 
 const Login = () => {
     
@@ -13,33 +14,42 @@ const Login = () => {
     const ip = 'http://10.0.2.2:8000/login/';
     const phoneIP = 'http://192.168.1.33:8000/login/';
     const [id, setId] = useState(0)
-    const handleLogin = () => {
+    
+    const handleLogin = async () => {
         if (email && psw) {
-            fetch(phoneIP || ip, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email,
-                    psw: psw,
-                }),
-            })
-            .then(response => {
-                if(response.ok) {
-                    setId(response.ok); 
-                    SecureStorage.setItem("token", response.token);
-                    navigation.navigate('MenuInferior') 
+            try {
+                const response = await fetch(phoneIP || ip, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        psw: psw,
+                    }),
+                });
+    
+                if (response.ok) {
+                    const data = await response.json();
+                    const token = data.token;
+    
+                    await AsyncStorage.setItem("token", token);
+                    
+                    navigation.dispatch(
+                        CommonActions.reset({
+                          index: 0,
+                          routes: [{ name: 'MenuInferior' }], 
+                        })
+                    );
                 } else {
-                    response.text().then(errorMessage => {
-                        Alert.alert(errorMessage.split(":")[1].split("\"")[1]);
-                    })
+                    const errorMessage = await response.text();
+                    Alert.alert(errorMessage.split(":")[1].split("\"")[1]);
                 }
-            })           
-            .catch(error => {
-                console.error('Error de red:', error);
-                Alert.alert('Error de red', 'Ha ocurrido un error de red. Por favor, inténtalo de nuevo más tarde.');
-            });
+            } catch (error) {
+
+                console.error('Error en el inicio de sesión:', error);
+                Alert.alert('Error', 'Ha ocurrido un error en el inicio de sesión. Por favor, inténtalo de nuevo más tarde.');
+            }
         }
     };
 

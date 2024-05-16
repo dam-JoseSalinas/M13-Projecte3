@@ -1,66 +1,103 @@
-import React, {useState, useEffect}from 'react';
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Entypo } from "@expo/vector-icons";
-import { useNavigation, useRoute } from '@react-navigation/native';
-import SecureStorage from 'react-native-secure-storage';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = () => {
   const navigation = useNavigation();
   const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/default.jpg'));
-
   const [userData, setUserData] = useState({
     name: "",
     surname: "",
     bio: "",
-    birth_date: new Date(), 
+    birth_date: new Date(),  
     city: "",
     country: "",
     photo: "",  
   }); 
- 
-  {/*Editrofile*/}
+  const phoneIP = `http://192.168.1.33:8000/profile`;
+
+  const fetchProfileData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+  
+      if (!token) {
+        throw new Error('El token no está disponible');
+      }
+  
+      console.log('Obteniendo datos del perfil desde:', phoneIP);
+      const response = await fetch(phoneIP, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (response.ok) {
+        const profileData = await response.json();
+        console.log('Datos del perfil recibidos:', profileData);
+  
+        setUserData({
+          name: profileData.name,
+          surname: profileData.surname,
+          bio: profileData.bio,
+          birth_date: new Date(profileData.birth_date),
+          city: profileData.city,
+          country: profileData.country,
+          photo: profileData.photo,
+        });
+        if (profileData.photo) {
+          setProfileImage({ uri: profileData.photo });
+        } else {
+          throw new Error('Error fetching user data');
+        }
+  
+        return profileData;
+      } else {
+        throw new Error('Error al obtener los datos del perfil');
+      }
+    } catch (error) {
+      console.error('Error al obtener los datos del perfil:', error);
+      Alert.alert('Error', 'Hubo un problema al obtener los datos del perfil.');
+      return null;
+    }
+  };
+  
+  useEffect(() => {
+    const getProfileData = async () => {
+      const profileData = await fetchProfileData();
+      if (profileData) {
+        setUserData(profileData);
+      }
+    };
+    getProfileData();
+  }, []);
+
   const redirectEditProfile = () => {
     navigation.navigate('EditProfile');
   }
-  const phoneIP = `http://192.168.1.33:8000/profile`;
 
-  const fetchData = async () => {
-
+  const handleLogin = async () => {
     try {
-      const token = await SecureStorage.getItem("token");
-    
-      console.log('Fetching data from:', phoneIP); 
-      const response = await fetch(phoneIP, {
-        "Content-Type": "application/json",
-        "Authorization": token
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('User data received:', data); 
-        setUserData(data);
-        if (data.photo) {
-          setProfileImage({ uri: data.photo }); 
+      
+        const profileData = await fetchProfileData();
+        if (profileData) {
+            setUserData(profileData);
         }
-      } else {
-        throw new Error('Error fetching user data');
-      }
     } catch (error) {
-      console.error('Error fetching user data:', error); 
-      Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
+        console.error('Error al actualizar los datos del perfil después de iniciar sesión:', error);
+        // Manejar el error
     }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+};
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.profileInfo}>
           <Image
-            source={userData.photo ? { uri: userData.photo } : profileImage}
-            style={styles.profileImage}/>
+            source={userData.photo ? {uri: userData.photo}: profileImage} 
+            style={styles.profileImage}
+          />
           <View style={styles.textosProfile}>
             <View styles={styles.textName}>
               <Text style={styles.username}>{userData.name} {userData.surname}</Text>

@@ -252,7 +252,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: '#333',
     textShadowColor: '#888',
-    fontFamily: 'Georgia',
   },   
   viewNumber: {
     flexDirection: "row",

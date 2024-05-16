@@ -43,11 +43,13 @@ class Register(models.Model):
         return self.name
 
 class Event(models.Model):
-    id = models.AutoField(primary_key=True)
-    #user = models.OneToOneField(Register, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=True, blank=True)
     start = models.DateTimeField(null=True, blank=True)
     end = models.DateTimeField(null=True, blank=True)
+    owner = models.ForeignKey(Register, on_delete=models.CASCADE, related_name='events')
+
+    def __str__(self):
+        return f"{self.name} (Correo electrónico del propietario: {self.owner.email})"
 
     
     

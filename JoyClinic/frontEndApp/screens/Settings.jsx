@@ -8,19 +8,60 @@ import { Entypo } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CommonActions } from '@react-navigation/native';
 
 export default function Settings(){
     const [text, setText] = useState('')
     const navigation = useNavigation();
+    const [userData, setUserData] = useState({
+        name: "",
+        surname: "",
+        bio: "",
+        birth_date: new Date(), 
+        city: "",
+        country: "",
+        photo: "",
+      });
+      
     const dispotivos = () => {
         navigation.navigate('Dispositivos')
     }
     const editProfile = () => {
         navigation.navigate('EditProfile')
     }
-    //const exit = () => {
-    //    navigation.navigate('Bienvenida')
-    //}
+    const logout = async () => {
+        try {
+            // Obtener el token antes de eliminarlo
+            const token = await AsyncStorage.getItem('token');
+            console.log('Token antes de eliminar:', token);
+
+            // Eliminar el token de AsyncStorage
+            await AsyncStorage.removeItem('token');
+            console.log('Token eliminado:', token);
+            // Limpiar el estado de la aplicación
+            setUserData({
+                name: "",
+                surname: "",
+                bio: "",
+                birth_date: new Date(), 
+                city: "",
+                country: "",
+                photo: "",
+            });
+            
+            // Reiniciar la navegación y moverse a la pantalla de inicio
+            navigation.dispatch(
+                CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'LoginScreen' }],
+                })
+            );
+        } catch (error) {
+            console.error('Error al cerrar sesión:', error);
+            // Manejo de errores
+        } 
+    };    
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
@@ -243,7 +284,8 @@ export default function Settings(){
                         <MaterialIcons 
                             name="navigate-next" 
                             size={24} 
-                            color="black" />
+                            color="black"
+                            onPress={logout} />
                     </View>
                 </View>
             </ScrollView>
