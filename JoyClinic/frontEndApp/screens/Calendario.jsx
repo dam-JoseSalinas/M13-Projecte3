@@ -1,11 +1,12 @@
-// Importa useState, useEffect, View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button, FlatList, Calendar, moment, axios, useNavigation y DateTimePicker
+// Importa useState, useEffect, View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button, FlatList, Calendar, moment, axios, useNavigation, AsyncStorage y DateTimePicker
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button, FlatList } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import moment from 'moment';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CalendarScreen = () => {
   const [events, setEvents] = useState({});
@@ -14,10 +15,10 @@ const CalendarScreen = () => {
   const [eventName, setEventName] = useState('');
   const [eventStart, setEventStart] = useState(new Date());
   const [eventEnd, setEventEnd] = useState(new Date());
-  const [eventList, setEventList] = useState([]);
   const navigation = useNavigation();
   const [showStartPicker, setShowStartPicker] = useState(false);
   const [showEndPicker, setShowEndPicker] = useState(false);
+  const phoneIP = `http://192.168.1.33:8000/all_events/`;
 
   useEffect(() => {
     fetchEvents();
@@ -25,22 +26,39 @@ const CalendarScreen = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://192.168.1.33:8000/all_events/');
-      const eventData = response.data.map(event => ({
-        id: event.id,
-        title: event.title,
-        start: new Date(event.start),
-        end: new Date(event.end),
-      }));
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        throw new Error('El token no está disponible');
+      }
+  
+      console.log('Obteniendo datos del perfil desde:', phoneIP);
+      const response = await axios.get(phoneIP, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const eventData = response.data.reduce((acc, event) => {
+        acc[event.id] = { 
+          name: event.title, 
+          start: event.start, 
+          end: event.end,
+          marked: true,
+        };
+        return acc;
+      }, {});
       setEvents(eventData);
     } catch (error) {
       console.error('Error fetching events:', error);
     }
   };
-  
 
   const handleDatePress = (date) => {
     setSelectedDate(date.dateString);
+    // Setear la fecha seleccionada en el evento
+    setEventStart(moment(date.dateString).startOf('day').toDate());
+    setEventEnd(moment(date.dateString).endOf('day').toDate());
   };
 
   const handleAddEvent = () => {
@@ -53,13 +71,23 @@ const CalendarScreen = () => {
 
   const handleSaveEvent = async () => {
     try {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        throw new Error('El token no está disponible');
+      }
+
       const response = await axios.post('http://192.168.1.33:8000/add_event/', {
         title: eventName,
         start: moment(eventStart).format("YYYY-MM-DD HH:mm:ss"),
         end: moment(eventEnd).format("YYYY-MM-DD HH:mm:ss"),
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       });
-  
-      if (response.status === 200) {
+
+      if (response.status === 201) {
         fetchEvents();
         setModalVisible(false);
         setEventName('');
@@ -77,7 +105,7 @@ const CalendarScreen = () => {
   return (
     <View style={styles.container}>
       <Calendar
-        current={'2024-05-01'}
+        current={moment().format('YYYY-MM-DD')}
         markedDates={{
           ...events,
           [selectedDate]: { selected: true, selectedColor: 'black' }, 
@@ -184,33 +212,32 @@ const styles = StyleSheet.create({
     top: 120,
     left: 0, 
   },
-  actions: { 
+  actions: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
   },
   button: {
-    backgroundColor: '#d3d3d3',
+    backgroundColor: 'black',
     padding: 10,
-    width: '35%',
-    borderRadius: 15,
-    borderWidth: 1,
-    alignItems: 'center',
-    marginHorizontal: 5,
+    borderRadius: 5,
+    marginHorizontal: 15,
   },
   buttonText: {
-    fontWeight: '300',
+    color: 'white',
+    fontSize: 16,
   },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalView: {
     margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 10,
+    borderRadius: 10,
+    padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {

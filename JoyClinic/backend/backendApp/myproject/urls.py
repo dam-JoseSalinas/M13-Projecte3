@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from tasks.views import saludo, profileDefault, login, profile, index, all_events, add_event, update, remove
+from tasks.views import saludo, profileDefault, login, profile, index, all_events, add_event, update, register, remove
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,7 +32,7 @@ urlpatterns = [
     path('image/', profileDefault),
     path('', include('tasks.urls')),
     re_path('login/', login),
-    #re_path('register', register),
+    re_path('register', register),
     re_path('profile', profile),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

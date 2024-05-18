@@ -4,6 +4,7 @@ import axios from 'axios';
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Eventos = () => {
     const navigation = useNavigation();
@@ -17,14 +18,26 @@ const Eventos = () => {
 
     const redirecCalendario = () => {
         navigation.navigate('Calendario');
-      }
+    };
+
     useEffect(() => {
         fetchEvents();
     }, []);
 
     const fetchEvents = async () => {
         try {
-            const response = await axios.get('http://192.168.1.33:8000/all_events/');
+            const token = await AsyncStorage.getItem('token');
+            if (!token) {
+                throw new Error('El token no está disponible');
+            }
+
+            const response = await axios.get('http://192.168.1.33:8000/all_events/', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
             const formattedEvents = response.data.map(event => ({
                 ...event,
                 start: moment(event.start, "MM/DD/YYYY, HH:mm:ss").toDate(),
@@ -34,10 +47,15 @@ const Eventos = () => {
         } catch (error) {
             console.error('Error fetching events:', error);
         }
-    };    
+    };
 
     const handleEditEvent = async () => {
         try {
+            const token = await AsyncStorage.getItem('token');
+            if (!token) {
+                throw new Error('El token no está disponible');
+            }
+
             const formattedStartDate = moment(editedStartDate).format("YYYY-MM-DD HH:mm:ss");
             const formattedEndDate = moment(editedEndDate).format("YYYY-MM-DD HH:mm:ss");
 
@@ -45,6 +63,11 @@ const Eventos = () => {
                 title: editedTitle,
                 start: formattedStartDate,
                 end: formattedEndDate,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             if (response.status === 200) {
@@ -71,7 +94,18 @@ const Eventos = () => {
 
     const handleDeleteEvent = async (eventId) => {
         try {
-            const response = await axios.delete(`http://192.168.1.33:8000/remove/${eventId}/`);
+            const token = await AsyncStorage.getItem('token');
+            if (!token) {
+                throw new Error('El token no está disponible');
+            }
+
+            const response = await axios.delete(`http://192.168.1.33:8000/remove/${eventId}/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
             if (response.status === 200) {
                 setEvents(events.filter(event => event.id !== eventId));
                 Alert.alert('Evento eliminado correctamente');
@@ -170,7 +204,7 @@ const Eventos = () => {
             <TouchableOpacity 
                 style={styles.styleCalendario}
                 onPress={redirecCalendario}>
-                    <Text>Calendario</Text>
+                <Text>Calendario</Text>
             </TouchableOpacity>
             <FlatList
                 data={events}
@@ -182,7 +216,7 @@ const Eventos = () => {
     );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
     container: {
         flex: 1,
         backgroundColor: '#fff',
@@ -247,7 +281,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10, 
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#ccc', 
         borderRadius: 5,
     },
     editInput: {
