@@ -180,11 +180,9 @@ const CalendarScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  calendar: {
-    width: '100%',
+    position: 'center', 
+    top: 120,
+    left: 0, 
   },
   actions: { 
     flexDirection: 'row',
