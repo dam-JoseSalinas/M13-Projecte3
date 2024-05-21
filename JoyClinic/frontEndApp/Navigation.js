@@ -1,4 +1,4 @@
-import React, {useState, useEffect}from 'react';
+import React, { useState, useEffect } from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { useColorScheme, View, StyleSheet, Image, Text, TouchableOpacity, Alert } from 'react-native';
@@ -23,9 +23,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Notifications from './screens/Notifications';
 import { useNavigation } from '@react-navigation/native';
 import Eventos from './screens/Eventos';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator(); 
 
 function DrawerNavigator() {
   const navigation = useNavigation();
@@ -40,12 +41,22 @@ function DrawerNavigator() {
     photo: "",
   });
 
-  const ip = 'http://10.0.2.2:8000/api/v1/registros/1/';
-  const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/1/';
+  const phoneIP = `http://192.168.1.33:8000/profile/`;
 
   const fetchData = async () => {
     try {
-      const response = await fetch(phoneIP || ip);
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        throw new Error('El token no está disponible');
+      }
+
+      const response = await fetch(phoneIP, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
       if (response.ok) {
         const data = await response.json();
         setUserData(data);
@@ -67,25 +78,43 @@ function DrawerNavigator() {
 
   return (
     <Drawer.Navigator
-      drawerContent={
-        (props) => {
+      drawerContent={(props) => {
+        if (!userData) {
+          return (
+            <SafeAreaView>
+              <View style={styles.container}>
+                <Image
+                  source={require('./assets/images/foto_perfil/sebas1.jpg')}
+                  style={styles.profileImage}/>
+                <Text style={styles.name}>
+                  Anthony Sebastian Arias
+                </Text>
+                <Text style={styles.text}>
+                  Desarrollador
+                </Text>
+              </View>
+              <DrawerItemList {...props}/>
+            </SafeAreaView>
+          );
+        } else {
           return (
             <SafeAreaView>
               <View style={styles.container}> 
                 <Image
                   source={userData.photo ? { uri: userData.photo } : profileImage}
                   style={styles.profileImage}/>
-                  <Text style={styles.name}>
-                    {userData.name} {userData.surname}
-                  </Text>
-                  <Text style={styles.text}>
-                    {userData.bio}
-                  </Text>
+                <Text style={styles.name}>
+                  {userData.name} {userData.surname}
+                </Text>
+                <Text style={styles.text}>
+                  {userData.bio}
+                </Text>
               </View> 
               <DrawerItemList {...props}/>
             </SafeAreaView>
-          )
-        }}>
+          );
+        }
+      }}>
       <Drawer.Screen 
         name="Home" 
         component={StackNavigator}

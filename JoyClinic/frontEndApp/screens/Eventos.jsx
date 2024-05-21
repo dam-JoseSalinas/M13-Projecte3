@@ -29,12 +29,12 @@ const Eventos = () => {
             const token = await AsyncStorage.getItem('token');
             if (!token) {
                 throw new Error('El token no está disponible');
-            }
+            } 
 
             const response = await axios.get('http://192.168.1.33:8000/all_events/', {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`, 
                 },
             });
 
@@ -215,7 +215,7 @@ const Eventos = () => {
         </View>
     );
 };
-
+ 
 const styles = StyleSheet.create({ 
     container: {
         flex: 1,
