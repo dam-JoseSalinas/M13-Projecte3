@@ -2,7 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator
 from django.contrib.auth.hashers import make_password, check_password
-
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 def validate_password(value):
     if len(str(value)) < 8:
@@ -39,6 +39,9 @@ class Register(models.Model):
     def check_password(self, raw_password):
         return check_password(raw_password, self.psw)
     
+    def is_authenticated(self):
+        return True
+    
     def __str__(self) -> str:
         return self.name
 
@@ -50,6 +53,7 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.name} (Correo electrónico del propietario: {self.owner.email})"
+        
 
     
     

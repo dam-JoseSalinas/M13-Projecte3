@@ -40,7 +40,7 @@ const CalendarScreen = () => {
       });
 
       const eventData = response.data.reduce((acc, event) => {
-        acc[event.id] = { 
+        acc[event.id] = {  
           name: event.title, 
           start: event.start, 
           end: event.end,

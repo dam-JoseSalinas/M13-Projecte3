@@ -3,111 +3,80 @@ import { View, Text, Image, TouchableOpacity, StyleSheet, Alert } from 'react-na
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const Profile = () => {
   const navigation = useNavigation();
-  const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/default.jpg'));
+  const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/perfil.jpeg'));
   const [userData, setUserData] = useState({
     name: "",
     surname: "",
     bio: "",
-    birth_date: new Date(),  
+    birth_date: new Date(),
     city: "",
     country: "",
-    photo: "",  
-  }); 
-  const phoneIP = `http://192.168.1.33:8000/profile`;
+    photo: "",
+  });
 
-  const fetchProfileData = async () => {
+  const phoneIP = `http://192.168.1.33:8000/profile/`;
+
+  const fetchData = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
-  
       if (!token) {
         throw new Error('El token no está disponible');
       }
-  
-      console.log('Obteniendo datos del perfil desde:', phoneIP);
+
       const response = await fetch(phoneIP, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-  
-      if (response.ok) {
-        const profileData = await response.json();
-        console.log('Datos del perfil recibidos:', profileData);
-  
-        setUserData({
-          name: profileData.name,
-          surname: profileData.surname,
-          bio: profileData.bio,
-          birth_date: new Date(profileData.birth_date),
-          city: profileData.city,
-          country: profileData.country,
-          photo: profileData.photo,
-        });
-        if (profileData.photo) {
-          setProfileImage({ uri: profileData.photo });
-        } else {
-          throw new Error('Error fetching user data');
+          'Authorization': `Bearer ${token}`
         }
-  
-        return profileData;
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data);
+        if (data.photo) {
+          setProfileImage({ uri: data.photo });
+        }
       } else {
-        throw new Error('Error al obtener los datos del perfil');
+        throw new Error('Error fetching user data');
       }
     } catch (error) {
-      console.error('Error al obtener los datos del perfil:', error);
-      Alert.alert('Error', 'Hubo un problema al obtener los datos del perfil.');
-      return null;
+      console.error('Error:', error);
+      Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
     }
   };
-  
-  useEffect(() => {
-    const getProfileData = async () => {
-      const profileData = await fetchProfileData();
-      if (profileData) {
-        setUserData(profileData);
-      }
-    };
-    getProfileData();
-  }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
   const redirectEditProfile = () => {
     navigation.navigate('EditProfile');
-  }
+  };
+  
 
-  const handleLogin = async () => {
-    try {
-      
-        const profileData = await fetchProfileData();
-        if (profileData) {
-            setUserData(profileData);
-        }
-    } catch (error) {
-        console.error('Error al actualizar los datos del perfil después de iniciar sesión:', error);
-        // Manejar el error
-    }
-};
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.profileInfo}>
           <Image
-            source={userData.photo ? {uri: userData.photo}: profileImage} 
+            source={userData.photo ? { uri: userData.photo } : profileImage}
             style={styles.profileImage}
           />
           <View style={styles.textosProfile}>
-            <View styles={styles.textName}>
+            <View style={styles.textName}>
               <Text style={styles.username}>{userData.name} {userData.surname}</Text>
             </View>
             <Text style={styles.bio}>{userData.bio}</Text>
             <View style={styles.locationContainer}>
-              <Entypo 
-                name="location-pin" 
-                size={15} 
-                color="black" />
+              <Entypo
+                name="location-pin"
+                size={15}
+                color="black"
+              />
               <Text style={styles.locationText}>{userData.country}</Text>
               <Text style={styles.locationText}>{userData.city}</Text>
             </View>
@@ -131,10 +100,10 @@ const Profile = () => {
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.buttonEditProfile} onPress={redirectEditProfile}>
           <Text style={styles.textButton}>Editar Perfil</Text>
-        </TouchableOpacity>    
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.textButton}>Compartir Perfil</Text>
-        </TouchableOpacity> 
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -146,7 +115,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   header: {
-    padding: 20, 
+    padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#cccccc',
   },
@@ -191,7 +160,6 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontSize: 15,
   },
-  
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
