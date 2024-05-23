@@ -1,5 +1,5 @@
 // Importa useState, useEffect, View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button, FlatList, Calendar, moment, axios, useNavigation, AsyncStorage y DateTimePicker
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Alert, Modal, TextInput, Button } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import moment from 'moment';
@@ -7,6 +7,8 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EventRegister} from 'react-native-event-listeners'
+import themeContext from "../themes/themeContext";
 
 const CalendarScreen = () => {
   const [events, setEvents] = useState({});
@@ -102,28 +104,32 @@ const CalendarScreen = () => {
     }
   };
 
+  const theme = useContext(themeContext)
+
+  const [darkMode, setDarkMode] = useState(false)
+
   return (
-    <View style={styles.container}>
+    <View style = {[styles.container, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
       <Calendar
         current={moment().format('YYYY-MM-DD')}
         markedDates={{
           ...events,
-          [selectedDate]: { selected: true, selectedColor: 'black' }, 
+          [selectedDate]: { selected: true, selectedColor: theme.color, backgroundColor: theme.background }, 
         }}
         onDayPress={(day) => handleDatePress(day)}
-        style={styles.calendar}
+        style = {[styles.Calendar, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
         theme={{
-          calendarBackground: '#ffffff',
-          textSectionTitleColor: '#000000', 
-          selectedDayBackgroundColor: '#00adf5', 
-          selectedDayTextColor: '#ffffff',
-          todayTextColor: '#00adf5',
+          calendarBackground: theme.background,
+          textSectionTitleColor: theme.color, 
+          selectedDayBackgroundColor:  theme.background, 
+          selectedDayTextColor: theme.background,
+          todayTextColor: theme.calendarTodayTextColor,
           dayTextColor: '#2d4150',
           textDisabledColor: '#d9e1e8',
           dotColor: '#00adf5',
-          selectedDotColor: '#ffffff',
+          selectedDotColor: theme.background,
           arrowColor: 'orange', 
-          monthTextColor: '#000000', 
+          monthTextColor: theme.color, 
           indicatorColor: 'blue',
           textDayFontFamily: 'monospace',
           textMonthFontFamily: 'monospace',
@@ -137,12 +143,12 @@ const CalendarScreen = () => {
         }}
       />
       {selectedDate && (
-        <View style={styles.actions}>
-          <TouchableOpacity onPress={handleAddEvent} style={styles.button}>
-            <Text style={styles.buttonText}>Agregar evento</Text>
+        <View style = {[styles.actions, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+          <TouchableOpacity onPress={handleAddEvent} style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+            <Text style = {[styles.buttonText, {color:theme.color}]}>Agregar evento</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={redirectGetEvents} style={styles.button}>
-            <Text style={styles.buttonText}>Mostrar eventos</Text>
+          <TouchableOpacity onPress={redirectGetEvents} style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+            <Text style = {[styles.buttonText, {color:theme.color}]}>Mostrar eventos</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -154,18 +160,18 @@ const CalendarScreen = () => {
           setModalVisible(false);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Ingrese el nombre del evento:</Text>
+        <View style = {[styles.centeredView, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+          <View style = {[styles.modalView, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+            <Text style = {[styles.modalText, {color:theme.color}]}>Ingrese el nombre del evento:</Text>
             <TextInput
-              style={styles.textInput}
+              style = {[styles.textInput, {color:theme.color}]}
               value={eventName}
               onChangeText={(text) => setEventName(text)}
               placeholder="Nombre del evento"
             />
-            <Text style={styles.modalText}>Seleccione la hora de inicio:</Text>
+            <Text style = {[styles.modalText, {color:theme.color}]}>Seleccione la hora de inicio:</Text>
             <TouchableOpacity onPress={() => setShowStartPicker(true)}>
-              <Text style={styles.timeText}>{moment(eventStart).format('HH:mm')}</Text>
+              <Text style = {[styles.timeText, {color:theme.color}]}>{moment(eventStart).format('HH:mm')}</Text>
             </TouchableOpacity>
             {showStartPicker && (
               <DateTimePicker
@@ -180,9 +186,9 @@ const CalendarScreen = () => {
                 }}
               />
             )}
-            <Text style={styles.modalText}>Seleccione la hora de fin:</Text>
+            <Text style = {[styles.modalText, {color:theme.color}]}>Seleccione la hora de fin:</Text>
             <TouchableOpacity onPress={() => setShowEndPicker(true)}>
-              <Text style={styles.timeText}>{moment(eventEnd).format('HH:mm')}</Text>
+              <Text style = {[styles.timeText, {color:theme.color}]}>{moment(eventEnd).format('HH:mm')}</Text>
             </TouchableOpacity>
             {showEndPicker && (
               <DateTimePicker
