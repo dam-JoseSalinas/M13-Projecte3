@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useContext } from "react";
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -9,10 +9,16 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
+import { EventRegister} from 'react-native-event-listeners'
+import themeContext from "../themes/themeContext";
 
 export default function SocialNetworks(){
+    const theme = useContext(themeContext)
+
+    const [darkMode, setDarkMode] = useState(false)
+
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}]}>
             {/*BODY*/}
             <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
                 {/*
@@ -20,47 +26,47 @@ export default function SocialNetworks(){
                 REDES SOCIALES
                 ======================*/}
                 {/*BOTON TITULO*/}
-                <View style={styles.botonesTitulo}>
-                    <Text style={styles.containerText}>Redes Sociales</Text> 
+                <View style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                    <Text style = {[styles.containerText, {color:theme.color}]}>Redes Sociales</Text> 
                 </View>
                 {/*FILA DE BOTONES CON ICONO*/}
-                <View style={styles.divierte} >
-                    <TouchableOpacity style={styles.fondoIconGame}>
+                <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} >
+                    <TouchableOpacity style = {[styles.fondoIconGame, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Entypo 
                             name="instagram" 
-                            size={50} color="black" 
+                            size={50} color= {theme.color} 
                             style={styles.insta}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMusic}>
+                    <TouchableOpacity style = {[styles.fondoIconMusic, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Entypo 
                             name="twitter" 
                             size={50} 
-                            color="black" 
+                            color= {theme.color} 
                             style={styles.twitter}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMusic, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Entypo 
                             name="facebook" 
                             size={50} 
-                            color="black" 
+                            color= {theme.color} 
                             style={styles.facebook}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconGame}>
+                    <TouchableOpacity style = {[styles.fondoIconGame, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <FontAwesome
                             name="whatsapp" 
                             size={55} 
-                            color="black" />
+                            color= {theme.color} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMusic}>
+                    <TouchableOpacity style = {[styles.fondoIconMusic, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <FontAwesome 
                             name="telegram" 
                             size={50} 
-                            color="black" />
+                            color= {theme.color} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Ionicons 
                             name="game-controller-outline" 
-                            size={50} color="black" 
+                            size={50} color= {theme.color} 
                             style={styles.game} />
                     </TouchableOpacity>
                 </View>

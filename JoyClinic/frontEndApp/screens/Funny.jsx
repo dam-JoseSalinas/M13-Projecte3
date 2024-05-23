@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useContext } from "react";
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, ScrollView, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -9,6 +9,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
+import { EventRegister} from 'react-native-event-listeners'
+import themeContext from "../themes/themeContext";
 
 export default function Funny(){
     const openSpotify = () => {
@@ -101,58 +103,63 @@ export default function Funny(){
                 return Linking.openURL('https://tetris.com/play-tetris');
             }}).catch(err => console.error('Error al abrir Tetris:', err));
     };
+
+    const theme = useContext(themeContext)
+
+    const [darkMode, setDarkMode] = useState(false)
+
     return (
-        <SafeAreaView style={styles.container}>
+       <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}]}>
             {/*BODY*/}
-            <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
+            <ScrollView style = {[styles.scroll, {backgroundColor:theme.background}]} contentContainerStyle={styles.scrollContent}>
                 {/*
                 ======================
                 VIDEOJUEGOS
                 ======================*/}
                 {/*BOTON TITULO*/}
-                <View style={styles.botonesTitulo}>
-                    <Text style={styles.containerText}>Videojuegos</Text> 
+                <View style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                    <Text style = {[styles.containerText, {color:theme.color}]}>Videojuegos</Text> 
                 </View>
                 {/*FILA DE BOTONES CON ICONO*/}
-                <View style={styles.divierte} >
-                    <TouchableOpacity style={styles.fondoIconGame}>
+                <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} >
+                    <TouchableOpacity style = {[styles.fondoIconGame, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Ionicons 
                             name="game-controller-outline" 
-                            size={50} color="black" 
-                            style={styles.game}
+                            size={50} color= {theme.color}  
+                            style = {[styles.game, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
                             onPress={openFriv} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMusic}>
+                    <TouchableOpacity style = {[styles.fondoIconMusic, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <MaterialIcons 
                             name="games" 
                             size={50} 
-                            color="black"
+                            color= {theme.color} 
                             onPress={openInfinity} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <MaterialCommunityIcons 
                             name="nintendo-game-boy" 
                             size={50} 
-                            color="black"
+                            color= {theme.color} 
                             onPress={openTetris}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconGame}>
+                    <TouchableOpacity style = {[styles.fondoIconGame, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <FontAwesome5 
                             name="gamepad" 
                             size={42} 
-                            color="black" />
+                            color= {theme.color}  />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMusic}>
+                    <TouchableOpacity style = {[styles.fondoIconMusic, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Ionicons 
                             name="game-controller-outline" 
-                            size={50} color="black" 
-                            style={styles.game} />
+                            size={50} color= {theme.color} 
+                            style = {[styles.game, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Ionicons 
                             name="game-controller-outline" 
-                            size={50} color="black" 
-                            style={styles.game} />
+                            size={50} color= {theme.color} 
+                            style = {[styles.game, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} />
                     </TouchableOpacity>
                 </View>
                 {/* nota: este conjunto de componentes de arriba puede reutilizarse tanto
@@ -164,48 +171,48 @@ export default function Funny(){
                 ======================
                 MÚSICA
                 ======================*/}
-                <View style={styles.botonesTitulo}>
-                    <Text style={styles.containerText}>Música</Text> 
+                <View style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                    <Text style = {[styles.containerText, {color:theme.color}]}>Música</Text> 
                 </View>
-                <View style={styles.divierte} >
-                    <TouchableOpacity style={styles.fondoIconMusic}>
+                <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} >
+                    <TouchableOpacity style = {[styles.fondoIconMusic, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Ionicons 
                             name="musical-notes-outline" 
-                            size={50} color="black" 
-                            style={styles.music}/>
+                            size={50} color= {theme.color}  
+                            style = {[styles.music, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMusic}>
+                    <TouchableOpacity style = {[styles.fondoIconMusic, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Entypo 
                             name="spotify" 
                             size={50} 
-                            color="black" 
+                            color= {theme.color} 
                             onPress={openSpotify}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Fontisto 
                             name="applemusic" 
                             size={50} 
-                            color="black" 
+                            color= {theme.color} 
                             onPress={openAppleMusic}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconGame}>
+                    <TouchableOpacity style = {[styles.fondoIconGame, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <MaterialCommunityIcons 
                             name="shopping-music" 
                             size={50} 
-                            color="black" />
+                            color= {theme.color}  />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMusic}>
+                    <TouchableOpacity style = {[styles.fondoIconMusic, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <AntDesign 
                             name="amazon" 
                             size={50} 
-                            color="black"
+                            color= {theme.color} 
                             onPress={openAmazon} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Entypo 
                             name="youtube" 
                             size={50} 
-                            color="black" 
+                            color= {theme.color} 
                             onPress={openYoutubeMusic}/>
                     </TouchableOpacity>
                 </View>
@@ -213,46 +220,46 @@ export default function Funny(){
                 ======================
                 SERIES  Y PELÍCULAS
                 ======================*/}
-                <View style={styles.botonesTitulo}>
-                    <Text style={styles.containerText}>Plataformas de Streaming</Text> 
+                <View style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                    <Text style = {[styles.containerText, {color:theme.color}]}>Plataformas de Streaming</Text> 
                 </View>
-                <View style={styles.divierte}>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <MaterialCommunityIcons 
                             name="netflix" 
                             size={50} 
-                            color="black" 
+                            color= {theme.color}  
                             onPress={openNetflix}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <FontAwesome6 
                             name="cc-amazon-pay" 
                             size={50} 
-                            color="black" 
+                            color= {theme.color}  
                             onPress={openAmazonPrime}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <FontAwesome 
                             name="file-movie-o" 
-                            size={50} color="black" 
+                            size={50} color= {theme.color} 
                             style={styles.movie}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <FontAwesome 
                             name="file-movie-o" 
-                            size={50} color="black" 
+                            size={50} color= {theme.color}
                             style={styles.movie}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <FontAwesome 
                             name="file-movie-o" 
-                            size={50} color="black" 
+                            size={50} color= {theme.color} 
                             style={styles.movie}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fondoIconMovie}>
+                    <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <FontAwesome 
                             name="file-movie-o" 
-                            size={50} color="black" 
+                            size={50} color= {theme.color}  
                             style={styles.movie}/>
                     </TouchableOpacity>
                 </View>
