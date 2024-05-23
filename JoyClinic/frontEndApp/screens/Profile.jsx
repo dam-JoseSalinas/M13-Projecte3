@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { EventRegister} from 'react-native-event-listeners'
+import themeContext from "../themes/themeContext";
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -56,54 +58,56 @@ const Profile = () => {
   const redirectEditProfile = () => {
     navigation.navigate('EditProfile');
   };
+
+  const theme = useContext(themeContext)
+
+  const [darkMode, setDarkMode] = useState(false)
   
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.profileInfo}>
+    <View style = {[styles.container, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+      <View style = {[styles.header, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+        <View style = {[styles.profileInfo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
           <Image
             source={userData.photo ? { uri: userData.photo } : profileImage}
-            style={styles.profileImage}
-          />
-          <View style={styles.textosProfile}>
-            <View style={styles.textName}>
-              <Text style={styles.username}>{userData.name} {userData.surname}</Text>
+            style = {[styles.profileImage, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}/>
+          <View style = {[styles.textosProfile, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+            <View style = {[styles.textName, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+              <Text style = {[styles.username, {color:theme.color}]}>{userData.name} {userData.surname}</Text>
             </View>
-            <Text style={styles.bio}>{userData.bio}</Text>
-            <View style={styles.locationContainer}>
-              <Entypo
-                name="location-pin"
-                size={15}
-                color="black"
-              />
-              <Text style={styles.locationText}>{userData.country}</Text>
-              <Text style={styles.locationText}>{userData.city}</Text>
+            <Text style = {[styles.bio, {color:theme.color}]}>{userData.bio}</Text>
+            <View style = {[styles.locationContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+              <Entypo 
+                name="location-pin" 
+                size={15} 
+                color= {theme.color} />
+              <Text style = {[styles.locationText, {color:theme.color}]}>{userData.country}</Text>
+              <Text style = {[styles.locationText, {color:theme.color}]}>{userData.city}</Text>
             </View>
           </View>
         </View>
-        <View style={styles.statsContainer}>
-          <View style={styles.stat}>
-            <Text style={styles.statNumber}>100</Text>
-            <Text style={styles.statText}>Personales</Text>
+        <View style = {[styles.statsContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+          <View style = {[styles.stat, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+            <Text style = {[styles.statNumber, {color:theme.color}]}>100</Text>
+            <Text style = {[styles.statText, {color:theme.color}]}>Personales</Text>
           </View>
-          <View style={styles.stat}>
-            <Text style={styles.statNumber}>10</Text>
-            <Text style={styles.statText}>Hospital</Text>
+          <View style = {[styles.stat, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+            <Text style = {[styles.statNumber, {color:theme.color}]}>10</Text>
+            <Text style = {[styles.statText, {color:theme.color}]}>Hospital</Text>
           </View>
-          <View style={styles.stat}>
-            <Text style={styles.statNumber}>13</Text>
-            <Text style={styles.statText}>Favoritos</Text>
+          <View style = {[styles.stat, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+            <Text style = {[styles.statNumber, {color:theme.color}]}>13</Text>
+            <Text style = {[styles.statText, {color:theme.color}]}>Favoritos</Text>
           </View>
         </View>
       </View>
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.buttonEditProfile} onPress={redirectEditProfile}>
-          <Text style={styles.textButton}>Editar Perfil</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.textButton}>Compartir Perfil</Text>
-        </TouchableOpacity>
+      <View style = {[styles.buttonsContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+        <TouchableOpacity style = {[styles.buttonEditProfile, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} onPress={redirectEditProfile}>
+          <Text style = {[styles.textButton, {color:theme.color}]}>Editar Perfil</Text>
+        </TouchableOpacity>    
+        <TouchableOpacity style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+          <Text style = {[styles.textButton, {color:theme.color}]}>Compartir Perfil</Text>
+        </TouchableOpacity> 
       </View>
     </View>
   );
