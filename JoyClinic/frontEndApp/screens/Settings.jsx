@@ -191,7 +191,7 @@ export default function Settings(){
                             name="navigate-next" 
                             size={24} />
                     </View>
-                    <Text style = {[styles.informacion, {color:theme.color}]}>Ajustes de la aplicación</Text>
+ 
                     <View>
                         <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Modo Nocturno</Text>
                         <Switch

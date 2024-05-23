@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Login from './LoginScreen';
+import { EventRegister} from 'react-native-event-listeners'
+import themeContext from "../themes/themeContext";
 
 export default function Bienvenida() {
 
@@ -15,26 +17,30 @@ export default function Bienvenida() {
     navigation.navigate('LoginScreen')
   }
 
+  const theme = useContext(themeContext)
+
+    const [darkMode, setDarkMode] = useState(false)
+
   return (
     <SafeAreaView
-      style={styles.container}>
+    style = {[styles.container, {backgroundColor:theme.background}]}>
       <View 
-        style={styles.content}>
+        style = {[styles.content, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
         <Image
             source={require('../assets/images/Logo/logoBlanco.png')}
             style={styles.logo}
             resizeMode='contain'/>
             <View>
                 <TouchableOpacity
-                    style={styles.buttonHome} 
+                    style = {[styles.buttonHome, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
                     onPress={redirectHome}>
-                    <Text>Home</Text>
+                    <Text style = {[{color:theme.color}]}>Home</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={styles.buttonLogin}
+                    style = {[styles.buttonLogin, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
                     onPress={redirectoLogin}>
-                    <Text>Login?</Text>
+                    <Text style = {[{color:theme.color}]}>Login?</Text>
                 </TouchableOpacity>
             </View>
       </View>

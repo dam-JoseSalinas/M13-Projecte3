@@ -168,6 +168,7 @@ const CalendarScreen = () => {
               value={eventName}
               onChangeText={(text) => setEventName(text)}
               placeholder="Nombre del evento"
+              placeholderTextColor={theme.color}
             />
             <Text style = {[styles.modalText, {color:theme.color}]}>Seleccione la hora de inicio:</Text>
             <TouchableOpacity onPress={() => setShowStartPicker(true)}>

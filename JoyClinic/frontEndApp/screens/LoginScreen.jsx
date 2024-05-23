@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { StatusBar, Alert } from 'react-native'; 
 import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CommonActions } from '@react-navigation/native';
+import { EventRegister} from 'react-native-event-listeners'
+import themeContext from "../themes/themeContext";
 
 const Login = () => {
     
@@ -60,12 +62,16 @@ const Login = () => {
     const handleGuestPress = () => {
         navigation.navigate('MenuInferior')
     }
+
+    const theme = useContext(themeContext)
+
+    const [darkMode, setDarkMode] = useState(false)
     
     return (
         <SafeAreaView 
-            style={styles.container}>
+        style = {[styles.container, {backgroundColor:theme.background}]}>
             <View 
-                style={styles.content}>
+                style = {[styles.content, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                 <Image
                     source={require('../assets/images/Logo/logoBlanco.png')}
                     style={styles.logo}
@@ -74,30 +80,30 @@ const Login = () => {
                     placeholder="Email"
                     value={email}
                     onChangeText={text => setEmail(text)}
-                    style={styles.input}/>
+                    style = {styles.input}/>
                 <TextInput
                     placeholder="Password"
                     value={psw}
                     onChangeText={text => setPsw(text)}
                     secureTextEntry={true}
-                    style={styles.input}/>
+                    style = {styles.input}/>
                 
-                <View style={styles.buttonContainer}>
+                <View style = {[styles.buttonContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity 
-                        style={styles.buttonLog} 
+                        style = {[styles.buttonLog, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} 
                         onPress={handleLogin}>
-                        <Text>Login</Text>
+                        <Text style = {[ {color:theme.color}]}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
-                        style={styles.buttonReg} 
+                        style = {[styles.buttonReg, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} 
                         onPress={handleRegisterPress}>
-                        <Text>Register</Text>
+                        <Text style = {[ {color:theme.color}]}>Register</Text>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity 
-                    style={styles.buttonGuest}
+                    style = {[styles.buttonGuest, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
                     onPress={handleGuestPress}>
-                    <Text>Guest</Text>
+                    <Text style = {[ {color:theme.color}]}>Guest</Text>
                 </TouchableOpacity>
                 <StatusBar style="auto" />
             </View>

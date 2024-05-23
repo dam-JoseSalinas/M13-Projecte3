@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { EventRegister} from 'react-native-event-listeners'
+import themeContext from "../themes/themeContext";
 
 export default function Register() {
     const [username, setUsername] = useState('');
@@ -54,11 +56,15 @@ export default function Register() {
             Alert.alert('Error', 'Por favor, completa todos los campos');
         }
     };
+
+    const theme = useContext(themeContext)
+
+    const [darkMode, setDarkMode] = useState(false)
     
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.content}>
-                <Text style={styles.title}>
+        <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}]}>
+            <View style = {[styles.content, {backgroundColor:theme.background}]} contentContainerStyle={styles.scrollContent}>
+                <Text style = {[styles.title, {color:theme.color}]}>
                     Registro de usuarios
                 </Text>
                 <TextInput
@@ -94,8 +100,8 @@ export default function Register() {
                     secureTextEntry={true}
                     style={styles.input}
                 />
-                <TouchableOpacity style={styles.button} onPress={handleRegister}>
-                    <Text>Register</Text>
+                <TouchableOpacity style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} onPress={handleRegister}>
+                    <Text style = {[{color:theme.color}]}>Register</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
