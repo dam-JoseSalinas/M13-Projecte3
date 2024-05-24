@@ -33,10 +33,25 @@ const Drawer = createDrawerNavigator();
 function DrawerNavigator({ darkMode, setDarkMode }) {
   const navigation = useNavigation();
   const [profileImage, setProfileImage] = useState(require('./assets/images/foto_perfil/default.jpg'));
-  const [userData, setUserData] = useState(null);
-  const [fetchError, setFetchError] = useState(false);
+  const [fetchError, setFetchError] = useState(false);  
+  const [iconColor, setIconColor] = useState(darkMode ? 'white' : 'black');
+  const [userData, setUserData] = useState({
+    name: "",
+    surname: "", 
+    bio: "",
+    birth_date: new Date(),
+    city: "", 
+    country: "",
+    photo: "",
+  });
 
   const phoneIP = `http://192.168.1.33:8000/profile/`;
+  const ip = 'http://192.168.17.8:8000/profile/';
+  const imagen = 'http://192.168.17.8:8000';
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -45,7 +60,8 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
         throw new Error('El token no está disponible');
       }
 
-      const response = await fetch(phoneIP, {
+      const response = await fetch(ip, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -54,6 +70,9 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
 
       if (response.ok) {
         const data = await response.json();
+
+        console.log(data);
+
         setUserData(data);
         if (data.photo) {
           setProfileImage({ uri: data.photo });
@@ -67,12 +86,6 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
     }
   }; 
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const [iconColor, setIconColor] = useState(darkMode ? 'white' : 'black');
-
   const theme = useContext(themeContext);
 
   return (
@@ -83,7 +96,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
             <SafeAreaView>
               <View style={darkMode ? styles.containerDark : styles.container}>
                 <Image
-                  source={require('./assets/images/foto_perfil/default.jpg')}
+                   source={userData.photo ? { uri: 'http://192.168.17.8:8000/' + userData.photo } : profileImage}
                   style={styles.profileImage}/>
                 <Text style={[styles.name, { color: darkMode ? 'white' : 'black' }]}>
                   Nombre completo
@@ -115,7 +128,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
             <SafeAreaView>
               <View style={darkMode ? styles.containerDark : styles.container}> 
                 <Image
-                  source={userData.photo ? { uri: userData.photo } : profileImage}
+                   source={userData.photo ? { uri: 'http://192.168.17.8:8000/' + userData.photo } : profileImage}
                   style={styles.profileImage}/>
                 <Text style={[styles.name, { color: darkMode ? 'white' : 'black' }]}>
                   {userData.name} {userData.surname}  
@@ -322,7 +335,7 @@ const styles = StyleSheet.create({
   text: {
     top: 15,
     fontWeight: '200',
-  },
+  }, 
   modoOscuro: {
     position: 'absolute',
     flexDirection: 'row',
@@ -331,7 +344,8 @@ const styles = StyleSheet.create({
     bottom: 0.5,
     right: 1,
     width: 285, 
-    paddingHorizontal: 30, 
+    paddingHorizontal: 30,
+    marginTop: 300,
   },
   switchText: {
     fontSize: 15,

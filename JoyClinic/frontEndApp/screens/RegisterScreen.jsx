@@ -11,7 +11,7 @@ export default function Register() {
     const [email, setEmail] = useState('')
     const [psw, setPsw] = useState('') 
     const navigation = useNavigation();
-    const ip = 'http://10.0.2.2:8000/api/v1/registros/';
+    const ip = 'http://192.168.17.8:8000/api/v1/registros/';
     const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/';
     /*
     const handleRegister = () => {
@@ -24,7 +24,7 @@ export default function Register() {
     */
     const handleRegister = () => {
         if (username && psw && userlastname && number && email) {
-            fetch(phoneIP || ip, {
+            fetch(ip, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +40,8 @@ export default function Register() {
             })
             .then(response => {
                 if (response.ok) {
-                    navigation.navigate('MenuInferior');
+                    Alert.alert("Creación de cuenta exitosa")
+                    navigation.navigate('LoginScreen');
                 } else {
                     // Si la respuesta no es exitosa, mostramos el mensaje del response
                     response.text().then(errorMessage => {
