@@ -15,8 +15,9 @@ export default function App() {
       setDarkMode(data); 
     })
   })
-  return (<themeContext.Provider value = {darkMode === true? theme.dark : theme.light}>
-    <Navigation/>
-  </themeContext.Provider>);
+  return (
+    <themeContext.Provider value = {darkMode === true? theme.dark : theme.light}>
+      <Navigation/>
+    </themeContext.Provider>);
 }
 

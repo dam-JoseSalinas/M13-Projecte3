@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
-import { useColorScheme, View, StyleSheet, Image, Text, TouchableOpacity, Alert } from 'react-native';
-import { DrawerItemList, createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
+import { useColorScheme, View, StyleSheet, Image, Text, Alert, Switch } from 'react-native';
+import { DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
 import MenuInferior from './screens/MenuInferior';
 import Dispositivos from './screens/Dispositivos';
 import LoadingInicial from './screens/LoadingInicial';
@@ -24,22 +24,17 @@ import Notifications from './screens/Notifications';
 import { useNavigation } from '@react-navigation/native';
 import Eventos from './screens/Eventos';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EventRegister } from 'react-native-event-listeners';
+import themeContext from './themes/themeContext';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator(); 
 
-function DrawerNavigator() {
+function DrawerNavigator({ darkMode, setDarkMode }) {
   const navigation = useNavigation();
   const [profileImage, setProfileImage] = useState(require('./assets/images/foto_perfil/default.jpg'));
-  const [userData, setUserData] = useState({
-    name: "",
-    surname: "",
-    bio: "",
-    birth_date: new Date(), 
-    city: "",
-    country: "",
-    photo: "",
-  });
+  const [userData, setUserData] = useState(null);
+  const [fetchError, setFetchError] = useState(false);
 
   const phoneIP = `http://192.168.1.33:8000/profile/`;
 
@@ -68,6 +63,7 @@ function DrawerNavigator() {
       }
     } catch (error) {
       console.error('Error:', error);
+      setFetchError(true);
       Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
     }
   };
@@ -76,22 +72,41 @@ function DrawerNavigator() {
     fetchData();
   }, []);
 
+  const [iconColor, setIconColor] = useState(darkMode ? 'white' : 'black');
+
+  const theme = useContext(themeContext);
+
   return (
     <Drawer.Navigator
       drawerContent={(props) => {
-        if (!userData) {
+        if (fetchError || !userData) {
           return (
             <SafeAreaView>
-              <View style={styles.container}>
+              <View style={darkMode ? styles.containerDark : styles.container}>
                 <Image
-                  source={require('./assets/images/foto_perfil/sebas1.jpg')}
+                  source={require('./assets/images/foto_perfil/default.jpg')}
                   style={styles.profileImage}/>
-                <Text style={styles.name}>
+                <Text style={[styles.name, { color: darkMode ? 'white' : 'black' }]}>
                   Anthony Sebastian Arias
                 </Text>
-                <Text style={styles.text}>
+                <Text style={[styles.text, { color: darkMode ? 'white' : 'black' }]}>
                   Desarrollador
                 </Text>
+              </View>
+              <View style={styles.modoOscuro}> 
+                {darkMode ? (
+                  <FontAwesome name="moon-o" size={24} color="white"/>
+                ) : (
+                  <Ionicons name="sunny" size={24} color="black" />
+                )}
+                <Text style={[styles.switchText, { color: darkMode ? 'white' : 'black' }]}>Modo Oscuro</Text>
+                <Switch
+                  value={darkMode}
+                  onValueChange={(value) => {
+                    setDarkMode(value);
+                    EventRegister.emit('ChangeTheme', value);
+                  }}
+                />
               </View>
               <DrawerItemList {...props}/>
             </SafeAreaView>
@@ -99,17 +114,32 @@ function DrawerNavigator() {
         } else {
           return (
             <SafeAreaView>
-              <View style={styles.container}> 
+              <View style={darkMode ? styles.containerDark : styles.container}> 
                 <Image
                   source={userData.photo ? { uri: userData.photo } : profileImage}
                   style={styles.profileImage}/>
-                <Text style={styles.name}>
-                  {userData.name} {userData.surname}
+                <Text style={[styles.name, { color: darkMode ? 'white' : 'black' }]}>
+                  {userData.name} {userData.surname}  
                 </Text>
-                <Text style={styles.text}>
+                <Text style={[styles.text, { color: darkMode ? 'white' : 'black' }]}> 
                   {userData.bio}
                 </Text>
               </View> 
+              <View style={styles.modoOscuro}>
+                {darkMode ? (
+                    <FontAwesome name="moon-o" size={24} color="white" style={styles.iconosModo}/>
+                  ) : (
+                    <Ionicons name="sunny" size={24} color="black" style={styles.iconosModo} />
+                  )}
+                <Text style={[styles.switchText, { color: darkMode ? 'white' : 'black' }]}>Modo Oscuro</Text>
+                <Switch
+                  value={darkMode}
+                  onValueChange={(value) => {
+                    setDarkMode(value);
+                    EventRegister.emit('ChangeTheme', value);
+                  }}
+                />
+              </View>
               <DrawerItemList {...props}/>
             </SafeAreaView>
           );
@@ -120,7 +150,8 @@ function DrawerNavigator() {
         component={StackNavigator}
         options={{
           drawerIcon: () => (
-            <Foundation 
+            <Foundation
+              style={[styles.iconSearch, {color: theme.color}]}
               name="home" 
               size={24} 
               color="black"/>
@@ -132,47 +163,52 @@ function DrawerNavigator() {
         options={{
           drawerIcon: () => (
             <FontAwesome 
+              style={[styles.iconSearch, {color: theme.color}]}
               name="calendar" 
               size={20} 
+              color={iconColor} />
+          )
+        }}/>
+      <Drawer.Screen 
+        name="Perfil"
+        component={Profile}
+        options={{
+          drawerIcon: () => (
+            <Ionicons 
+              style={[styles.iconSearch, {color: theme.color}]}
+              name="person" 
+              size={24} 
               color="black" />
           )
         }}/>
-        <Drawer.Screen 
-          name="Perfil"
-          component={Profile}
-          options={{
-            drawerIcon: () => (
-              <Ionicons 
-                name="person" 
-                size={24} 
-                color="black" />
-            )
-          }}/>
-          <Drawer.Screen 
-            name="Notificaciones"
-            component={Notifications}
-            options={{
-              drawerIcon: () => (
-                <Ionicons 
-                  name="notifications-outline" 
-                  size={24} 
-                  color="black"
-                  resizeMode='contain'/>
-              )
-            }}/>
-            <Drawer.Screen
-            style={styles.settings}
-            name="Configurarión"
-            component={Settings}
-            options={{
-              drawerIcon: () => (
-                <Ionicons 
-                  name="cog-outline" 
-                  size={24} 
-                  color="black" />
-              )
-            }}/>
-    </Drawer.Navigator>
+      <Drawer.Screen 
+        name="Notificaciones"
+        component={Notifications}
+        options={{
+          drawerIcon: () => (
+            <Ionicons 
+              style={[styles.iconSearch, {color: theme.color}]}
+              name="notifications-outline" 
+              size={24} 
+              color="black"
+              resizeMode='contain'/>
+          )
+        }}/>
+      <Drawer.Screen
+        style={styles.settings}
+        name="Configurarión"
+        component={Settings}
+        options={{
+          drawerIcon: () => (
+            <Ionicons 
+              style={[styles.iconSearch, {color: theme.color}]}
+              name="cog-outline" 
+              size={24} 
+              color={iconColor} />
+          )
+        }}>
+      </Drawer.Screen>
+      </Drawer.Navigator> 
   );
 }
 
@@ -216,47 +252,48 @@ function StackNavigator() {
         <Stack.Screen
           name="SocialNetworks"
           component={SocialNetworks}
-          options={{ headerShown: false}}
-        />
-        <Stack.Screen
-          name="UserProfile"
-          component={Profile}
-          options={{ headerShown: false}}
-        />
-        <Stack.Screen
-          name="Dispositivos"
-          component={Dispositivos}
-          options={{ headerShown: false}}
-        />
-        <Stack.Screen
-          name="EditProfile"
-          component={EditProfile}
-          options={{ headerShown: false}}
-        />
-        <Stack.Screen
-          name="Contacts"
-          component={Contacts}
-          options={{ headerShown: false}}
-        />
-        <Stack.Screen
-          name="Eventos"
-          component={Eventos}
-          options={{ headerShown: false}}
-        />
-      </Stack.Navigator>
-  );
+          options={{ headerShown : false}}
+          />
+          <Stack.Screen
+            name="UserProfile"
+            component={Profile}
+            options={{ headerShown: false}}
+          />
+          <Stack.Screen
+            name="Dispositivos"
+            component={Dispositivos}
+            options={{ headerShown: false}}
+          />
+          <Stack.Screen
+            name="EditProfile"
+            component={EditProfile}
+            options={{ headerShown: false}}
+          />
+          <Stack.Screen
+            name="Contacts"
+            component={Contacts}
+            options={{ headerShown: false}}
+          />
+          <Stack.Screen
+            name="Eventos"
+            component={Eventos}
+            options={{ headerShown: false}}
+          />
+        </Stack.Navigator>
+    );
 }
-
+  
 export default function Navigation() {
   const currentTheme = useColorScheme();
-  const theme = currentTheme === 'dark' ? DarkTheme : DefaultTheme;
+  const [darkMode, setDarkMode] = useState(currentTheme === 'dark');
 
   return (
-    <NavigationContainer theme={theme}>
-      <DrawerNavigator />
+    <NavigationContainer theme={darkMode ? DarkTheme : DefaultTheme}> 
+      <DrawerNavigator darkMode={darkMode} setDarkMode={setDarkMode}/> 
     </NavigationContainer>
   );
 }
+  
 const styles = StyleSheet.create({
   container: {
     height: 200,
@@ -264,6 +301,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: 'column'
+  },
+  containerDark: {
+    height: 200,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: 'column',
+    backgroundColor: '#222',
   },
   profileImage: {
     borderRadius: 1000,
@@ -278,5 +323,23 @@ const styles = StyleSheet.create({
   text: {
     top: 15,
     fontWeight: '200',
+  },
+  modoOscuro: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    bottom: 0.5,
+    right: 1,
+    width: 285, 
+    paddingHorizontal: 30, 
+  },
+  switchText: {
+    fontSize: 15,
+    fontWeight: '100',
+    marginLeft: 10, 
+  },
+  iconSearch: {
+    marginHorizontal: 5,
   },
 });
