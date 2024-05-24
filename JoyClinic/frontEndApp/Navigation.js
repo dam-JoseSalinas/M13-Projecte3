@@ -59,14 +59,13 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
           setProfileImage({ uri: data.photo });
         }
       } else {
-         
       }
     } catch (error) {
       console.error('Error:', error);
       setFetchError(true);
       Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
     }
-  };
+  }; 
 
   useEffect(() => {
     fetchData();
