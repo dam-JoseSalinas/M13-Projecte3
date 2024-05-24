@@ -59,7 +59,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
           setProfileImage({ uri: data.photo });
         }
       } else {
-        throw new Error('Error fetching user data');
+         
       }
     } catch (error) {
       console.error('Error:', error);
@@ -87,10 +87,10 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
                   source={require('./assets/images/foto_perfil/default.jpg')}
                   style={styles.profileImage}/>
                 <Text style={[styles.name, { color: darkMode ? 'white' : 'black' }]}>
-                  Anthony Sebastian Arias
+                  Nombre completo
                 </Text>
                 <Text style={[styles.text, { color: darkMode ? 'white' : 'black' }]}>
-                  Desarrollador
+                  Biografía
                 </Text>
               </View>
               <View style={styles.modoOscuro}> 
@@ -121,7 +121,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
                 <Text style={[styles.name, { color: darkMode ? 'white' : 'black' }]}>
                   {userData.name} {userData.surname}  
                 </Text>
-                <Text style={[styles.text, { color: darkMode ? 'white' : 'black' }]}> 
+                <Text style={[styles.text, { color: darkMode ? 'white' : 'black' }]}>  
                   {userData.bio}
                 </Text>
               </View> 
