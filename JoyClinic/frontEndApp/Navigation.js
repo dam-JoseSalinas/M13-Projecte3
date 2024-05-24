@@ -44,10 +44,9 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
     country: "",
     photo: "",
   });
-
-  const phoneIP = `http://192.168.1.33:8000/profile/`;
-  const ip = 'http://192.168.17.8:8000/profile/';
-  const imagen = 'http://192.168.17.8:8000';
+ 
+  const phoneIP = `http://192.168.1.33:8000/profile/`; 
+  //const ip = 'http://192.168.17.8:8000/profile/';
 
   useEffect(() => {
     fetchData();
@@ -60,7 +59,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
         throw new Error('El token no está disponible');
       }
 
-      const response = await fetch(ip, {
+      const response = await fetch(phoneIP, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -78,86 +77,51 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
           setProfileImage({ uri: data.photo });
         }
       } else {
-         
       }
     } catch (error) {
       console.error('Error:', error);
       setFetchError(true);
       Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
     }
-  };
+  }; 
 
   const theme = useContext(themeContext);
 
   return (
     <Drawer.Navigator
-      drawerContent={(props) => {
-        if (fetchError || !userData) {
-          return (
-            <SafeAreaView>
-              <View style={darkMode ? styles.containerDark : styles.container}>
-                <Image
-                   source={userData.photo ? { uri: 'http://192.168.17.8:8000/' + userData.photo } : profileImage}
-                  style={styles.profileImage}/>
-                <Text style={[styles.name, { color: darkMode ? 'white' : 'black' }]}>
-                  Nombre completo
-                </Text>
-                <Text style={[styles.text, { color: darkMode ? 'white' : 'black' }]}>
-                  Biografía
-                </Text>
-              </View>
-              <View style={styles.modoOscuro}> 
-                {darkMode ? (
-                  <FontAwesome name="moon-o" size={24} color="white"/>
-                ) : (
-                  <Ionicons name="sunny" size={24} color="black" />
-                )}
-                <Text style={[styles.switchText, { color: darkMode ? 'white' : 'black' }]}>Modo Oscuro</Text>
-                <Switch
-                  value={darkMode}
-                  onValueChange={(value) => {
-                    setDarkMode(value);
-                    EventRegister.emit('ChangeTheme', value);
-                  }}
-                />
-              </View>
-              <DrawerItemList {...props}/>
-            </SafeAreaView>
-          );
-        } else {
-          return (
-            <SafeAreaView>
-              <View style={darkMode ? styles.containerDark : styles.container}> 
-                <Image
-                   source={userData.photo ? { uri: 'http://192.168.17.8:8000/' + userData.photo } : profileImage}
-                  style={styles.profileImage}/>
-                <Text style={[styles.name, { color: darkMode ? 'white' : 'black' }]}>
-                  {userData.name} {userData.surname}  
-                </Text>
-                <Text style={[styles.text, { color: darkMode ? 'white' : 'black' }]}>  
-                  {userData.bio}
-                </Text>
-              </View> 
-              <View style={styles.modoOscuro}>
-                {darkMode ? (
-                    <FontAwesome name="moon-o" size={24} color="white" style={styles.iconosModo}/>
-                  ) : (
-                    <Ionicons name="sunny" size={24} color="black" style={styles.iconosModo} />
-                  )}
-                <Text style={[styles.switchText, { color: darkMode ? 'white' : 'black' }]}>Modo Oscuro</Text>
-                <Switch
-                  value={darkMode}
-                  onValueChange={(value) => {
-                    setDarkMode(value);
-                    EventRegister.emit('ChangeTheme', value);
-                  }}
-                />
-              </View>
-              <DrawerItemList {...props}/>
-            </SafeAreaView>
-          );
-        }
-      }}>
+      drawerContent={(props) => (
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={darkMode ? styles.containerDark : styles.container}> 
+            <Image
+              source={userData.photo ? { uri: 'http://192.168.1.33:8000/' + userData.photo } : profileImage}
+              style={styles.profileImage}
+            />
+            <Text style={[styles.name, { color: darkMode ? 'white' : 'black' }]}>
+              {fetchError ? 'Nombre completo' : `${userData.name} ${userData.surname}`}
+            </Text>
+            <Text style={[styles.text, { color: darkMode ? 'white' : 'black' }]}>
+              {fetchError ? 'Biografía' : userData.bio}
+            </Text>
+          </View>
+          <DrawerItemList {...props} />
+          <View style={styles.modoOscuro}>  
+            {darkMode ? (
+              <FontAwesome name="moon-o" size={24} color="white"/>
+            ) : (
+              <Ionicons name="sunny" size={24} color="black" />
+            )}
+            <Text style={[styles.switchText, { color: darkMode ? 'white' : 'black' }]}>Modo Oscuro</Text>
+            <Switch
+              value={darkMode}
+              onValueChange={(value) => {
+                setDarkMode(value);
+                EventRegister.emit('ChangeTheme', value);
+              }}
+            />
+          </View>
+        </SafeAreaView>
+      )}
+    >
       <Drawer.Screen 
         name="Home" 
         component={StackNavigator}
@@ -333,7 +297,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '500',
   },
-  text: {
+  text: { 
     top: 15,
     fontWeight: '200',
   }, 
@@ -342,7 +306,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    bottom: 0.5,
+    bottom: 30,
     right: 1,
     width: 285, 
     paddingHorizontal: 30,

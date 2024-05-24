@@ -11,20 +11,11 @@ export default function Register() {
     const [email, setEmail] = useState('')
     const [psw, setPsw] = useState('') 
     const navigation = useNavigation();
-    const ip = 'http://192.168.17.8:8000/api/v1/registros/';
+    //const ip = 'http://192.168.17.8:8000/api/v1/registros/';
     const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/';
-    /*
-    const handleRegister = () => {
-        if (username && password && userlastname && number && email && confirmEmail && psw) {
-            navigation.navigate('MenuInferior');
-        } else {
-            Alert.alert('Error', 'Por favor, completa todos los campos');
-        }
-    };
-    */
     const handleRegister = () => {
         if (username && psw && userlastname && number && email) {
-            fetch(ip, {
+            fetch(phoneIP, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

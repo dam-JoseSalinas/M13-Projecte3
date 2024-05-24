@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, Alert, FlatList, TextInput, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Alert, FlatList, TextInput, ScrollView, Keyboard } from 'react-native';
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,6 +8,8 @@ import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from "react-native-datepicker";
+
 
 
 const Profile = () => {
@@ -29,14 +31,13 @@ const Profile = () => {
     country: "",
     photo: "",
   });
- 
+    
   const redirecCalendario = () => {
     navigation.navigate('Calendario');
   };
 
   const phoneIP = `http://192.168.1.33:8000/profile/`;
-  const ip = 'http://192.168.17.8:8000/profile/'; 
-  const image = 'http://192.168.17.8:8000';
+  //const ip = 'http://192.168.17.8:8000/profile/'; 
 
   const fetchData = async () => {
     try { 
@@ -45,7 +46,7 @@ const Profile = () => {
         throw new Error('El token no está disponible');
       }
 
-      const response = await fetch(ip, {
+      const response = await fetch(phoneIP, {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +77,7 @@ const Profile = () => {
             throw new Error('El token no está disponible');
         } 
 
-        const response = await axios.get('http://192.168.17.8:8000/all_events/', {
+        const response = await axios.get('http://192.168.1.33:8000/all_events/', {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`, 
@@ -106,10 +107,15 @@ const Profile = () => {
             throw new Error('El token no está disponible');
         }
 
+        // Formatear las fechas
         const formattedStartDate = moment(editedStartDate).format("YYYY-MM-DD HH:mm:ss");
-        const formattedEndDate = moment(editedEndDate).format("YYYY-MM-DD HH:mm:ss");
+        const formattedEndDate = moment(editedEndDate).format("YYYY-MM-DD HH:mm:ss"); 
 
-        const response = await axios.put(`http://192.168.17.8:8000/update/${editingEvent.id}/`, {
+        // Ocultar el teclado
+        Keyboard.dismiss();
+
+        // Enviar la solicitud de actualización del evento
+        const response = await axios.put(`http://192.168.1.33:8000/update/${editingEvent.id}/`, {
             title: editedTitle,
             start: formattedStartDate,
             end: formattedEndDate,
@@ -121,6 +127,7 @@ const Profile = () => {
         });
 
         if (response.status === 200) {
+            // Si la actualización es exitosa, mostrar una alerta, actualizar los eventos y restablecer los estados relacionados con la edición del evento
             Alert.alert('Evento actualizado correctamente');
             fetchEvents();
             setEditingEvent(null);
@@ -149,7 +156,7 @@ const Profile = () => {
             throw new Error('El token no está disponible');
         }
 
-        const response = await axios.delete(`http://192.168.17.8:8000/remove/${eventId}/`, {
+        const response = await axios.delete(`http://192.168.1.33:8000/remove/${eventId}/`, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
@@ -173,8 +180,8 @@ const Profile = () => {
 
   const theme = useContext(themeContext)
 
-  const [darkMode, setDarkMode] = useState(false)
-
+  const [darkMode, setDarkMode] = useState(false);
+  
   const renderItem = ({ item }) => {
     if (editingEvent && editingEvent.id === item.id) {
         return (
@@ -191,36 +198,37 @@ const Profile = () => {
                         <Text style = {[styles.dateTimeText, {color:theme.color}]}>Seleccionar fecha y hora de inicio</Text>
                     </TouchableOpacity>
                     {showStartDatePicker && (
-                        <DateTimePicker
-                            value={editedStartDate}
-                            mode="datetime"
-                            display="default"
-                            onChange={(event, selectedDate) => {
-                                setShowStartDatePicker(false);
-                                if (selectedDate) {
-                                    setEditedStartDate(selectedDate);
-                                }
-                            }}
-                        />
-                    )}
+                      <DateTimePicker
+                          value={editedStartDate || new Date()} // Si editedStartDate es null, utiliza la fecha actual
+                          mode="datetime"
+                          is24Hour={true}
+                          display="default"
+                          onChange={(event, selectedDate) => {
+                              const currentDate = selectedDate || editedStartDate || new Date();
+                              setEditedStartDate(currentDate);
+                              setShowStartDatePicker(false);
+                          }}
+                      />
+                  )}
                 </View>
                 <View style = {[styles.dateTimeContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
                         <Text style = {[styles.dateTimeText, {color:theme.color}]}>Seleccionar fecha y hora de fin</Text>
                     </TouchableOpacity>
                     {showEndDatePicker && (
-                        <DateTimePicker
-                            value={editedEndDate}
-                            mode="datetime"
-                            display="default"
-                            onChange={(event, selectedDate) => {
-                                setShowEndDatePicker(false);
-                                if (selectedDate) {
-                                    setEditedEndDate(selectedDate);
-                                }
-                            }}
-                        />
-                    )}
+                      <DateTimePicker
+                          value={editedEndDate || new Date()} // Si editedEndDate es null, utiliza la fecha actual
+                          mode="datetime"
+                          is24Hour={true}
+                          display="default"
+                          onChange={(event, selectedDate) => {
+                              const currentDate = selectedDate || editedEndDate || new Date();
+                              setEditedEndDate(currentDate);
+                              setShowEndDatePicker(false);
+                          }}
+                      />
+                  )}
+
                 </View>
                 <View style = {[styles.buttonContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity onPress={handleEditEvent} style = {[styles.saveButton, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
@@ -232,7 +240,7 @@ const Profile = () => {
                 </View>
             </View>
         );
-    } else {
+    } else { 
         return (
             <View style = {[styles.eventItem, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                 <View style = {[styles.eventDetails, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
@@ -263,7 +271,7 @@ const Profile = () => {
         <View style = {[styles.header, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
           <View style = {[styles.profileInfo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
             <Image
-              source={userData.photo ? { uri: 'http://192.168.17.8:8000/' + userData.photo } : profileImage}
+              source={userData.photo ? { uri: 'http://192.168.1.33:8000/' + userData.photo } : profileImage}
               style = {[styles.profileImage, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}/>
             <View style = {[styles.textosProfile, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
               <View style = {[styles.textName, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>

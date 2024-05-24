@@ -21,7 +21,7 @@ const CalendarScreen = () => {
   const [showStartPicker, setShowStartPicker] = useState(false);
   const [showEndPicker, setShowEndPicker] = useState(false);
   const phoneIP = `http://192.168.1.33:8000/all_events/`;
-  const ip = 'http://192.168.17.8:8000/all_events/';
+  //const ip = 'http://192.168.17.8:8000/all_events/';
 
   useEffect(() => {
     fetchEvents();
@@ -34,8 +34,8 @@ const CalendarScreen = () => {
         throw new Error('El token no está disponible');
       }
   
-      console.log('Obteniendo datos del perfil desde:', ip);
-      const response = await axios.get(ip, {
+      console.log('Obteniendo datos del perfil desde:', phoneIP);
+      const response = await axios.get(phoneIP, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ const CalendarScreen = () => {
         throw new Error('El token no está disponible');
       }
 
-      const response = await axios.post('http://192.168.17.8:8000/add_event/', {
+      const response = await axios.post('http://192.168.1.33:8000/add_event/', {
         title: eventName,
         start: moment(eventStart).format("YYYY-MM-DD HH:mm:ss"),
         end: moment(eventEnd).format("YYYY-MM-DD HH:mm:ss"),
