@@ -15,10 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.http import require_http_methods
-from django.contrib.auth.decorators import login_required
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import api_view, permission_classes
 from .models import Event
 from django.http import JsonResponse 
 from .pusher import pusher, pusher_client
@@ -82,7 +79,7 @@ def login(request):
     token = str(refresh.access_token)
 
     serializer = RegisterSerializer(instance=register)
-    return Response({"token": token, "user": serializer.data}, status=status.HTTP_200_OK)
+    return Response({"token": token, "id": serializer.data["id"]}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
