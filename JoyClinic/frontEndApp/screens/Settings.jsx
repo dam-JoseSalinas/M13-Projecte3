@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons';
-import React, { useState,useContext } from "react";
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, Image, ScrollView,Switch } from 'react-native';
+import React, { useState, useContext } from "react";
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, Image, ScrollView, Switch, useColorScheme } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -12,8 +12,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CommonActions } from '@react-navigation/native';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function Settings(){
+export default function Settings(){ 
     const [text, setText] = useState('')
     const navigation = useNavigation();
     const [userData, setUserData] = useState({
@@ -34,14 +35,12 @@ export default function Settings(){
     }
     const logout = async () => {
         try {
-            // Obtener el token antes de eliminarlo
             const token = await AsyncStorage.getItem('token');
             console.log('Token antes de eliminar:', token);
 
-            // Eliminar el token de AsyncStorage
             await AsyncStorage.removeItem('token');
             console.log('Token eliminado:', token);
-            // Limpiar el estado de la aplicación
+
             setUserData({
                 name: "",
                 surname: "",
@@ -52,7 +51,6 @@ export default function Settings(){
                 photo: "",
             });
             
-            // Reiniciar la navegación y moverse a la pantalla de inicio
             navigation.dispatch(
                 CommonActions.reset({
                     index: 0,
@@ -61,7 +59,6 @@ export default function Settings(){
             );
         } catch (error) {
             console.error('Error al cerrar sesión:', error);
-            // Manejo de errores
         } 
     };    
 
@@ -74,20 +71,6 @@ export default function Settings(){
             <ScrollView style = {[styles.ScrollView, {backgroundColor:theme.background}]}>
             <View style = {[styles.content, {backgroundColor:theme.background}]}>
                     <Text style = {[styles.settings, {color:theme.color}]}>Configuración</Text>
-                    <View style = {[styles.sea, {backgroundColor:theme.background}]}>
-                        <TextInput 
-                            style = {[styles.textInput, {color:theme.color, backgroundColor: theme.background}]}
-                            placeholder="Buscador"
-                            placeholderTextColor={theme.color}
-                            onChangeText={newText => setText(newText)}
-                            defaultValue={text}
-                        />
-                        <Ionicons 
-                            style={[styles.iconSearch, {color: theme.color}]}
-                            name="search"
-                            size={24}
-                            color="black"/>
-                    </View>
                     <Text style = {[styles.cuenta, {color:theme.color}]}>Cuenta</Text>
                     <View style = {[styles.configPerfil, {backgroundColor:theme.background}]}>
                         <Ionicons 
@@ -190,17 +173,6 @@ export default function Settings(){
                             style={[styles.iconSearch, {color: theme.color}]}
                             name="navigate-next" 
                             size={24} />
-                    </View>
- 
-                    <View>
-                        <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Modo Nocturno</Text>
-                        <Switch
-                            value={darkMode}
-                            onValueChange={(value) => {
-                                setDarkMode(value);
-                                EventRegister.emit('ChangeTheme', value)
-                            }}
-                        />
                     </View>
                     <View style = {[styles.configNoti, {backgroundColor:theme.background}]}>
                         <Ionicons 
@@ -390,4 +362,21 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#333',
     },
+    viewDarkMode :{
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+    iconsDarkMode:{
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        marginHorizontal: 10,
+    },
+    textDark:{
+        flex: 1,
+        flexDirection: "column",
+        fontWeight: '600',
+    }
 })

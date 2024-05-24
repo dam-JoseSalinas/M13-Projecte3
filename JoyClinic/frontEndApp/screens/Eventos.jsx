@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, Text, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
 import axios from 'axios';
 import moment from 'moment';
@@ -23,7 +23,7 @@ const Eventos = () => {
     };
 
     useEffect(() => {
-        fetchEvents();
+        fetchEvents(); 
     }, []);
 
     const fetchEvents = async () => {

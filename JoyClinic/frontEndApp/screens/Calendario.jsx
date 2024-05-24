@@ -68,7 +68,7 @@ const CalendarScreen = () => {
   };
 
   const redirectGetEvents = () => {
-    navigation.navigate('Eventos', { selectedDate });
+    navigation.navigate('Profile', { selectedDate });
   };
 
   const handleSaveEvent = async () => {
@@ -114,23 +114,23 @@ const CalendarScreen = () => {
         current={moment().format('YYYY-MM-DD')}
         markedDates={{
           ...events,
-          [selectedDate]: { selected: true, selectedColor: theme.color, backgroundColor: theme.background }, 
+          [selectedDate]: { selected: true, selectedColor: "gray", backgroundColor: theme.background },
         }}
         onDayPress={(day) => handleDatePress(day)}
-        style = {[styles.Calendar, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
+        style={[styles.Calendar, { backgroundColor: "#c0c0c0" }, { borderColor: theme.lineColor }]}
         theme={{
-          calendarBackground: theme.background,
-          textSectionTitleColor: theme.color, 
-          selectedDayBackgroundColor:  theme.background, 
+          calendarBackground: "#c0c0c0",
+          textSectionTitleColor: theme.color,
+          selectedDayBackgroundColor: theme.background,
           selectedDayTextColor: theme.background,
           todayTextColor: theme.calendarTodayTextColor,
           dayTextColor: '#2d4150',
           textDisabledColor: '#d9e1e8',
           dotColor: '#00adf5',
           selectedDotColor: theme.background,
-          arrowColor: 'orange', 
-          monthTextColor: theme.color, 
-          indicatorColor: 'blue',
+          arrowColor: 'orange',
+          monthTextColor: theme.color,
+          indicatorColor: '#c0c0c0',
           textDayFontFamily: 'monospace',
           textMonthFontFamily: 'monospace',
           textDayHeaderFontFamily: 'monospace',
@@ -139,7 +139,10 @@ const CalendarScreen = () => {
           textDayHeaderFontWeight: '300',
           textDayFontSize: 16,
           textMonthFontSize: 16,
-          textDayHeaderFontSize: 16
+          textDayHeaderFontSize: 16,
+          textDayFontColor: theme.color, 
+          textDayHeaderFontSize: 16,
+          textDayHeaderFontColor: theme.color, 
         }}
       />
       {selectedDate && (
@@ -224,15 +227,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
   },
-  button: {
-    backgroundColor: 'black',
-    padding: 10,
-    borderRadius: 5,
+
+  buttonText: {
+    alignSelf: 'center',
+    alignItems: 'center',
     marginHorizontal: 15,
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
+  button: {
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    backgroundColor: '#d3d3d3',
+    marginHorizontal: 15,
   },
   centeredView: {
     flex: 1,
@@ -267,7 +273,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     borderColor: 'gray',
-    backgroundColor: '#fffafa',
+    backgroundColor: '#808080',
     marginBottom: 10,
     paddingLeft: 10,
   },
