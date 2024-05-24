@@ -29,21 +29,24 @@ const Profile = () => {
     country: "",
     photo: "",
   });
-
+ 
   const redirecCalendario = () => {
     navigation.navigate('Calendario');
   };
 
   const phoneIP = `http://192.168.1.33:8000/profile/`;
+  const ip = 'http://192.168.17.8:8000/profile/'; 
+  const image = 'http://192.168.17.8:8000';
 
   const fetchData = async () => {
-    try {
+    try { 
       const token = await AsyncStorage.getItem('token');
       if (!token) {
         throw new Error('El token no está disponible');
       }
 
-      const response = await fetch(phoneIP, {
+      const response = await fetch(ip, {
+        method: "GET",
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -52,6 +55,7 @@ const Profile = () => {
 
       if (response.ok) {
         const data = await response.json();
+
         setUserData(data);
         if (data.photo) {
           setProfileImage({ uri: data.photo });
@@ -72,7 +76,7 @@ const Profile = () => {
             throw new Error('El token no está disponible');
         } 
 
-        const response = await axios.get('http://192.168.1.33:8000/all_events/', {
+        const response = await axios.get('http://192.168.17.8:8000/all_events/', {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`, 
@@ -105,7 +109,7 @@ const Profile = () => {
         const formattedStartDate = moment(editedStartDate).format("YYYY-MM-DD HH:mm:ss");
         const formattedEndDate = moment(editedEndDate).format("YYYY-MM-DD HH:mm:ss");
 
-        const response = await axios.put(`http://192.168.1.33:8000/update/${editingEvent.id}/`, {
+        const response = await axios.put(`http://192.168.17.8:8000/update/${editingEvent.id}/`, {
             title: editedTitle,
             start: formattedStartDate,
             end: formattedEndDate,
@@ -145,7 +149,7 @@ const Profile = () => {
             throw new Error('El token no está disponible');
         }
 
-        const response = await axios.delete(`http://192.168.1.33:8000/remove/${eventId}/`, {
+        const response = await axios.delete(`http://192.168.17.8:8000/remove/${eventId}/`, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
@@ -259,7 +263,7 @@ const Profile = () => {
         <View style = {[styles.header, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
           <View style = {[styles.profileInfo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
             <Image
-              source={userData.photo ? { uri: userData.photo } : profileImage}
+              source={userData.photo ? { uri: 'http://192.168.17.8:8000/' + userData.photo } : profileImage}
               style = {[styles.profileImage, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}/>
             <View style = {[styles.textosProfile, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
               <View style = {[styles.textName, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>

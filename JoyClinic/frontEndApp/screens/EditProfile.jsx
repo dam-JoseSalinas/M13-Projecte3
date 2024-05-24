@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker'; 
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function EditProfile() {
   const [userData, setUserData] = useState({
@@ -28,6 +29,43 @@ export default function EditProfile() {
 
   const navigation = useNavigation();
   const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/1/';
+  const ip = 'http://192.168.17.8:8000/api/v1/registros/';
+  const image = 'http://192.168.17.8:8000';
+
+  const fetchData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token')
+      if(!token) {
+        throw new Error('El token no está disponible');
+      }
+    
+      const response = await fetch(ip, {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+        if (response.ok) {
+          const data = await response.json();
+
+          setUserData(data);
+          if (data.photo) {
+            setProfileImage({ uri: data.photo });
+          }
+        } else {
+          throw new Error('Error fetching user data');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const changeProfileImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync(); 
@@ -49,24 +87,6 @@ export default function EditProfile() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const fetchData = async () => {
-  try {
-    const response = await fetch(phoneIP);
-    if (response.ok) {
-      const data = await response.json();
-      setUserData(data);
-      if (data.photo) {
-        setProfileImage({ uri: data.photo });
-      }
-    } else {
-      throw new Error('Error fetching user data');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
-  }
-};
 
   const handleEditProfile = async () => {
     const formData = new FormData();
@@ -93,7 +113,7 @@ export default function EditProfile() {
     }
   
     try {
-      const response = await fetch(phoneIP, {
+      const response = await fetch(ip, {
         method: 'PUT',
         body: formData,
       });
