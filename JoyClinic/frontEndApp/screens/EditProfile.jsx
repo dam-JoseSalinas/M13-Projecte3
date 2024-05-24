@@ -29,8 +29,7 @@ export default function EditProfile() {
 
   const navigation = useNavigation();
   const phoneIP = 'http://192.168.1.33:8000/api/v1/registros/1/';
-  const ip = 'http://192.168.17.8:8000/api/v1/registros/';
-  const image = 'http://192.168.17.8:8000';
+  //const ip = 'http://192.168.17.8:8000/api/v1/registros/';
 
   const fetchData = async () => {
     try {
@@ -39,7 +38,7 @@ export default function EditProfile() {
         throw new Error('El token no está disponible');
       }
     
-      const response = await fetch(ip, {
+      const response = await fetch(phoneIP, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +112,7 @@ export default function EditProfile() {
     }
   
     try {
-      const response = await fetch(ip, {
+      const response = await fetch(phoneIP, {
         method: 'PUT',
         body: formData,
       });

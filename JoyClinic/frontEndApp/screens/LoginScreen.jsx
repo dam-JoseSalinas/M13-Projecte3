@@ -13,14 +13,14 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [psw , setPsw] = useState('');
     const navigation = useNavigation();
-    const ip = 'http://192.168.17.8:8000/login/';
+    //const ip = 'http://192.168.17.8:8000/login/';
     const phoneIP = 'http://192.168.1.33:8000/login/';
     const [id, setId] = useState(0)
     
     const handleLogin = async () => {
         if (email && psw) {
             try {
-                const response = await fetch(ip || phoneIP, {
+                const response = await fetch(phoneIP, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
