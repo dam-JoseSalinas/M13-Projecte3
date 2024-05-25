@@ -127,9 +127,10 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
       )}
     >
       <Drawer.Screen 
-        name= {t('home')} 
+        name= 'Home'
         component={StackNavigator}
         options={{
+          drawerLabel: t('home'),
           drawerIcon: () => (
             <Foundation
               style={[styles.iconSearch, {color: theme.color}]}
@@ -139,9 +140,10 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
           )
         }}/>
       <Drawer.Screen 
-        name={t('Calendario')} 
+        name='Calendario'
         component={Calendario}
         options={{
+          drawerLabel: t('Calendario'),
           drawerIcon: () => (
             <FontAwesome 
               style={[styles.iconSearch, {color: theme.color}]}
@@ -151,9 +153,10 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
           )
         }}/>
       <Drawer.Screen 
-        name={t('Perfil')} 
+        name='Perfil'
         component={Profile}
         options={{
+          drawerLabel: t('Perfil'),
           drawerIcon: () => (
             <Ionicons 
               style={[styles.iconSearch, {color: theme.color}]}
@@ -163,9 +166,10 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
           )
         }}/>
       <Drawer.Screen 
-        name={t('Notificaciones')} 
+        name='Notificaciones'
         component={Notifications}
         options={{
+          drawerLabel: t('Notificaciones'),
           drawerIcon: () => (
             <Ionicons 
               style={[styles.iconSearch, {color: theme.color}]}
@@ -177,9 +181,10 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
         }}/>
       <Drawer.Screen
         style={styles.settings}
-        name={t('Configuración')} 
+        name='Configuración' 
         component={Settings}
         options={{
+          drawerLabel: t('Configuración'),
           drawerIcon: () => (
             <Ionicons 
               style={[styles.iconSearch, {color: theme.color}]}

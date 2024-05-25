@@ -1,6 +1,6 @@
 {
   "Diviértete": "Diverteix-te",
-  "login": "login",
+  "login": "Login",
   "home": "Inici",
   "Tus Redes": "Les teves xarxes",
   "Foros": "Fòrums",
@@ -83,5 +83,7 @@
   "Usuarios Registrados": "Usuaris Registrats",
   "Modo Oscuro": "Mode Fosc",
   "Seleccionar fecha": "Seleccionar data",
-  "Código Postal": "Codi postal"
+  "Código Postal": "Codi postal",
+  "Perfil": "Perfil",
+  "Login?": "Iniciar Sessió?"
 }

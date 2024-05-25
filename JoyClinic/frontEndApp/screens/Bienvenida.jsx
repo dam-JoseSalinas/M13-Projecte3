@@ -37,7 +37,7 @@ export default function Bienvenida() {
                 <TouchableOpacity
                     style = {[styles.buttonHome, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
                     onPress={redirectHome}>
-                    <Text style = {[{color:theme.color}]}>{t('Home')}</Text>
+                    <Text style = {[{color:theme.color}]}>{t('home')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
