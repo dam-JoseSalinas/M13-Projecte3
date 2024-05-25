@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, Aler
 import { useNavigation } from '@react-navigation/native';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { useTranslation } from 'react-i18next';
+
 
 export default function Register() {
     const [username, setUsername] = useState('');
@@ -52,6 +54,8 @@ export default function Register() {
     const theme = useContext(themeContext)
 
     const [darkMode, setDarkMode] = useState(false)
+
+    const { t } = useTranslation();
     
     return (
         <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}]}>
@@ -60,40 +64,40 @@ export default function Register() {
                     Registro de usuarios
                 </Text>
                 <TextInput
-                    placeholder='Nombre'
+                    placeholder={t('Nombre')}
                     value={username}
                     onChangeText={text => setUsername(text)}
                     style={styles.input}
                 />
                 <TextInput
-                    placeholder='Apellido'
+                    placeholder={t('Apellido')}
                     value={userlastname}
                     onChangeText={text => setUserLastname(text)}
                     style={styles.input}
                 />
                 <TextInput
-                    placeholder='Número'
+                    placeholder={t('Número')}
                     value={number}
                     keyboardType='number-pad'
                     onChangeText={text => setNumber(text)}
                     style={styles.input}
                 />
                 <TextInput
-                    placeholder='Email'
+                    placeholder={t('Email')}
                     value={email}
                     onChangeText={text => setEmail(text)}
                     style={styles.input}
                 />
 
                 <TextInput
-                    placeholder='Contraseña'
+                    placeholder={t('Contraseña')}
                     value={psw}
                     onChangeText={text => setPsw(text)}
                     secureTextEntry={true}
                     style={styles.input}
                 />
                 <TouchableOpacity style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} onPress={handleRegister}>
-                    <Text style = {[{color:theme.color}]}>Register</Text>
+                    <Text style = {[{color:theme.color}]}>{t('Register')}</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

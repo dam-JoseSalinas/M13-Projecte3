@@ -11,6 +11,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { useTranslation } from 'react-i18next';
 
 export default function Funny(){
     const openSpotify = () => {
@@ -108,6 +109,8 @@ export default function Funny(){
 
     const [darkMode, setDarkMode] = useState(false)
 
+    const { t } = useTranslation();
+
     return (
        <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}]}>
             {/*BODY*/}
@@ -118,7 +121,7 @@ export default function Funny(){
                 ======================*/}
                 {/*BOTON TITULO*/}
                 <View style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                    <Text style = {[styles.containerText, {color:theme.color}]}>Videojuegos</Text> 
+                    <Text style = {[styles.containerText, {color:theme.color}]}>{t('Videojuegos')}</Text> 
                 </View>
                 {/*FILA DE BOTONES CON ICONO*/}
                 <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} >
@@ -172,7 +175,7 @@ export default function Funny(){
                 MÚSICA
                 ======================*/}
                 <View style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                    <Text style = {[styles.containerText, {color:theme.color}]}>Música</Text> 
+                    <Text style = {[styles.containerText, {color:theme.color}]}>{t('Música')}</Text> 
                 </View>
                 <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} >
                     <TouchableOpacity style = {[styles.fondoIconMusic, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
@@ -221,7 +224,7 @@ export default function Funny(){
                 SERIES  Y PELÍCULAS
                 ======================*/}
                 <View style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                    <Text style = {[styles.containerText, {color:theme.color}]}>Plataformas de Streaming</Text> 
+                    <Text style = {[styles.containerText, {color:theme.color}]}>{t('Plataformas de Streaming')}</Text> 
                 </View>
                 <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>

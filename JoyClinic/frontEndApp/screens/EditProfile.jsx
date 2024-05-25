@@ -8,6 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTranslation } from 'react-i18next';
 
 export default function EditProfile() {
   const [userData, setUserData] = useState({
@@ -141,10 +142,12 @@ export default function EditProfile() {
 
   const [darkMode, setDarkMode] = useState(false)
 
+  const { t } = useTranslation();
+
   return (
     <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
       <ScrollView contentContainerStyle={[styles.scrollViewContent, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-        <Text style = {[styles.title, {color:theme.color}]}>EDITAR PERFIL</Text>
+        <Text style = {[styles.title, {color:theme.color}]}>{t('EDITAR PERFIL')}</Text>
         <View style = {[styles.line, {color:theme.color}]}></View>
         <View style = {[styles.headerInfo, {color:theme.color}]}>
           <TouchableOpacity onPress={changeProfileImage}>
@@ -164,14 +167,14 @@ export default function EditProfile() {
               style = {[styles.inputNames, {color:theme.color}, {backgroundColor:theme.background}]}
               value={userData.name}
               onChangeText={text => setUserData(prevData => ({ ...prevData, name: text }))}
-              placeholder="Nombre"
+              placeholder={t('Nombre')}
               placeholderTextColor={theme.color}
             />
             <TextInput
               style = {[styles.inputNames, {color:theme.color}, {backgroundColor:theme.background}]}
               value={userData.surname}
               onChangeText={text => setUserData(prevData => ({ ...prevData, surname: text }))}
-              placeholder="Apellido"
+              placeholder={t('Apellido')}
               placeholderTextColor={theme.color}
             />
           </View>
@@ -189,7 +192,7 @@ export default function EditProfile() {
               style = {[styles.inputNumber, {color:theme.color},, {backgroundColor:theme.background}]}
               value={userData.number}
               onChangeText={text => setUserData(prevData => ({ ...prevData, number: text }))}
-              placeholder="Número"
+              placeholder={t('Número')}
               placeholderTextColor={theme.color}
             />
           </View>
@@ -197,7 +200,7 @@ export default function EditProfile() {
             style = {[styles.input, {color:theme.color}, {backgroundColor:theme.background}]}
             value={userData.psw}
             onChangeText={text => setUserData(prevData => ({ ...prevData, psw: text }))}
-            placeholder="Password"
+            placeholder={t('Contraseña')}
             placeholderTextColor={theme.color}
             secureTextEntry={true}
           />
@@ -205,12 +208,12 @@ export default function EditProfile() {
             <TextInput
               style = {[styles.inputFecha, {color:theme.color}, {backgroundColor:theme.background}]}
               value={userData.birth_date ? format(new Date(userData.birth_date), "yyyy-MM-dd") : ""}
-              placeholder="Fecha de nacimiento"
+              placeholder={t('Fecha de nacimiento')}
               placeholderTextColor={theme.color}
             />
             <View style = {[styles.datepickerContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
               <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-                <Text style = {[styles.textFecha, {color:theme.color}]}>Seleccionar fecha</Text>
+                <Text style = {[styles.textFecha, {color:theme.color}]}>{t('Seleccionar fecha')}</Text>
               </TouchableOpacity>
               {showDatePicker && (
                 <DateTimePicker
@@ -229,14 +232,14 @@ export default function EditProfile() {
               style = {[styles.inputAddres, {color:theme.color}, {backgroundColor:theme.background}]}
               value={userData.address}
               onChangeText={text => setUserData(prevData => ({ ...prevData, address: text }))}
-              placeholder="Dirección"
+              placeholder={t('Dirección')}
               placeholderTextColor={theme.color}
             />
              <TextInput
               style = {[styles.inputCode, {color:theme.color}, {backgroundColor:theme.background}]}
               value={userData.postal_code}
               onChangeText={text => setUserData(prevData => ({ ...prevData, postal_code: text }))}
-              placeholder="Código Postal"
+              placeholder={t('Código Postal')}
               placeholderTextColor={theme.color}
             />
           </View>
@@ -245,14 +248,14 @@ export default function EditProfile() {
               style = {[styles.inputAddres, {color:theme.color}, {backgroundColor:theme.background}]}
               value={userData.city}
               onChangeText={text => setUserData(prevData => ({ ...prevData, city: text }))}
-              placeholder="Ciudad"
+              placeholder={t('Ciudad')}
               placeholderTextColor={theme.color}
             />
             <TextInput
               style = {[styles.inputCode, {color:theme.color}, {backgroundColor:theme.background}]}
               value={userData.country}
               onChangeText={text => setUserData(prevData => ({ ...prevData, country: text }))}
-              placeholder="País"
+              placeholder={t('País')}
               placeholderTextColor={theme.color}
             />
           </View>
@@ -260,14 +263,14 @@ export default function EditProfile() {
             style = {[styles.bioInput, {color:theme.color}, {backgroundColor:theme.background}]}
             value={userData.bio}
             onChangeText={text => setUserData(prevData => ({ ...prevData, bio: text }))}
-            placeholder="Biografía"
+            placeholder={t('Biografía')}
             placeholderTextColor={theme.color}
             multiline={true}
           />
         </View>
         <View style = {[styles.buttonContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
           <TouchableOpacity style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} onPress={handleEditProfile}>
-            <Text style = {[styles.buttonText, {color:theme.color}]}>Guardar</Text>
+            <Text style = {[styles.buttonText, {color:theme.color}]}>{t('Guardar')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
