@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { useTranslation } from 'react-i18next';
 
 const Eventos = () => {
     const navigation = useNavigation();
@@ -123,6 +124,8 @@ const Eventos = () => {
 
     const [darkMode, setDarkMode] = useState(false)
 
+    const { t } = useTranslation();
+
     const renderItem = ({ item }) => {
         if (editingEvent && editingEvent.id === item.id) {
             return (
@@ -131,12 +134,12 @@ const Eventos = () => {
                         style = {[styles.editInput, {color:theme.color}, {backgroundColor:theme.background}]}
                         value={editedTitle}
                         onChangeText={setEditedTitle}
-                        placeholder="Nuevo título"
+                        placeholder={t('Nuevo título')}
                         placeholderTextColor={theme.color}
                     />
                     <View style = {[styles.dateTimeContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <TouchableOpacity onPress={() => setShowStartDatePicker(true)}>
-                            <Text style = {[styles.dateTimeText, {color:theme.color}]}>Seleccionar fecha y hora de inicio</Text>
+                            <Text style = {[styles.dateTimeText, {color:theme.color}]}>{t('Seleccionar fecha y hora de inicio')}</Text>
                         </TouchableOpacity>
                         {showStartDatePicker && (
                             <DateTimePicker
@@ -154,7 +157,7 @@ const Eventos = () => {
                     </View>
                     <View style = {[styles.dateTimeContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
-                            <Text style = {[styles.dateTimeText, {color:theme.color}]}>Seleccionar fecha y hora de fin</Text>
+                            <Text style = {[styles.dateTimeText, {color:theme.color}]}>{t('Seleccionar fecha y hora de fin')}</Text>
                         </TouchableOpacity>
                         {showEndDatePicker && (
                             <DateTimePicker
@@ -172,10 +175,10 @@ const Eventos = () => {
                     </View>
                     <View style = {[styles.buttonContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <TouchableOpacity onPress={handleEditEvent} style = {[styles.saveButton, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                            <Text style = {[styles.buttonText, {color:theme.color}]}>Guardar</Text>
+                            <Text style = {[styles.buttonText, {color:theme.color}]}>{t('Guardar')}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={handleCancelEdit} style = {[styles.cancelButton, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                            <Text style = {[styles.buttonText, {color:theme.color}]}>Cancelar</Text>
+                            <Text style = {[styles.buttonText, {color:theme.color}]}>{t('Cancelar')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -186,18 +189,18 @@ const Eventos = () => {
                     <View style = {[styles.eventDetails, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <Text style = {[styles.eventTitle, {color:theme.color}]}>{item.title}</Text>
                         <Text style = {[styles.eventDate, {color:theme.color}]}>
-                            {`Fecha de inicio: ${moment(item.start).format("DD/MM/YYYY HH:mm")}`}
+                            {`${t('Fecha de inicio:')}: ${moment(item.start).format("DD/MM/YYYY HH:mm")}`}
                         </Text>
                         <Text style = {[styles.eventDate, {color:theme.color}]}>
-                            {`Fecha de finalización: ${moment(item.end).format("DD/MM/YYYY HH:mm")}`}
+                            {`${t('Fecha de finalización:')}: ${moment(item.start).format("DD/MM/YYYY HH:mm")}`}  
                         </Text>
                     </View>
                     <View style = {[styles.buttonContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <TouchableOpacity onPress={() => setEditingEvent(item)}>
-                            <Text style = {[styles.editButton, {color:theme.color}]}>Editar</Text>
+                            <Text style = {[styles.editButton, {color:theme.color}]}>{t('Editar')}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => handleDeleteEvent(item.id)}>
-                            <Text style = {[styles.deleteButton, {color:theme.color}]}>Borrar</Text>
+                            <Text style = {[styles.deleteButton, {color:theme.color}]}>{t('Borrar')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -207,11 +210,11 @@ const Eventos = () => {
 
     return (
         <View style={styles.container}>
-            <Text style = {[styles.title, {color:theme.color}]}>Todos los Eventos</Text>
+            <Text style = {[styles.title, {color:theme.color}]}>{t('Todos los Eventos')}</Text>
             <TouchableOpacity 
                 style={styles.styleCalendario}
                 onPress={redirecCalendario}>
-                <Text>Calendario</Text>
+                <Text>{t('Calendario')}</Text>
             </TouchableOpacity>
             <FlatList
                 data={events}

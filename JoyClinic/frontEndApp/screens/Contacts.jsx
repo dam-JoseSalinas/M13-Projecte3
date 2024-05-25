@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, SectionList, Image, TextInput } f
 import { Ionicons } from '@expo/vector-icons';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { useTranslation } from 'react-i18next';
 
 
 export default function Contacts(){
@@ -12,13 +13,15 @@ export default function Contacts(){
 
     const [darkMode, setDarkMode] = useState(false)
 
+    const { t } = useTranslation();
+
     return (
         <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}]}>
             <View style = {[styles.content, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                 <View style = {[styles.search, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TextInput 
                         style = {[styles.textInput, {color:theme.color}, {backgroundColor:theme.background}]}
-                        placeholder="Buscador"
+                        placeholder={t('Buscador')}
                         onChangeText={newText => setText(newText)}
                         defaultValue={text}
                         placeholderTextColor={theme.color}
@@ -35,9 +38,9 @@ export default function Contacts(){
                         style = {[styles.fotoPerfil, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} 
                         name="person" size={24} 
                         color={theme.color}  />
-                    <Text style = {[styles.nombre, {color:theme.color}]}>Nombre Completo</Text>
+                    <Text style = {[styles.nombre, {color:theme.color}]}>{t('Nombre Completo')}</Text>
                 </View>
-                <Text style = {[styles.contactos, {color:theme.color}]}>Contactos</Text>
+                <Text style = {[styles.contactos, {color:theme.color}]}>{t('Contactos')}</Text>
                 <SectionList
                     sections={[
                         { title: 'A', data: 

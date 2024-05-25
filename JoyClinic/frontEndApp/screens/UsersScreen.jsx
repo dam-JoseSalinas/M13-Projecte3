@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, FlatList, StyleSheet, Alert } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import './config/i18n'; // Importa el archivo i18n.js
 
 const UsersScreen = () => {
   const [users, setUsers] = useState([]);
@@ -23,9 +25,11 @@ const UsersScreen = () => {
     }
   };
 
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Usuarios Registrados</Text>
+      <Text style={styles.header}>{t('Usuarios Registrados')}</Text>
       <FlatList
         data={users}
         keyExtractor={item => item.id.toString()}
