@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Register, Event
+from .models import Register, Event, Message
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,3 +17,7 @@ class EventSerializer(serializers.ModelSerializer):
         model = Event
         fields = ['id', 'name', 'start', 'end', 'owner_email']
 
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ['id', 'sender', 'recipient', 'content', 'timestamp']

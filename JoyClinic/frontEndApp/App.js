@@ -1,23 +1,28 @@
-import React , {useState, useEffect}from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from './Navigation';
-import { EventRegister} from 'react-native-event-listeners'
+import { EventRegister } from 'react-native-event-listeners';
 import theme from './themes/theme';
 import themeContext from './themes/themeContext';
- 
+import ProfileProvider from './screens/ProfileProvider';
 
-/*Componenete principal y entrypoint que define navegacion y estructura*/
 export default function App() {
+  const [darkMode, setDarkMode] = useState(false);
 
-  const [darkMode, setDarkMode] = useState(false)
+  useEffect(() => {
+    const listener = EventRegister.addEventListener('ChangeTheme', (data) => {
+      setDarkMode(data);
+    });
 
-  useEffect(() =>{
-    const listener = EventRegister.addEventListener('ChangeTheme', (data) =>{
-      setDarkMode(data); 
-    })
-  })
+    return () => {
+      EventRegister.removeEventListener(listener);
+    };
+  }, []);
+
   return (
-    <themeContext.Provider value = {darkMode === true? theme.dark : theme.light}>
-      <Navigation/>
-    </themeContext.Provider>);
+    <ProfileProvider>
+      <themeContext.Provider value={darkMode ? theme.dark : theme.light}>
+        <Navigation />
+      </themeContext.Provider>
+    </ProfileProvider>
+  );
 }
-

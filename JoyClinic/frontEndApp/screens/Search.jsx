@@ -19,7 +19,6 @@ export default function Search(){
     const [darkMode, setDarkMode] = useState(false)
 
     return (
-        <ScrollView>
             <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}]}>
                 <View style = {[styles.content, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <View style = {[styles.search, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
@@ -36,141 +35,140 @@ export default function Search(){
                             size={24}
                             color={theme.color}/>
                     </View>
-                    <View style = {[styles.apartado, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                        <TouchableOpacity>
-                            <View style = {[styles.div1, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                                <MaterialCommunityIcons 
-                                    name="netflix" 
-                                    size={40} 
-                                    color={theme.color} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style = {[styles.div2, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                                <AntDesign 
-                                    name="amazon" 
-                                    size={40} 
-                                    color={theme.color} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style = {[styles.div3, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                                <Entypo 
-                                    name="spotify" 
-                                    size={40} 
-                                    color={theme.color} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style = {[styles.apartado, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                        <TouchableOpacity>
-                            <View style = {[styles.div4, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>  
-                                <Entypo 
-                                    name="github" 
-                                    size={40} 
-                                    color= {theme.color} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style = {[styles.div5, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                                <MaterialCommunityIcons 
-                                    name="google-maps" 
-                                    size={40} 
-                                    color={theme.color} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style = {[styles.div6, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                                <MaterialCommunityIcons 
-                                    name="google-drive" 
-                                    size={40} 
-                                    color={theme.color} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style = {[styles.apartado, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                    <TouchableOpacity>
-                        <View style = {[styles.div7, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>  
-                            <MaterialCommunityIcons 
-                                name="google-downasaur" 
-                                size={40} 
-                                color={theme.color} />
+                    <ScrollView>
+                        <View style = {[styles.apartado, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                            <TouchableOpacity>
+                                <View style = {[styles.div1, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                                    <MaterialCommunityIcons 
+                                        name="netflix" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style = {[styles.div2, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                                    <AntDesign 
+                                        name="amazon" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style = {[styles.div3, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                                    <Entypo 
+                                        name="spotify" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style = {[styles.div8, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                            <Fontisto 
-                                name="applemusic" 
-                                size={40} 
-                                color={theme.color} />
+                        <View style = {[styles.apartado, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                            <TouchableOpacity>
+                                <View style = {[styles.div4, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>  
+                                    <Entypo 
+                                        name="github" 
+                                        size={40} 
+                                        color= {theme.color} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style = {[styles.div5, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                                    <MaterialCommunityIcons 
+                                        name="google-maps" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style = {[styles.div6, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                                    <MaterialCommunityIcons 
+                                        name="google-drive" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style = {[styles.div9, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                            <FontAwesome5 
-                                name="telegram" 
-                                size={40} 
-                                color={theme.color} />
-                        </View>
-                    </TouchableOpacity>
-                    </View>
-                    <View style = {[styles.apartado, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                        <View style = {[styles.apartado, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <TouchableOpacity>
-                            <View style = {[styles.div10, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>  
-                                <FontAwesome 
-                                    name="linkedin" 
+                            <View style = {[styles.div7, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>  
+                                <MaterialCommunityIcons 
+                                    name="google-downasaur" 
                                     size={40} 
                                     color={theme.color} />
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <View style = {[styles.div11, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                            <View style = {[styles.div8, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                                <Fontisto 
+                                    name="applemusic" 
+                                    size={40} 
+                                    color={theme.color} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style = {[styles.div9, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                                 <FontAwesome5 
-                                    name="cc-apple-pay" 
+                                    name="telegram" 
                                     size={40} 
                                     color={theme.color} />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style = {[styles.div12, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                                <FontAwesome5 
-                                    name="tiktok" 
-                                    size={40} 
-                                    color={theme.color} />
-                            </View>
-                        </TouchableOpacity> 
-                    </View>
-                    <View style = {[styles.apartado, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                        <TouchableOpacity>
-                            <View style = {[styles.div13, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>  
-                                <MaterialCommunityIcons 
-                                    name="apple-icloud" 
-                                    size={40} 
-                                    color={theme.color} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style = {[styles.div14, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                                <MaterialCommunityIcons 
-                                    name="calculator" 
-                                    size={40} 
-                                    color={theme.color} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style = {[styles.div15, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                                <AntDesign 
-                                    name="google" 
-                                    size={40} 
-                                    color={theme.color} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    
+                        </View>
+                        <View style = {[styles.apartado, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                            <TouchableOpacity>
+                                <View style = {[styles.div10, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>  
+                                    <FontAwesome 
+                                        name="linkedin" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style = {[styles.div11, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                                    <FontAwesome5 
+                                        name="cc-apple-pay" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style = {[styles.div12, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                                    <FontAwesome5 
+                                        name="tiktok" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity> 
+                        </View>
+                        <View style = {[styles.apartado, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                            <TouchableOpacity>
+                                <View style = {[styles.div13, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>  
+                                    <MaterialCommunityIcons 
+                                        name="apple-icloud" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style = {[styles.div14, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                                    <MaterialCommunityIcons 
+                                        name="calculator" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style = {[styles.div15, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
+                                    <AntDesign 
+                                        name="google" 
+                                        size={40} 
+                                        color={theme.color} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
                 </View>
             </SafeAreaView>
-        </ScrollView>
-        
     );
 };
 

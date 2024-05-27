@@ -22,10 +22,12 @@ import Settings from './screens/Settings';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Notifications from './screens/Notifications';
 import { useNavigation } from '@react-navigation/native';
-import Eventos from './screens/Eventos';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister } from 'react-native-event-listeners';
 import themeContext from './themes/themeContext';
+import ProfileContext from './screens/ProfileContext'; 
+import ProfileProvider from './screens/ProfileProvider';
+import Chats from './screens/Chats';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator(); 
@@ -33,17 +35,9 @@ const Drawer = createDrawerNavigator();
 function DrawerNavigator({ darkMode, setDarkMode }) {
   const navigation = useNavigation();
   const [profileImage, setProfileImage] = useState(require('./assets/images/foto_perfil/default.jpg'));
+  const { userData, fetchData,  } = useContext(ProfileContext);
   const [fetchError, setFetchError] = useState(false);  
   const [iconColor, setIconColor] = useState(darkMode ? 'white' : 'black');
-  const [userData, setUserData] = useState({
-    name: "",
-    surname: "", 
-    bio: "",
-    birth_date: new Date(),
-    city: "", 
-    country: "",
-    photo: "",
-  });
  
   const phoneIP = `http://192.168.1.33:8000/profile/`; 
   //const ip = 'http://192.168.17.8:8000/profile/';
@@ -51,39 +45,6 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const fetchData = async () => {
-    try {
-      const token = await AsyncStorage.getItem('token');
-      if (!token) {
-        throw new Error('El token no está disponible');
-      }
-
-      const response = await fetch(phoneIP, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-
-        console.log(data);
-
-        setUserData(data);
-        if (data.photo) {
-          setProfileImage({ uri: data.photo });
-        }
-      } else {
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      setFetchError(true);
-      Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
-    }
-  }; 
 
   const theme = useContext(themeContext);
 
@@ -252,8 +213,8 @@ function StackNavigator() {
             options={{ headerShown: false}}
           />
           <Stack.Screen
-            name="Eventos"
-            component={Eventos}
+            name="Chats"
+            component={Chats}
             options={{ headerShown: false}}
           />
         </Stack.Navigator>

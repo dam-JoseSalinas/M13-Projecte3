@@ -9,9 +9,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import ProfileContext from './ProfileContext';
 
 const CalendarScreen = () => {
-  const [events, setEvents] = useState({});
   const [selectedDate, setSelectedDate] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [eventName, setEventName] = useState('');
@@ -22,40 +22,10 @@ const CalendarScreen = () => {
   const [showEndPicker, setShowEndPicker] = useState(false);
   const phoneIP = `http://192.168.1.33:8000/all_events/`;
   //const ip = 'http://192.168.17.8:8000/all_events/';
-
+  const { events,  fetchEvents, setEvents,  } = useContext(ProfileContext);
   useEffect(() => {
     fetchEvents();
   }, []);
-
-  const fetchEvents = async () => {
-    try {
-      const token = await AsyncStorage.getItem('token');
-      if (!token) {
-        throw new Error('El token no está disponible');
-      }
-  
-      console.log('Obteniendo datos del perfil desde:', phoneIP);
-      const response = await axios.get(phoneIP, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const eventData = response.data.reduce((acc, event) => {
-        acc[event.id] = {  
-          name: event.title, 
-          start: event.start, 
-          end: event.end,
-          marked: true,
-        };
-        return acc;
-      }, {});
-      setEvents(eventData);
-    } catch (error) {
-      console.error('Error fetching events:', error);
-    }
-  };
 
   const handleDatePress = (date) => {
     setSelectedDate(date.dateString);

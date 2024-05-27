@@ -3,12 +3,12 @@ import sqlite3
 import json
 import logging
 from django.http import HttpResponse
-from .models import Register
+from .models import Register, Message
 from rest_framework import viewsets
-from .serializer import RegisterSerializer
+from .serializer import RegisterSerializer, MessageSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated
@@ -94,7 +94,50 @@ def profile(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Register.DoesNotExist:
         return Response({"message": "Profile not found."}, status=status.HTTP_404_NOT_FOUND)
-
+    
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def edit_profile_with_token(request):
+    try:
+        # Verificar el token de autenticación
+        user = request.user
+        
+        # Obtener el registro asociado al usuario autenticado
+        register = Register.objects.get(email=user.email)
+        
+        # Actualizar los campos del perfil con los datos de la solicitud
+        register.name = request.data.get('name', register.name)
+        register.surname = request.data.get('surname', register.surname)
+        register.number = request.data.get('number', register.number)
+        register.email = request.data.get('email', register.email)
+        register.psw = request.data.get('psw', register.psw)
+        register.bio = request.data.get('bio', register.bio)
+        register.birth_date = request.data.get('birth_date', register.birth_date)
+        register.address = request.data.get('address', register.address)
+        register.city = request.data.get('city', register.city)
+        register.country = request.data.get('country', register.country)
+        register.postal_code = request.data.get('postal_code', register.postal_code)
+        
+        # Guardar los cambios en la base de datos
+        register.save()
+        
+        # Si se proporciona una nueva contraseña, actualizarla y devolver un nuevo token
+        if 'psw' in request.data:
+            register.set_password(request.data['psw'])
+            register.save()
+            refresh = RefreshToken.for_user(register)
+            token = str(refresh.access_token)
+            return Response({'token': token, "user": RegisterSerializer(instance=register).data}, status=status.HTTP_200_OK)
+        
+        # Serializar el registro actualizado y devolverlo como respuesta
+        serializer = RegisterSerializer(instance=register)
+        return JsonResponse(serializer.data, status=200)
+    
+    except Register.DoesNotExist:
+        return JsonResponse({"error": "Profile not found."}, status=404)
+    
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
 
 @api_view(['POST'])
 def register(request):
@@ -208,3 +251,7 @@ class MessageAPIView(APIView):
         })
 
         return Response([])
+    
+class MessageCreateView(generics.CreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer

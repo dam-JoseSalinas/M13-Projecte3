@@ -1,105 +1,35 @@
+//Profile.jsx
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, Alert, FlatList, TextInput, ScrollView, Keyboard } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Alert, FlatList, TextInput, ScrollView, Keyboard, Platform } from 'react-native';
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import DatePicker from "react-native-datepicker";
-
-
+import ProfileProvider from "./ProfileProvider";
+import ProfileContext from "./ProfileContext";
 
 const Profile = () => {
   const navigation = useNavigation();
-  const [events, setEvents] = useState([]);
   const [editingEvent, setEditingEvent] = useState(null);
   const [editedTitle, setEditedTitle] = useState('');
   const [editedStartDate, setEditedStartDate] = useState(new Date());
-  const [editedEndDate, setEditedEndDate] = useState(new Date());
+  const [editedEndDate, setEditedEndDate] = useState(new Date());  
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+  const { userData, events, fetchData, fetchEvents, setEvents, setUserData } = useContext(ProfileContext);
   const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/perfil.jpeg'));
-  const [userData, setUserData] = useState({
-    name: "",
-    surname: "", 
-    bio: "",
-    birth_date: new Date(),
-    city: "",
-    country: "",
-    photo: "",
-  });
+  const phoneIP = `http://192.168.1.33:8000/profile/`;
+  //const ip = 'http://192.168.17.8:8000/profile/'; 
+  const theme = useContext(themeContext) 
+  const [darkMode, setDarkMode] = useState(false);
     
   const redirecCalendario = () => {
     navigation.navigate('Calendario');
   };
-
-  const phoneIP = `http://192.168.1.33:8000/profile/`;
-  //const ip = 'http://192.168.17.8:8000/profile/'; 
-
-  const fetchData = async () => {
-    try { 
-      const token = await AsyncStorage.getItem('token');
-      if (!token) {
-        throw new Error('El token no está disponible');
-      }
-
-      const response = await fetch(phoneIP, {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-
-        setUserData(data);
-        if (data.photo) {
-          setProfileImage({ uri: data.photo });
-        }
-      } else {
-        throw new Error('Error fetching user data');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      Alert.alert('Error', 'Hubo un problema al obtener los datos del usuario.');
-    }
-  };
-
-  const fetchEvents = async () => {
-    try {
-        const token = await AsyncStorage.getItem('token');
-        if (!token) {
-            throw new Error('El token no está disponible');
-        } 
-
-        const response = await axios.get('http://192.168.1.33:8000/all_events/', {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`, 
-            },
-        });
-
-        const formattedEvents = response.data.map(event => ({
-            ...event,
-            start: moment(event.start, "MM/DD/YYYY, HH:mm:ss").toDate(),
-            end: moment(event.end, "MM/DD/YYYY, HH:mm:ss").toDate(),
-        }));
-        setEvents(formattedEvents);
-    } catch (error) {
-        console.error('Error fetching events:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-    fetchEvents(); 
-  }, []);
-
+  
   const handleEditEvent = async () => {
     try {
         const token = await AsyncStorage.getItem('token');
@@ -114,7 +44,6 @@ const Profile = () => {
         // Ocultar el teclado
         Keyboard.dismiss();
 
-        // Enviar la solicitud de actualización del evento
         const response = await axios.put(`http://192.168.1.33:8000/update/${editingEvent.id}/`, {
             title: editedTitle,
             start: formattedStartDate,
@@ -127,7 +56,6 @@ const Profile = () => {
         });
 
         if (response.status === 200) {
-            // Si la actualización es exitosa, mostrar una alerta, actualizar los eventos y restablecer los estados relacionados con la edición del evento
             Alert.alert('Evento actualizado correctamente');
             fetchEvents();
             setEditingEvent(null);
@@ -144,18 +72,13 @@ const Profile = () => {
     }
   };
 
-  const handleCancelEdit = () => {
-    setEditingEvent(null);
-    setEditedTitle('');
-  };
-
   const handleDeleteEvent = async (eventId) => {
     try {
         const token = await AsyncStorage.getItem('token');
         if (!token) {
             throw new Error('El token no está disponible');
         }
-
+ 
         const response = await axios.delete(`http://192.168.1.33:8000/remove/${eventId}/`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -172,15 +95,33 @@ const Profile = () => {
     } catch (error) {
         console.error('Error deleting event:', error);
     }
+  }; 
+
+  const handleDateStartChange = (event, selectedDate) => {
+    const currentDate = selectedDate || editedStartDate;
+    setShowStartDatePicker(Platform.OS === 'ios');
+    setEditedStartDate(currentDate);
+  };
+ 
+  const handleDateEndChange = (event, selectedDate) => {
+      const currentDate = selectedDate || editedEndDate;
+      setShowEndDatePicker(Platform.OS === 'ios');
+      setEditedEndDate(currentDate);
+  };
+
+  useEffect(() => {
+    fetchData();
+    fetchEvents(); 
+  }, []);
+
+  const handleCancelEdit = () => {
+    setEditingEvent(null);
+    setEditedTitle('');
   };
   
   const redirectEditProfile = () => {
     navigation.navigate('EditProfile');
   };
-
-  const theme = useContext(themeContext)
-
-  const [darkMode, setDarkMode] = useState(false);
   
   const renderItem = ({ item }) => {
     if (editingEvent && editingEvent.id === item.id) {
@@ -199,17 +140,14 @@ const Profile = () => {
                     </TouchableOpacity>
                     {showStartDatePicker && (
                       <DateTimePicker
-                          value={editedStartDate || new Date()} // Si editedStartDate es null, utiliza la fecha actual
-                          mode="datetime"
-                          is24Hour={true}
+                        testID="dateTimePicker"
+                          value={editedStartDate || new Date()}
+                          mode="date"
                           display="default"
-                          onChange={(event, selectedDate) => {
-                              const currentDate = selectedDate || editedStartDate || new Date();
-                              setEditedStartDate(currentDate);
-                              setShowStartDatePicker(false);
-                          }}
+                          onChange={handleDateStartChange}
+ 
                       />
-                  )}
+                    )}
                 </View>
                 <View style = {[styles.dateTimeContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
@@ -217,18 +155,14 @@ const Profile = () => {
                     </TouchableOpacity>
                     {showEndDatePicker && (
                       <DateTimePicker
-                          value={editedEndDate || new Date()} // Si editedEndDate es null, utiliza la fecha actual
-                          mode="datetime"
-                          is24Hour={true}
+                          testID="dateTimePicker"
+                          value={editedEndDate || new Date()}
+                          mode="date"
                           display="default"
-                          onChange={(event, selectedDate) => {
-                              const currentDate = selectedDate || editedEndDate || new Date();
-                              setEditedEndDate(currentDate);
-                              setShowEndDatePicker(false);
-                          }}
+                          onChange={handleDateEndChange}
                       />
-                  )}
-
+                    )}
+ 
                 </View>
                 <View style = {[styles.buttonContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity onPress={handleEditEvent} style = {[styles.saveButton, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
@@ -266,7 +200,7 @@ const Profile = () => {
   };  
 
   return (
-    <ScrollView style = {[styles.ScrollView, {backgroundColor:theme.background}]}>
+    
       <View style = {[styles.container, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
         <View style = {[styles.header, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
           <View style = {[styles.profileInfo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
@@ -317,30 +251,30 @@ const Profile = () => {
           <Text style = {[styles.textButton, {color:theme.color}]}>Calendario</Text>
         </TouchableOpacity>
         <Text style = {[styles.title, {color:theme.color}]}>Todos los Eventos</Text>
+        <ScrollView style = {[styles.ScrollView, {backgroundColor:theme.background}]}>
           <View style={styles.containerlist}>
-          <FlatList
-            data={[userData, ...events]}
-            renderItem={({ item, index }) => {
-              if (index === 0) {
-                // Renderizar el perfil
-                return (
-                  <View>
-                    {/* Contenido del perfil */} 
-                  </View>
-                );
-              } else {
-                // Renderizar eventos
-                return renderItem({ item });
-              }
-            }}
-            keyExtractor={(item, index) => index.toString()}
-            contentContainerStyle={[styles.containerFlalist, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
-            scrollEnabled={false}
-          />
-          </View>  
+              <FlatList
+                data={[userData, ...events]}
+                renderItem={({ item, index }) => {
+                  if (index === 0) {
+                    // Renderizar el perfil
+                    return (
+                      <View>
+                        {/* Contenido del perfil */} 
+                      </View>
+                    );
+                  } else {
+                    // Renderizar eventos
+                    return renderItem({ item });
+                  }
+                }}
+                keyExtractor={(item, index) => index.toString()}
+                contentContainerStyle={[styles.containerFlalist, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
+                scrollEnabled={false}
+              />
+            </View>  
+        </ScrollView>
       </View>
-    </ScrollView>
-    
   );
 };
 
