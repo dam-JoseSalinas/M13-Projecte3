@@ -24,9 +24,10 @@ const CalendarScreen = () => {
   const [showEndPicker, setShowEndPicker] = useState(false);
   const phoneIP = `http://192.168.1.33:8000/all_events/`;
   //const ip = 'http://192.168.17.8:8000/all_events/';
-  const { events,  fetchEvents, setEvents,  } = useContext(ProfileContext);
+  const { events,  fetchEvents, setEvents, fetchCountEvents, countEvents, setCountEvents  } = useContext(ProfileContext);
   useEffect(() => {
     fetchEvents();
+    fetchCountEvents();
   }, []);
 
   const handleDatePress = (date) => {
@@ -64,6 +65,7 @@ const CalendarScreen = () => {
 
       if (response.status === 201) {
         fetchEvents();
+        fetchCountEvents();
         setModalVisible(false);
         setEventName('');
         setEventStart(new Date());

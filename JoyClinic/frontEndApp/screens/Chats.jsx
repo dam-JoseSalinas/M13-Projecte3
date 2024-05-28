@@ -1,48 +1,59 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback, useEffect, useRef   } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import themeContext from "../themes/themeContext"; 
+import { GiftedChat } from 'react-native-gifted-chat'
+import uuid from 'react-native-uuid'; 
 
 export default function ChatScreen() {
-  const theme = useContext(themeContext); 
+  const [messages, setMessages] = useState([]);
+  const flatListRef = useRef(null); // Referencia para FlatList
 
-  const [messages, setMessages] = useState([]); 
-  const [newMessage, setNewMessage] = useState(''); 
+  useEffect(() => {
+    setMessages([
+      {
+        _id: 1,
+        // text: 'Hello developer',
+        // createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'React Native',
+          avatar: 'https://placeimg.com/140/140/any',
+        },
+      },
+    ])
+  }, [])
 
-  const sendMessage = () => {
-    if (newMessage.trim() !== '') {
-      setMessages([...messages, { text: newMessage, sender: 'me' }]);
-      setNewMessage('');
+  const onSend = useCallback((newMessages = []) => {
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, newMessages),
+    );
+    scrollToBottom();
+  }, []);
+
+  const scrollToBottom = () => {
+    if (flatListRef.current) {
+      flatListRef.current.scrollToEnd({ animated: true });
     }
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : null}
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
-      {/* Mensajes */}
-      <View style={styles.messagesContainer}>
-        {messages.map((message, index) => (
-          <View key={index} style={[styles.messageBubble, { alignSelf: message.sender === 'me' ? 'flex-end' : 'flex-start' }]}>
-            <Text style={[styles.messageText, { color: theme.color }]}>{message.text}</Text>
-          </View>
-        ))}
-      </View>
-
-      {/* Entrada de mensaje */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={[styles.input, { color: theme.color }]}
-          value={newMessage}
-          onChangeText={text => setNewMessage(text)}
-          placeholder="Type your message..."
-          placeholderTextColor={theme.placeholderColor}
-        />
-        <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
-          <Text style={styles.sendButtonText}>Send</Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+    <GiftedChat
+      messages={messages}
+      onSend={newMessages => onSend(newMessages)}
+      user={{
+        _id: 1,
+      }}
+      messageContainerRef={{
+        backgroundColor: '#fff'
+      }}
+      renderChatFooter={() => (
+        <View style={styles.footer}></View>
+      )}
+      ref={ref => { flatListRef.current = ref; }}
+      listViewProps={{
+        ref: flatListRef
+      }}
+    />
   );
 }
 

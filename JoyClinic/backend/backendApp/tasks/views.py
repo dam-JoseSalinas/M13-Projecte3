@@ -19,6 +19,7 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Event
 from django.http import JsonResponse 
 from .pusher import pusher, pusher_client
+from django.core.exceptions import ObjectDoesNotExist
 
 class RegisterAPIsREST(viewsets.ModelViewSet):
     serializer_class = RegisterSerializer
@@ -255,3 +256,23 @@ class MessageAPIView(APIView):
 class MessageCreateView(generics.CreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+@api_view(['GET'])
+def contar_pacientes(request):
+    num_pacientes = Register.objects.count()
+    return Response({num_pacientes})
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def contar_eventos(request):
+    try:
+        register_instance = Register.objects.get(email=request.user.email)
+    except Register.DoesNotExist:
+        return Response({"message": "Profile not found."}, status=status.HTTP_404_NOT_FOUND)
+
+    try:
+        user_events_count = Event.objects.filter(owner=register_instance).count()
+        return Response({user_events_count})
+    except Exception as e:
+        print(e)
+        return Response({"success": False, "message": "Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
