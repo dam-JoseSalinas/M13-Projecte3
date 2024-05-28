@@ -1,27 +1,24 @@
-import React, { useState, useContext, useCallback, useEffect, useRef   } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
-import themeContext from "../themes/themeContext"; 
-import { GiftedChat } from 'react-native-gifted-chat'
-import uuid from 'react-native-uuid'; 
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
+import uuid from 'react-native-uuid';
 
 export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
   const flatListRef = useRef(null); // Referencia para FlatList
-
+  const error = console.error; console.error = (...args) => { if (/defaultProps/.test(args[0])) return; error(...args); };
   useEffect(() => {
     setMessages([
       {
         _id: 1,
-        // text: 'Hello developer',
-        // createdAt: new Date(),
+        text: 'Hello developer',
+        createdAt: new Date(),
         user: {
           _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
         },
       },
-    ])
-  }, [])
+    ]);
+  }, []);
 
   const onSend = useCallback((newMessages = []) => {
     setMessages(previousMessages =>
@@ -40,16 +37,7 @@ export default function ChatScreen() {
     <GiftedChat
       messages={messages}
       onSend={newMessages => onSend(newMessages)}
-      user={{
-        _id: 1,
-      }}
-      messageContainerRef={{
-        backgroundColor: '#fff'
-      }}
-      renderChatFooter={() => (
-        <View style={styles.footer}></View>
-      )}
-      ref={ref => { flatListRef.current = ref; }}
+      user={{ _id: 1 }}
       listViewProps={{
         ref: flatListRef
       }}
@@ -70,7 +58,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: '#e0e0e0', 
+    backgroundColor: '#e0e0e0',
   },
   messageText: {
     fontSize: 16,
@@ -89,13 +77,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   sendButton: {
-    backgroundColor: '#007bff', 
+    backgroundColor: '#007bff',
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 5,
   },
   sendButtonText: {
-    color: '#fff', 
+    color: '#fff',
     fontSize: 16,
   },
 });

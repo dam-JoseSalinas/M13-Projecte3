@@ -247,22 +247,22 @@ export default function Funny(){
                             style={styles.movie}/>
                     </TouchableOpacity>
                     <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                        <FontAwesome 
-                            name="file-movie-o" 
-                            size={50} color= {theme.color}
-                            style={styles.movie}/>
+                        <FontAwesome5 
+                            name="cc-apple-pay" 
+                            size={50} 
+                            color={theme.color} />
                     </TouchableOpacity>
                     <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                        <FontAwesome 
-                            name="file-movie-o" 
-                            size={50} color= {theme.color} 
-                            style={styles.movie}/>
+                        <FontAwesome5 
+                            name="twitch" 
+                            size={50} 
+                            color={theme.color}/>
                     </TouchableOpacity>
                     <TouchableOpacity style = {[styles.fondoIconMovie, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                        <FontAwesome 
-                            name="file-movie-o" 
-                            size={50} color= {theme.color}  
-                            style={styles.movie}/>
+                        <FontAwesome5 
+                            name="kickstarter" 
+                            size={50} 
+                            color={theme.color} />
                     </TouchableOpacity>
                 </View>
             </ScrollView>
