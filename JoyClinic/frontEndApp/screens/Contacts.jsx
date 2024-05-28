@@ -10,7 +10,7 @@ export default function Contacts() {
     const { t } = useTranslation();
     const [text, setText] = useState('');
     const theme = useContext(themeContext);
-    const { userData, usersData, fetchRegistros } = useContext(ProfileContext);
+    const { userData, usersData, fetchRegistros, fetchData } = useContext(ProfileContext);
     const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/perfil.jpeg'));
     const navigation = useNavigation();
 
@@ -20,6 +20,7 @@ export default function Contacts() {
 
     useEffect(() => {
         fetchRegistros();
+        fetchData();
     }, []);
 
     const filteredContacts = usersData.registros.filter(user => {

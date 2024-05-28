@@ -1,5 +1,5 @@
 import React, { useState,useContext } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, Alert, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
@@ -57,47 +57,53 @@ export default function Register() {
     
     return (
         <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}]}>
-            <View style = {[styles.content, {backgroundColor:theme.background}]} contentContainerStyle={styles.scrollContent}>
-                <Text style = {[styles.title, {color:theme.color}]}>
-                    Registro de usuarios
-                </Text>
-                <TextInput
-                    placeholder={t('Nombre')}
-                    value={username}
-                    onChangeText={text => setUsername(text)}
-                    style={styles.input}
-                />
-                <TextInput
-                    placeholder={t('Apellido')}
-                    value={userlastname}
-                    onChangeText={text => setUserLastname(text)}
-                    style={styles.input}
-                />
-                <TextInput
-                    placeholder={t('Número')}
-                    value={number}
-                    keyboardType='number-pad'
-                    onChangeText={text => setNumber(text)}
-                    style={styles.input}
-                />
-                <TextInput
-                    placeholder={t('Email')}
-                    value={email}
-                    onChangeText={text => setEmail(text)}
-                    style={styles.input}
-                />
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style = {[styles.content, {backgroundColor:theme.background}]} contentContainerStyle={styles.scrollContent}>
+                    <Text style = {[styles.title, {color:theme.color}]}>
+                        Registro de usuarios
+                    </Text>
+                    <Image
+                        source={require('../assets/images/Logo/logoBlanco.png')}
+                        style={styles.logo}
+                        resizeMode='contain'/>
+                    <TextInput
+                        placeholder={t('Nombre')}
+                        value={username}
+                        onChangeText={text => setUsername(text)}
+                        style={styles.input}
+                    />
+                    <TextInput
+                        placeholder={t('Apellido')}
+                        value={userlastname}
+                        onChangeText={text => setUserLastname(text)}
+                        style={styles.input}
+                    />
+                    <TextInput
+                        placeholder={t('Número')}
+                        value={number}
+                        keyboardType='number-pad'
+                        onChangeText={text => setNumber(text)}
+                        style={styles.input}
+                    />
+                    <TextInput
+                        placeholder={t('Email')}
+                        value={email}
+                        onChangeText={text => setEmail(text)}
+                        style={styles.input}
+                    />
 
-                <TextInput
-                    placeholder={t('Contraseña')}
-                    value={psw}
-                    onChangeText={text => setPsw(text)}
-                    secureTextEntry={true}
-                    style={styles.input}
-                />
-                <TouchableOpacity style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} onPress={handleRegister}>
-                    <Text style = {[{color:theme.color}]}>{t('Register')}</Text>
-                </TouchableOpacity>
-            </View>
+                    <TextInput
+                        placeholder={t('Contraseña')}
+                        value={psw}
+                        onChangeText={text => setPsw(text)}
+                        secureTextEntry={true}
+                        style={styles.input}
+                    />
+                    <TouchableOpacity style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} onPress={handleRegister}>
+                        <Text style = {[{color:theme.color}]}>{t('Register')}</Text>
+                    </TouchableOpacity>
+                </View>
+            </TouchableWithoutFeedback>
         </SafeAreaView>
     );
 };
@@ -107,14 +113,22 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
+    logo: {
+        alignSelf: 'center',
+        width: 200,
+        height: 200,
+        marginBottom: 15,
+    },
     content: {
         width: '90%', 
         paddingTop: 20,
     },
     title: {
+        fontWeight: '200',
         marginBottom: 20,
         textAlign: 'center',
         fontFamily: 'System',
+        fontSize: 20,
     },
     input: {
         height: 40,

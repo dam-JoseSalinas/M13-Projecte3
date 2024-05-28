@@ -21,14 +21,14 @@ const Profile = () => {
   const [editedEndDate, setEditedEndDate] = useState(new Date());  
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
-  const { userData, events, fetchData, fetchEvents, setEvents, setUserData } = useContext(ProfileContext);
+  const { userData, events, fetchData, fetchEvents, setEvents, setUserData, count, setCount, fetchCountRegister, countEvents, setCountEvents, fetchCountEvents } = useContext(ProfileContext);
   const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/perfil.jpeg'));
   const phoneIP = `http://192.168.1.33:8000/profile/`;
-  //const ip = 'http://192.168.17.8:8000/profile/'; 
+  //const ip = 'http://192.168.17.8:8000/profile/';  
   const theme = useContext(themeContext) 
   const [darkMode, setDarkMode] = useState(false);
     
-  const redirecCalendario = () => {
+  const redirecCalendario = () => { 
     navigation.navigate('Calendario');
   };
   
@@ -36,7 +36,7 @@ const Profile = () => {
     try {
         const token = await AsyncStorage.getItem('token');
         if (!token) {
-            throw new Error('El token no está disponible');
+            throw new Error('El token no está disponible'); 
         }
 
         // Formatear las fechas
@@ -87,10 +87,11 @@ const Profile = () => {
                 Authorization: `Bearer ${token}`,
             },
         });
-
+ 
         if (response.status === 200) {
             setEvents(events.filter(event => event.id !== eventId));
             Alert.alert('Evento eliminado correctamente');
+            fetchCountEvents();
         } else {
             console.error('Error deleting event:', response.data);
         }
@@ -114,12 +115,15 @@ const Profile = () => {
   useEffect(() => {
     fetchData();
     fetchEvents(); 
+    fetchCountRegister();
+    fetchCountEvents();
+
   }, []);
 
   const handleCancelEdit = () => {
     setEditingEvent(null);
     setEditedTitle('');
-  };
+  }; 
   
   const redirectEditProfile = () => {
     navigation.navigate('EditProfile');
@@ -226,16 +230,16 @@ const Profile = () => {
           </View>
           <View style = {[styles.statsContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
             <View style = {[styles.stat, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-              <Text style = {[styles.statNumber, {color:theme.color}]}>100</Text>
+              <Text style = {[styles.statNumber, {color:theme.color}]}>{count}</Text>
               <Text style = {[styles.statText, {color:theme.color}]}>{t('Personales')}</Text>
-            </View>
+            </View> 
             <View style = {[styles.stat, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-              <Text style = {[styles.statNumber, {color:theme.color}]}>10</Text>
-              <Text style = {[styles.statText, {color:theme.color}]}>{t('Hospital')}</Text>
+              <Text style = {[styles.statNumber, {color:theme.color}]}>{countEvents}</Text>
+              <Text style = {[styles.statText, {color:theme.color}]}>{t('Eventos')}</Text>
             </View>
             <View style = {[styles.stat, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
               <Text style = {[styles.statNumber, {color:theme.color}]}>13</Text>
-              <Text style = {[styles.statText, {color:theme.color}]}>{t('Favoritos')}</Text>
+              <Text style = {[styles.statText, {color:theme.color}]}>{t('Notificaciones')}</Text>
             </View>
           </View>
         </View>

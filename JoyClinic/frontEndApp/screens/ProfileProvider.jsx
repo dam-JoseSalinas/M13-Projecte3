@@ -10,6 +10,8 @@ const ProfileProvider = ({ children }) => {
   const phoneIP = `http://192.168.1.33:8000/profile/`;
   const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/perfil.jpeg'));
   const [fetchError, setFetchError] = useState(false);  
+  const [count, setCount] = useState([])
+  const [countEvents, setCountEvents] = useState(null);
   const [events, setEvents] = useState([]);
   const [userData, setUserData] = useState({
     name: "",
@@ -47,7 +49,7 @@ const ProfileProvider = ({ children }) => {
     try { 
       const token = await AsyncStorage.getItem('token');
       if (!token) {
-        throw new Error('El token no está disponible');
+        //throw new Error('El token no está disponible');
       }
 
       const response = await fetch(phoneIP, {
@@ -78,7 +80,7 @@ const ProfileProvider = ({ children }) => {
     try {
         const token = await AsyncStorage.getItem('token');
         if (!token) {
-            throw new Error('El token no está disponible');
+            //throw new Error('El token no está disponible');
         } 
 
         const response = await axios.get('http://192.168.1.33:8000/all_events/', {
@@ -95,7 +97,7 @@ const ProfileProvider = ({ children }) => {
         }));
         setEvents(formattedEvents);
     } catch (error) {
-        console.error('Error fetching events:', error);
+        //console.error('Error fetching events:', error);
     }
   };
 
@@ -122,10 +124,57 @@ const ProfileProvider = ({ children }) => {
     }
   };
 
+  const fetchCountRegister = async () => {
+    try {
+      const response = await fetch('http://192.168.1.33:8000/count', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setCount(data)
+      } else {
+
+      }
+    }catch (error) {
+      console.error('Error:', error);
+      Alert.alert('Error', 'Hubo un problema al obtener los datos de los registros.');
+    };
+  }
+
+  const fetchCountEvents = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        //throw new Error('El token no está disponible');
+      }
+  
+      const response = await fetch('http://192.168.1.33:8000/events/', { 
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        setCountEvents(data)
+      } else {
+
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      Alert.alert('Error', 'Hubo un problema al obtener los datos de los eventos.');
+    }
+  };
 
 
   return (
-    <ProfileContext.Provider value={{ userData, events, usersData, setUsersData, setUserData, setEvents, fetchData, fetchEvents, fetchRegistros,  }}>
+    <ProfileContext.Provider value={{ userData, events, usersData, count, countEvents, setCountEvents, setCount, setUsersData, setUserData, setEvents, fetchData, fetchEvents, fetchRegistros, fetchCountRegister, fetchCountEvents }}>
       {children}
     </ProfileContext.Provider>
   );
