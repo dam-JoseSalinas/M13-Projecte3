@@ -10,10 +10,11 @@ import { FontAwesome } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { useTranslation } from 'react-i18next';
 
 export default function Search(){
     const [text, setText] = useState('')
-
+    const { t } = useTranslation();
     const theme = useContext(themeContext)
 
     const [darkMode, setDarkMode] = useState(false)
@@ -24,7 +25,7 @@ export default function Search(){
                     <View style = {[styles.search, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                         <TextInput 
                             style={styles.textInput}
-                            placeholder="Buscador"
+                            placeholder={t('Buscador')}
                             onChangeText={newText => setText(newText)}
                             defaultValue={text}
                             placeholderTextColor={theme.color}

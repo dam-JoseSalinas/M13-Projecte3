@@ -7,9 +7,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CommonActions } from '@react-navigation/native';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
-    
+    const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [psw , setPsw] = useState('');
     const navigation = useNavigation();
@@ -92,18 +93,18 @@ const Login = () => {
                     <TouchableOpacity 
                         style = {[styles.buttonLog, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} 
                         onPress={handleLogin}>
-                        <Text style = {[ {color:theme.color}]}>Login</Text>
+                        <Text style = {[ {color:theme.color}]}>{t('Login')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                         style = {[styles.buttonReg, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} 
                         onPress={handleRegisterPress}>
-                        <Text style = {[ {color:theme.color}]}>Register</Text>
+                        <Text style = {[ {color:theme.color}]}>{t('Register')}</Text>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity 
                     style = {[styles.buttonGuest, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
                     onPress={handleGuestPress}>
-                    <Text style = {[ {color:theme.color}]}>Guest</Text>
+                    <Text style = {[ {color:theme.color}]}>{t('Guest')}</Text>
                 </TouchableOpacity>
                 <StatusBar style="auto" />
             </View>

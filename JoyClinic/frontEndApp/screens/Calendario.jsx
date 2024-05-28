@@ -10,8 +10,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
 import ProfileContext from './ProfileContext';
+import { useTranslation } from 'react-i18next';
 
 const CalendarScreen = () => {
+  const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [eventName, setEventName] = useState('');
@@ -119,10 +121,10 @@ const CalendarScreen = () => {
       {selectedDate && (
         <View style = {[styles.actions, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
           <TouchableOpacity onPress={handleAddEvent} style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-            <Text style = {[styles.buttonText, {color:theme.color}]}>Agregar evento</Text>
+            <Text style = {[styles.buttonText, {color:theme.color}]}>{t('Agregar evento')}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={redirectGetEvents} style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-            <Text style = {[styles.buttonText, {color:theme.color}]}>Mostrar eventos</Text>
+            <Text style = {[styles.buttonText, {color:theme.color}]}>{t('Mostrar eventos')}</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -136,7 +138,7 @@ const CalendarScreen = () => {
       >
         <View style = {[styles.centeredView, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
           <View style = {[styles.modalView, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-            <Text style = {[styles.modalText, {color:theme.color}]}>Ingrese el nombre del evento:</Text>
+            <Text style = {[styles.modalText, {color:theme.color}]}>{t('Ingrese el nombre del evento:')}</Text>
             <TextInput
               style = {[styles.textInput, {color:theme.color}]}
               value={eventName}
@@ -144,7 +146,7 @@ const CalendarScreen = () => {
               placeholder="Nombre del evento"
               placeholderTextColor={theme.color}
             />
-            <Text style = {[styles.modalText, {color:theme.color}]}>Seleccione la hora de inicio:</Text>
+            <Text style = {[styles.modalText, {color:theme.color}]}>{t('Seleccione la hora de inicio:')}</Text>
             <TouchableOpacity onPress={() => setShowStartPicker(true)}>
               <Text style = {[styles.timeText, {color:theme.color}]}>{moment(eventStart).format('HH:mm')}</Text>
             </TouchableOpacity>
@@ -161,7 +163,7 @@ const CalendarScreen = () => {
                 }}
               />
             )}
-            <Text style = {[styles.modalText, {color:theme.color}]}>Seleccione la hora de fin:</Text>
+            <Text style = {[styles.modalText, {color:theme.color}]}>{t('Seleccione la hora de inicio:')}</Text>
             <TouchableOpacity onPress={() => setShowEndPicker(true)}>
               <Text style = {[styles.timeText, {color:theme.color}]}>{moment(eventEnd).format('HH:mm')}</Text>
             </TouchableOpacity>

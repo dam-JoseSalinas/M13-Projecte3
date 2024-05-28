@@ -4,8 +4,10 @@ import { Ionicons } from '@expo/vector-icons';
 import themeContext from "../themes/themeContext"
 import { useNavigation } from '@react-navigation/native';
 import ProfileContext from './ProfileContext';
+import { useTranslation } from 'react-i18next';
 
 export default function Contacts() {
+    const { t } = useTranslation();
     const [text, setText] = useState('');
     const theme = useContext(themeContext);
     const { userData, usersData, fetchRegistros } = useContext(ProfileContext);
@@ -33,7 +35,7 @@ export default function Contacts() {
                 <View style={[styles.search, { backgroundColor: theme.background }, { borderColor: theme.lineColor }]}>
                     <TextInput
                         style={[styles.textInput, { color: theme.color }, { backgroundColor: theme.background }]}
-                        placeholder="Buscador"
+                        placeholder={t('Buscador')}
                         onChangeText={newText => setText(newText)}
                         defaultValue={text}
                         placeholderTextColor={theme.color}
@@ -59,7 +61,7 @@ export default function Contacts() {
                         </Text>
                     </View>
                 </View>
-                <Text style={[styles.contactos, { color: theme.color }]}>Contactos</Text>
+                <Text style={[styles.contactos, { color: theme.color }]}>{t('Contactos')}</Text>
                 <SectionList
                     sections={[
                         { title: '', data: filteredContacts.map(({ name, surname }) => ({ name, surname })) || [] }

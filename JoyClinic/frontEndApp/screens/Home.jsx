@@ -9,10 +9,13 @@ import { FontAwesome6 } from '@expo/vector-icons';
 import { err } from "react-native-svg";
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { useTranslation } from 'react-i18next';
 
 const Tab = createBottomTabNavigator(); 
 
 export default function Home() {
+    const { t } = useTranslation();
+
     {/*REDIRECCION DE BOTONES*/}
     const navigation = useNavigation();
 
@@ -120,7 +123,7 @@ export default function Home() {
                 ======================*/}
                 {/*BOTON TITULO*/}
                 <TouchableOpacity style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} onPress={redirectHaveFun}>
-                    <Text style = {[styles.containerText, {color:theme.color}]}>Diviértete</Text> 
+                    <Text style = {[styles.containerText, {color:theme.color}]}>{t('Diviértete')}</Text> 
                 </TouchableOpacity>
                 {/*FILA DE BOTONES CON ICONO*/}
                 <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} >
@@ -153,7 +156,7 @@ export default function Home() {
                 R E D E S
                 ======================*/}
                 <TouchableOpacity style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} onPress={redirectSocial}>
-                    <Text style = {[styles.containerText, {color:theme.color}]}>Tus Redes</Text> 
+                    <Text style = {[styles.containerText, {color:theme.color}]}>{t('Tus Redes')}</Text> 
                 </TouchableOpacity>
                 <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity style = {[styles.fondoIconInsta, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
@@ -185,7 +188,7 @@ export default function Home() {
                 FOROS
                 ======================*/}
                 <View style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                    <Text style = {[styles.containerText, {color:theme.color}]}>Foros</Text> 
+                    <Text style = {[styles.containerText, {color:theme.color}]}>{t('Foros')}</Text> 
                 </View>
                 <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity style = {[styles.fondoIconReddit, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
@@ -216,7 +219,7 @@ export default function Home() {
                 N O T I C I A S
                 ======================*/}
                 <View style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                    <Text style = {[styles.containerText, {color:theme.color}]}>Noticias</Text> 
+                    <Text style = {[styles.containerText, {color:theme.color}]}>{t('Noticias')}</Text> 
                 </View>
                 <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity style = {[styles.fondoNewsPaper, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>    
@@ -246,7 +249,7 @@ export default function Home() {
                 F A V O R I T O S
                 ======================*/}
                 <TouchableOpacity style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                    <Text style = {[styles.containerText, {color:theme.color}]}>Favoritos</Text> 
+                    <Text style = {[styles.containerText, {color:theme.color}]}>{t('Favoritos')}</Text> 
                 </TouchableOpacity>
                 <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity style = {[styles.fondoYouTube, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>    

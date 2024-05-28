@@ -4,11 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import Login from './LoginScreen';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { useTranslation } from 'react-i18next';
 
 export default function Bienvenida() {
 
   const navigation = useNavigation();
   //navigation.navigate('LoginScreen');
+  const { t } = useTranslation();
   
   const redirectHome = () => {
     navigation.navigate('MenuInferior')
@@ -34,13 +36,13 @@ export default function Bienvenida() {
                 <TouchableOpacity
                     style = {[styles.buttonHome, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
                     onPress={redirectHome}>
-                    <Text style = {[{color:theme.color}]}>Home</Text>
+                    <Text style = {[{color:theme.color}]}>{t('home')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style = {[styles.buttonLogin, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
                     onPress={redirectoLogin}>
-                    <Text style = {[{color:theme.color}]}>Login?</Text>
+                    <Text style = {[{color:theme.color}]}>{t('Login?')}</Text>
                 </TouchableOpacity>
             </View>
       </View>

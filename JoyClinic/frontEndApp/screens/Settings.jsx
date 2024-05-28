@@ -13,8 +13,10 @@ import { CommonActions } from '@react-navigation/native';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
 import { FontAwesome } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 
 export default function Settings(){ 
+    const { t } = useTranslation();
     const [text, setText] = useState('')
     const navigation = useNavigation();
     const [userData, setUserData] = useState({
@@ -70,8 +72,8 @@ export default function Settings(){
         <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}]}>
             <ScrollView style = {[styles.ScrollView, {backgroundColor:theme.background}]}>
             <View style = {[styles.content, {backgroundColor:theme.background}]}>
-                    <Text style = {[styles.settings, {color:theme.color}]}>Configuración</Text>
-                    <Text style = {[styles.cuenta, {color:theme.color}]}>Cuenta</Text>
+                    <Text style = {[styles.settings, {color:theme.color}]}>{t('Configuración')}</Text>
+                    <Text style = {[styles.cuenta, {color:theme.color}]}>{t('Cuenta')}</Text>
                     <View style = {[styles.configPerfil, {backgroundColor:theme.background}]}>
                         <Ionicons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -79,8 +81,8 @@ export default function Settings(){
                             size={24} 
                             resizeMode='contain' />
                         <View style={[{ flex: 1 ,backgroundColor:theme.background }]}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Gestor de cuenta</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Datos personales, contraseñas, seguridad...</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Gestor de cuenta')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Datos personales, contraseñas, seguridad...')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -88,7 +90,7 @@ export default function Settings(){
                             size={24} 
                             onPress={editProfile} />
                     </View>
-                    <Text style = {[styles.informacion, {color:theme.color}]}>Información</Text>
+                    <Text style = {[styles.informacion, {color:theme.color}]}>{t('Información')}</Text>
                     <View style = {[styles.configNoti, {backgroundColor:theme.background}]}>
                         <Ionicons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -96,8 +98,8 @@ export default function Settings(){
                             size={24} 
                             resizeMode='contain' />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Notificaciones</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración de Notificaciones</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Notificaciones')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración de Notificaciones')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -110,8 +112,8 @@ export default function Settings(){
                             name="activity" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Tu actividad</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración de Actividad</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Tu actividad')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración de Actividad')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -124,8 +126,8 @@ export default function Settings(){
                             name="archive" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Archivos</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración de Archivos</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Archivos')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración de Archivos')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -138,8 +140,8 @@ export default function Settings(){
                             name="back-in-time" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Tiempo Transcurrido</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Gestor de Tiempo Transcurrido</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Tiempo Transcurrido')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Gestor de Tiempo Transcurrido')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -152,8 +154,8 @@ export default function Settings(){
                             name="security" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Seguridad</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración de Seguridad</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Seguridad')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración de Seguridad')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -166,8 +168,8 @@ export default function Settings(){
                             name="lock-closed-outline" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Privacidad</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración de Privacidad</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Privacidad')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración de Privacidad')}</Text>
                         </View>
                         <MaterialIcons
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -180,8 +182,8 @@ export default function Settings(){
                             name="language" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Idioma</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración del Idioma</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Idioma')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración del Idioma')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -194,8 +196,8 @@ export default function Settings(){
                             name="universal-access" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Accesibilidad</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración de Accesibilidad</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Accesibilidad')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración de Accesibilidad')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -208,8 +210,8 @@ export default function Settings(){
                             name="color-palette-outline" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Apariencia</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración de Tema</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Apariencia')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración de Tema')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -222,8 +224,8 @@ export default function Settings(){
                             name="devices" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Dispositivos</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración de Dispositivos</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Dispositivos')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración de Dispositivos')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -237,8 +239,8 @@ export default function Settings(){
                             name="keyboard-voice" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Voz</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración de Voz</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Voz')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración de Voz')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -251,15 +253,15 @@ export default function Settings(){
                             name="camerao" 
                             size={24} />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Video</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Configuración de Video</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Video')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Configuración de Video')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}
                             name="navigate-next" 
                             size={24}  />
                     </View>
-                    <Text style = {[styles.cuenta, {color:theme.color}]}>Cerrar Sesión</Text>
+                    <Text style = {[styles.cuenta, {color:theme.color}]}>{t('Cerrar Sesión')}</Text>
                     <View style = {[styles.configPerfil, {backgroundColor:theme.background}]}>
                         <Ionicons 
                             style={[styles.iconSearch, {color: theme.color}]}
@@ -268,8 +270,8 @@ export default function Settings(){
                             //onPress={exit} 
                             />
                         <View style={{ flex: 1 ,backgroundColor:theme.background}}>
-                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>Salir</Text>
-                            <Text style = {[styles.texto, {color:theme.color}]}>Cierra la cuenta del dispositivo actual</Text>
+                            <Text style = {[styles.gestorCuenta, {color:theme.color}]}>{t('Salir')}</Text>
+                            <Text style = {[styles.texto, {color:theme.color}]}>{t('Cierra la cuenta del dispositivo actual')}</Text>
                         </View>
                         <MaterialIcons 
                             style={[styles.iconSearch, {color: theme.color}]}

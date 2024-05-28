@@ -10,9 +10,11 @@ import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ProfileProvider from "./ProfileProvider";
 import ProfileContext from "./ProfileContext";
+import { useTranslation } from 'react-i18next';
 
 const Profile = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   const [editingEvent, setEditingEvent] = useState(null);
   const [editedTitle, setEditedTitle] = useState('');
   const [editedStartDate, setEditedStartDate] = useState(new Date());
@@ -131,12 +133,12 @@ const Profile = () => {
                     style = {[styles.editInput, {color:theme.color}, {backgroundColor:theme.background}]}
                     value={editedTitle}
                     onChangeText={setEditedTitle}
-                    placeholder="Nuevo título"
+                    placeholder={t('Nuevo título')}
                     placeholderTextColor={theme.color}
                 />
                 <View style = {[styles.dateTimeContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity onPress={() => setShowStartDatePicker(true)}>
-                        <Text style = {[styles.dateTimeText, {color:theme.color}]}>Seleccionar fecha y hora de inicio</Text>
+                        <Text style = {[styles.dateTimeText, {color:theme.color}]}>{t('Seleccionar fecha y hora de inicio')}</Text>
                     </TouchableOpacity>
                     {showStartDatePicker && (
                       <DateTimePicker
@@ -151,7 +153,7 @@ const Profile = () => {
                 </View>
                 <View style = {[styles.dateTimeContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
-                        <Text style = {[styles.dateTimeText, {color:theme.color}]}>Seleccionar fecha y hora de fin</Text>
+                        <Text style = {[styles.dateTimeText, {color:theme.color}]}>{t('Seleccionar fecha y hora de fin')}</Text>
                     </TouchableOpacity>
                     {showEndDatePicker && (
                       <DateTimePicker
@@ -166,10 +168,10 @@ const Profile = () => {
                 </View>
                 <View style = {[styles.buttonContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity onPress={handleEditEvent} style = {[styles.saveButton, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                        <Text style = {[styles.buttonText, {color:theme.color}]}>Guardar</Text>
+                        <Text style = {[styles.buttonText, {color:theme.color}]}>{t('Guardar')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={handleCancelEdit} style = {[styles.cancelButton, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                        <Text style = {[styles.buttonText, {color:theme.color}]}>Cancelar</Text>
+                        <Text style = {[styles.buttonText, {color:theme.color}]}>{t('Cancelar')}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -180,18 +182,18 @@ const Profile = () => {
                 <View style = {[styles.eventDetails, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <Text style = {[styles.eventTitle, {color:theme.color}]}>{item.title}</Text>
                     <Text style = {[styles.eventDate, {color:theme.color}]}>
-                        {`Fecha de inicio: ${moment(item.start).format("DD/MM/YYYY HH:mm")}`}
+                        {`${t('Fecha de inicio:')} ${moment(item.start).format("DD/MM/YYYY HH:mm")}`}
                     </Text>
                     <Text style = {[styles.eventDate, {color:theme.color}]}>
-                        {`Fecha de finalización: ${moment(item.end).format("DD/MM/YYYY HH:mm")}`}
+                        {`${t('Fecha de finalización:')} ${moment(item.end).format("DD/MM/YYYY HH:mm")}`}
                     </Text>
                 </View>
                 <View style = {[styles.buttonContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <TouchableOpacity onPress={() => setEditingEvent(item)}>
-                        <Text style = {[styles.editButton, {color:theme.color}]}>Editar</Text>
+                        <Text style = {[styles.editButton, {color:theme.color}]}>{t('Editar')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => handleDeleteEvent(item.id)}>
-                        <Text style = {[styles.deleteButton, {color:theme.color}]}>Borrar</Text>
+                        <Text style = {[styles.deleteButton, {color:theme.color}]}>{t('Borrar')}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -225,32 +227,32 @@ const Profile = () => {
           <View style = {[styles.statsContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
             <View style = {[styles.stat, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
               <Text style = {[styles.statNumber, {color:theme.color}]}>100</Text>
-              <Text style = {[styles.statText, {color:theme.color}]}>Personales</Text>
+              <Text style = {[styles.statText, {color:theme.color}]}>{t('Personales')}</Text>
             </View>
             <View style = {[styles.stat, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
               <Text style = {[styles.statNumber, {color:theme.color}]}>10</Text>
-              <Text style = {[styles.statText, {color:theme.color}]}>Hospital</Text>
+              <Text style = {[styles.statText, {color:theme.color}]}>{t('Hospital')}</Text>
             </View>
             <View style = {[styles.stat, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
               <Text style = {[styles.statNumber, {color:theme.color}]}>13</Text>
-              <Text style = {[styles.statText, {color:theme.color}]}>Favoritos</Text>
+              <Text style = {[styles.statText, {color:theme.color}]}>{t('Favoritos')}</Text>
             </View>
           </View>
         </View>
         <View style = {[styles.buttonsContainer, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
           <TouchableOpacity style = {[styles.buttonEditProfile, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} onPress={redirectEditProfile}>
-            <Text style = {[styles.textButton, {color:theme.color}]}>Editar Perfil</Text>
+            <Text style = {[styles.textButton, {color:theme.color}]}>{t('EDITAR PERFIL')}</Text>
           </TouchableOpacity>    
           <TouchableOpacity style = {[styles.button, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-            <Text style = {[styles.textButton, {color:theme.color}]}>Compartir Perfil</Text>
+            <Text style = {[styles.textButton, {color:theme.color}]}>{t('Compartir Perfil')}</Text>
           </TouchableOpacity> 
         </View>
         <TouchableOpacity 
           style={[styles.styleCalendario, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}
           onPress={redirecCalendario}>
-          <Text style = {[styles.textButton, {color:theme.color}]}>Calendario</Text>
+          <Text style = {[styles.textButton, {color:theme.color}]}>{t('Calendario')}</Text>
         </TouchableOpacity>
-        <Text style = {[styles.title, {color:theme.color}]}>Todos los Eventos</Text>
+        <Text style = {[styles.title, {color:theme.color}]}>{t('Todos los Eventos')}</Text>
         <ScrollView style = {[styles.ScrollView, {backgroundColor:theme.background}]}>
           <View style={styles.containerlist}>
               <FlatList
