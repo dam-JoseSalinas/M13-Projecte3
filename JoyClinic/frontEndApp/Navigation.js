@@ -28,11 +28,13 @@ import themeContext from './themes/themeContext';
 import ProfileContext from './screens/ProfileContext'; 
 import ProfileProvider from './screens/ProfileProvider';
 import Chats from './screens/Chats';
+import { useTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator(); 
 
 function DrawerNavigator({ darkMode, setDarkMode }) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const [profileImage, setProfileImage] = useState(require('./assets/images/foto_perfil/default.jpg'));
   const { userData, fetchData,  } = useContext(ProfileContext);
@@ -58,10 +60,10 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
               style={styles.profileImage}
             />
             <Text style={[styles.name, { color: darkMode ? 'white' : 'black' }]}>
-              {fetchError ? 'Nombre completo' : `${userData.name} ${userData.surname}`}
+              {fetchError ? t('Nombre completo') : `${userData.name} ${userData.surname}`}
             </Text>
             <Text style={[styles.text, { color: darkMode ? 'white' : 'black' }]}>
-              {fetchError ? 'Biografía' : userData.bio}
+              {fetchError ? t('Biografía') : userData.bio}
             </Text>
           </View>
           <DrawerItemList {...props} />
@@ -71,7 +73,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
             ) : (
               <Ionicons name="sunny" size={24} color="black" />
             )}
-            <Text style={[styles.switchText, { color: darkMode ? 'white' : 'black' }]}>Modo Oscuro</Text>
+            <Text style={[styles.switchText, { color: darkMode ? 'white' : 'black' }]}>{t('Modo Oscuro')}</Text>
             <Switch
               value={darkMode}
               onValueChange={(value) => {
@@ -84,7 +86,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
       )}
     >
       <Drawer.Screen 
-        name="Home" 
+        name={t('home')}
         component={StackNavigator}
         options={{
           drawerIcon: () => (
@@ -96,7 +98,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
           )
         }}/>
       <Drawer.Screen 
-        name="Calendario" 
+        name={t('Calendario')}
         component={Calendario}
         options={{
           drawerIcon: () => (
@@ -108,7 +110,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
           )
         }}/>
       <Drawer.Screen 
-        name="Perfil"
+        name={t('Perfil')}
         component={Profile}
         options={{
           drawerIcon: () => (
@@ -120,7 +122,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
           )
         }}/>
       <Drawer.Screen 
-        name="Notificaciones"
+        name={t('Notificaciones')}
         component={Notifications}
         options={{
           drawerIcon: () => (
@@ -134,7 +136,7 @@ function DrawerNavigator({ darkMode, setDarkMode }) {
         }}/>
       <Drawer.Screen
         style={styles.settings}
-        name="Configurarión"
+        name={t('Configuración')}
         component={Settings}
         options={{
           drawerIcon: () => (

@@ -4,9 +4,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { useTranslation } from 'react-i18next';
 
 export default function Dispositivos(){
 
+    const { t } = useTranslation();
     const theme = useContext(themeContext)
 
     const [darkMode, setDarkMode] = useState(false)
@@ -14,8 +16,8 @@ export default function Dispositivos(){
     return (
         <SafeAreaView style = {[styles.container, {backgroundColor:theme.background}]}>
             <View style = {[styles.content, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                <Text style = {[styles.info, {color:theme.color}]}>En el apartado de dispositivos, puedes ver los dipositivos en los que se encuentra la aplicación. Cuando se agregue un nuevo dispositivo, aparecerá aquí mismo.</Text>
-                <Text style = {[styles.texto, {color:theme.color}]}>Todos los dispositivos</Text>
+                <Text style = {[styles.info, {color:theme.color}]}>{t('En el apartado de dispositivos, puedes ver los dipositivos en los que se encuentra la aplicación. Cuando se agregue un nuevo dispositivo, aparecerá aquí mismo.')}</Text>
+                <Text style = {[styles.texto, {color:theme.color}]}>{t('Todos los dispositivos')}</Text>
                 <View style = {[styles.dispositivos, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
                     <MaterialIcons 
                         name="phone-android" 

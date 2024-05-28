@@ -8,8 +8,10 @@ import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import themeContext from "../themes/themeContext";
 import ProfileContext from "./ProfileContext";
+import { useTranslation } from 'react-i18next';
 
 export default function EditProfile() {
+  const { t } = useTranslation();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [profileImage, setProfileImage] = useState(require('../assets/images/foto_perfil/default.jpg'));
   const [isLoading, setIsLoading] = useState(false);
@@ -104,7 +106,7 @@ export default function EditProfile() {
   return (
     <SafeAreaView style={[styles.container, {backgroundColor: theme.background}, {borderColor:theme.lineColor}]}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <Text style={styles.title}>EDITAR PERFIL</Text>
+        <Text style={styles.title}>{t('EDITAR PERFIL')}</Text>
         <View style={styles.line}></View>
         <View style={styles.headerInfo}>
           <TouchableOpacity onPress={changeProfileImage}>
@@ -124,13 +126,13 @@ export default function EditProfile() {
               style={styles.inputNames}
               value={userData.name}
               onChangeText={text => setUserData(prevData => ({ ...prevData, name: text }))}
-              placeholder="Nombre"
+              placeholder={t('Nombre')}
             />
             <TextInput
               style={styles.inputNames}
               value={userData.surname}
               onChangeText={text => setUserData(prevData => ({ ...prevData, surname: text }))}
-              placeholder="Apellido"
+              placeholder={t('Apellido')}
             />
           </View>
         </View>
@@ -146,25 +148,25 @@ export default function EditProfile() {
               style={styles.inputNumber}
               value={userData.number}
               onChangeText={text => setUserData(prevData => ({ ...prevData, number: text }))}
-              placeholder="Número"
+              placeholder={t('Número')}
             />
           </View>
           <TextInput
             style={styles.input}
             value={userData.psw}
             onChangeText={text => setUserData(prevData => ({ ...prevData, psw: text }))}
-            placeholder="Password"
+            placeholder={t('Contraseña')}
             secureTextEntry={true}
           />
           <View style={styles.date}>
             <TextInput
               style={styles.inputFecha}
               value={userData.birth_date ? format(new Date(userData.birth_date), "yyyy-MM-dd") : ""}
-              placeholder="Fecha de nacimiento"
+              placeholder={t('Fecha de nacimiento')}
             />
             <View style={styles.datePickerContainer}>
               <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-                <Text style={styles.textFecha}>Seleccionar fecha</Text>
+                <Text style={styles.textFecha}>{t('Seleccionar fecha')}</Text>
               </TouchableOpacity>
               {showDatePicker && (
                 <DateTimePicker
@@ -182,13 +184,13 @@ export default function EditProfile() {
               style={styles.inputAddres}
               value={userData.address}
               onChangeText={text => setUserData(prevData => ({ ...prevData,  address: text }))}
-              placeholder="Dirección"
+              placeholder={t('Dirección')}
             />
             <TextInput
               style={styles.inputCode}
               value={userData.postal_code}
               onChangeText={text => setUserData(prevData => ({ ...prevData, postal_code: text }))}
-              placeholder="Código Postal"
+              placeholder={t('Código Postal')}
             />
           </View>
           <View style={styles.viewNumber}>
@@ -196,26 +198,26 @@ export default function EditProfile() {
               style={styles.inputAddres}
               value={userData.city}
               onChangeText={text => setUserData(prevData => ({ ...prevData, city: text }))}
-              placeholder="Ciudad"
+              placeholder={t('Ciudad')}
             />
             <TextInput
               style={styles.inputCode}
               value={userData.country}
               onChangeText={text => setUserData(prevData => ({ ...prevData, country: text }))}
-              placeholder="País"
+              placeholder={t('País')}
             />
           </View>
           <TextInput
             style={styles.bioInput}
             value={userData.bio}
             onChangeText={text => setUserData(prevData => ({ ...prevData, bio: text }))}
-            placeholder="Biografía"
+            placeholder={t('Biografía')}
             multiline={true}
           />
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={fetchAndNavigate}>
-            <Text style={[styles.buttonText]}>Guardar</Text>
+            <Text style={[styles.buttonText]}>{t('Guardar')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

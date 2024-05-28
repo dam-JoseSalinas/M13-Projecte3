@@ -11,10 +11,11 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { EventRegister} from 'react-native-event-listeners'
 import themeContext from "../themes/themeContext";
+import { useTranslation } from 'react-i18next';
 
 export default function SocialNetworks(){
     const theme = useContext(themeContext)
-
+    const { t } = useTranslation();
     const [darkMode, setDarkMode] = useState(false)
 
     return (
@@ -27,7 +28,7 @@ export default function SocialNetworks(){
                 ======================*/}
                 {/*BOTON TITULO*/}
                 <View style = {[styles.botonesTitulo, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]}>
-                    <Text style = {[styles.containerText, {color:theme.color}]}>Redes Sociales</Text> 
+                    <Text style = {[styles.containerText, {color:theme.color}]}>{t('Redes Sociales')}</Text> 
                 </View>
                 {/*FILA DE BOTONES CON ICONO*/}
                 <View style = {[styles.divierte, {backgroundColor:theme.background}, {borderColor:theme.lineColor}]} >

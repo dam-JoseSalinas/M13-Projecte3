@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
-import themeContext from "../themes/themeContext"; // Asegúrate de importar correctamente el contexto de tema
+import themeContext from "../themes/themeContext"; 
 
 export default function ChatScreen() {
-  const theme = useContext(themeContext); // Obtener el tema del contexto
+  const theme = useContext(themeContext); 
 
-  const [messages, setMessages] = useState([]); // Estado para almacenar los mensajes
-  const [newMessage, setNewMessage] = useState(''); // Estado para el nuevo mensaje
+  const [messages, setMessages] = useState([]); 
+  const [newMessage, setNewMessage] = useState(''); 
 
   const sendMessage = () => {
     if (newMessage.trim() !== '') {
